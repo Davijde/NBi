@@ -31,11 +31,16 @@ namespace NBi.NUnit.Member
 			Comparer = new AlphabeticalComparer();
 		}
 
-		#region Modifiers
-		/// <summary>
-		/// Flag the constraint to ignore case and return self.
-		/// </summary>
-		public OrderedConstraint Descending
+        public override ConstraintResult ApplyTo<TActual>(TActual actual)
+        {
+            throw new NotImplementedException();
+        }
+
+        #region Modifiers
+        /// <summary>
+        /// Flag the constraint to ignore case and return self.
+        /// </summary>
+        public OrderedConstraint Descending
 		{
 			get
 			{
@@ -111,13 +116,13 @@ namespace NBi.NUnit.Member
 
 		#endregion
 
-		protected override bool DoMatch(NUnitCtr.Constraint ctr)
-		{
-				if (specific == null)
-					return ctr.Matches(actual);
-				else
-					return SpecificMatches(actual);
-		}
+		//protected override bool DoMatch(NUnitCtr.Constraint ctr)
+		//{
+		//		if (specific == null)
+		//			return ctr.Matches(actual);
+		//		else
+		//			return SpecificMatches(actual);
+		//}
 
 		protected bool SpecificMatches(object actual)
 		{          
@@ -157,129 +162,129 @@ namespace NBi.NUnit.Member
             return members.Cast<object>().ToList();
         }
 
-		/// <summary>
-		/// Write the constraint description to a MessageWriter
-		/// </summary>
-		/// <param name="writer">The writer on which the description is displayed</param>
-		public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
-		{
+        /// <summary>
+        /// Write the constraint description to a MessageWriter
+        /// </summary>
+        /// <param name="writer">The writer on which the description is displayed</param>
+        //public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
+        //{
 
-			writer.WritePredicate(string.Format("On perspective \"{0}\", the {1} of \"{2}\" are ordered {3}{4}"
-															, Request.Perspective
-															, Request.Function.ToLower()
-															, Request.Path
-															, Comparer == null ? "specifically" : ((IComparerWithLabel)Comparer).Label
-															, reversed ? "(descending)" : string.Empty));
-		}
+        //	writer.WritePredicate(string.Format("On perspective \"{0}\", the {1} of \"{2}\" are ordered {3}{4}"
+        //													, Request.Perspective
+        //													, Request.Function.ToLower()
+        //													, Request.Path
+        //													, Comparer == null ? "specifically" : ((IComparerWithLabel)Comparer).Label
+        //													, reversed ? "(descending)" : string.Empty));
+        //}
 
-		protected interface IComparerWithLabel : IComparer
-		{
-			string Label { get; }
-		}
+        protected interface IComparerWithLabel : IComparer
+        {
+            string Label { get; }
+        }
 
-		protected class AlphabeticalComparer : IComparerWithLabel
-		{
-			private readonly IComparer internalComparer;
-			
-			public AlphabeticalComparer()
-			{
-				internalComparer = StringComparer.InvariantCultureIgnoreCase;
-			}
+        protected class AlphabeticalComparer : IComparerWithLabel
+        {
+            private readonly IComparer internalComparer;
 
-			public string Label
-			{
-				get
-				{
-					return "alphabetically";
-				}
-			}
+            public AlphabeticalComparer()
+            {
+                internalComparer = StringComparer.InvariantCultureIgnoreCase;
+            }
 
-			int IComparer.Compare(Object x, Object y)
-			{
-				x = x is NBi.Core.Analysis.Member.Member ? ((NBi.Core.Analysis.Member.Member)x).Caption : x;
-				y = y is NBi.Core.Analysis.Member.Member ? ((NBi.Core.Analysis.Member.Member)y).Caption : y;
+            public string Label
+            {
+                get
+                {
+                    return "alphabetically";
+                }
+            }
 
-				return internalComparer.Compare(x, y);
-			}
-		}
+            int IComparer.Compare(Object x, Object y)
+            {
+                x = x is NBi.Core.Analysis.Member.Member ? ((NBi.Core.Analysis.Member.Member)x).Caption : x;
+                y = y is NBi.Core.Analysis.Member.Member ? ((NBi.Core.Analysis.Member.Member)y).Caption : y;
 
-		protected class ChronologicalComparer : IComparerWithLabel
-		{
-			public ChronologicalComparer()
-			{
-			}
+                return internalComparer.Compare(x, y);
+            }
+        }
 
-			public string Label
-			{
-				get
-				{
-					return "chronologically";
-				}
-			}
-			
-			int IComparer.Compare(Object x, Object y)
-			{
-				x = x is NBi.Core.Analysis.Member.Member ? ((NBi.Core.Analysis.Member.Member)x).Caption : x;
-				y = y is NBi.Core.Analysis.Member.Member ? ((NBi.Core.Analysis.Member.Member)y).Caption : y;
-				
-				if (x is DateTime && y is DateTime)
-					return DateTime.Compare((DateTime)x,(DateTime)y);
-				if (x is DateTime && y is String)
-				{
-					if (DateTime.TryParse((string)y, out var newY))
-						return DateTime.Compare((DateTime)x, newY);
-					else
-						return 0;
-						//throw new ArgumentException(string.Format("'{0}' cannot be converted to DateTime", y));
-				}
-				if (x is String && y is DateTime)
-				{
-					if (DateTime.TryParse((string)x, out var newX))
-						return DateTime.Compare(newX, (DateTime)y);
-					else
-						return 0;
-						//throw new ArgumentException(string.Format("'{0}' cannot be converted to DateTime", x));
-				}
-				if (x is String && y is String)
-				{
-					if (DateTime.TryParse((string)x, out var newX) && DateTime.TryParse((string)y, out var newY))
-						return DateTime.Compare(newX, newY);
-					else
-						return 0;
-						//throw new ArgumentException(string.Format("'{0}' of type '{1}' or '{2}' of type '{3}' cannot be converted to DateTime", x, x.GetType().Name, y, y.GetType().Name));
-				}
-				
+        protected class ChronologicalComparer : IComparerWithLabel
+        {
+            public ChronologicalComparer()
+            {
+            }
 
-				throw new ArgumentException(string.Format("'{0}' or '{1}' cannot be compared chronologically", x.GetType().Name, y.GetType().Name));
-			}
-		}
+            public string Label
+            {
+                get
+                {
+                    return "chronologically";
+                }
+            }
 
-		protected class NumericalComparer : IComparerWithLabel
-		{
-			public NumericalComparer()
-			{
-			}
+            int IComparer.Compare(Object x, Object y)
+            {
+                x = x is NBi.Core.Analysis.Member.Member ? ((NBi.Core.Analysis.Member.Member)x).Caption : x;
+                y = y is NBi.Core.Analysis.Member.Member ? ((NBi.Core.Analysis.Member.Member)y).Caption : y;
 
-			public string Label
-			{
-				get
-				{
-					return "numerically";
-				}
-			}
+                if (x is DateTime && y is DateTime)
+                    return DateTime.Compare((DateTime)x, (DateTime)y);
+                if (x is DateTime && y is String)
+                {
+                    if (DateTime.TryParse((string)y, out var newY))
+                        return DateTime.Compare((DateTime)x, newY);
+                    else
+                        return 0;
+                    //throw new ArgumentException(string.Format("'{0}' cannot be converted to DateTime", y));
+                }
+                if (x is String && y is DateTime)
+                {
+                    if (DateTime.TryParse((string)x, out var newX))
+                        return DateTime.Compare(newX, (DateTime)y);
+                    else
+                        return 0;
+                    //throw new ArgumentException(string.Format("'{0}' cannot be converted to DateTime", x));
+                }
+                if (x is String && y is String)
+                {
+                    if (DateTime.TryParse((string)x, out var newX) && DateTime.TryParse((string)y, out var newY))
+                        return DateTime.Compare(newX, newY);
+                    else
+                        return 0;
+                    //throw new ArgumentException(string.Format("'{0}' of type '{1}' or '{2}' of type '{3}' cannot be converted to DateTime", x, x.GetType().Name, y, y.GetType().Name));
+                }
 
-			int IComparer.Compare(Object x, Object y)
-			{
-				x = x is NBi.Core.Analysis.Member.Member ? ((NBi.Core.Analysis.Member.Member)x).Caption : x;
-				y = y is NBi.Core.Analysis.Member.Member ? ((NBi.Core.Analysis.Member.Member)y).Caption : y;
 
-				if (Decimal.TryParse(x.ToString(), out var newX) && Decimal.TryParse(y.ToString(), out var newY))
-					return Decimal.Compare(newX, newY);
-				else
-					return 0;
-					//throw new ArgumentException(string.Format("'{0}' of type '{1}' or '{2}' of type '{3}' cannot be converted to Decimal", x, x.GetType().Name, y, y.GetType().Name));
-			}
-		}
-		
-	}
+                throw new ArgumentException(string.Format("'{0}' or '{1}' cannot be compared chronologically", x.GetType().Name, y.GetType().Name));
+            }
+        }
+
+        protected class NumericalComparer : IComparerWithLabel
+        {
+            public NumericalComparer()
+            {
+            }
+
+            public string Label
+            {
+                get
+                {
+                    return "numerically";
+                }
+            }
+
+            int IComparer.Compare(Object x, Object y)
+            {
+                x = x is NBi.Core.Analysis.Member.Member ? ((NBi.Core.Analysis.Member.Member)x).Caption : x;
+                y = y is NBi.Core.Analysis.Member.Member ? ((NBi.Core.Analysis.Member.Member)y).Caption : y;
+
+                if (Decimal.TryParse(x.ToString(), out var newX) && Decimal.TryParse(y.ToString(), out var newY))
+                    return Decimal.Compare(newX, newY);
+                else
+                    return 0;
+                //throw new ArgumentException(string.Format("'{0}' of type '{1}' or '{2}' of type '{3}' cannot be converted to Decimal", x, x.GetType().Name, y, y.GetType().Name));
+            }
+        }
+
+    }
 }

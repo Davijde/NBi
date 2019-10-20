@@ -90,9 +90,9 @@ namespace NBi.NUnit.Builder
 
             //Manage parallelism
             if (ConstraintXml.ParallelizeQueries)
-                ctr = ctr.Parallel();
+                ctr = ctr.WithParallelQueries();
             else
-                ctr = ctr.Sequential();
+                ctr = ctr.WithSequentialQueries();
 
             return ctr;
         }

@@ -22,25 +22,25 @@ namespace NBi.NUnit.Query
         protected override bool doMatch(int actual) 
             => filterResultSet.Rows.Count() == 0;
 
-        public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
-                return;
-            else
-                writer.WritePredicate($"all rows validate the predicate '{filter.Describe()}'.");
-        }
+        //public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        return;
+        //    else
+        //        writer.WritePredicate($"all rows validate the predicate '{filter.Describe()}'.");
+        //}
 
-        public override void WriteFilterMessageTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
-                return;
-            writer.WriteLine("Rows not validating the predicate:");
-        }
+        //public override void WriteFilterMessageTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        return;
+        //    writer.WriteLine("Rows not validating the predicate:");
+        //}
 
-        public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
-                return;
+        //public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        return;
 
             var value = filterResultSet.Rows.Count();
             writer.WriteLine($"{value} row{(value > 1 ? "s" : string.Empty)} do{(value == 1 ? "es" : string.Empty)}n't validate the predicate '{filter.Describe()}'.");

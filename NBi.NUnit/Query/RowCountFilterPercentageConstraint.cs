@@ -23,28 +23,28 @@ namespace NBi.NUnit.Query
             return ctr.Matches(this.actual);
         }
        
-        public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
-        {
-            writer.WritePredicate("percentage of rows matching the predicate is " + TransformDecimalToPercentage(ctr.WriteDescriptionTo));
-        }
+        //public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    writer.WritePredicate("percentage of rows matching the predicate is " + TransformDecimalToPercentage(ctr.WriteDescriptionTo));
+        //}
 
-        public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
-        {
-            writer.WriteActualValue(TransformDecimalToPercentage(ctr.WriteActualValueTo));
-        }
+        //public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    writer.WriteActualValue(TransformDecimalToPercentage(ctr.WriteActualValueTo));
+        //}
 
-        protected string TransformDecimalToPercentage(Action<NUnitFwk.TextMessageWriter> action)
-        {
-            var sb = new System.Text.StringBuilder();
-            var localWriter = new NUnitFwk.TextMessageWriter();
-            action(localWriter);
-            var childMessage = localWriter.ToString();
-            sb.Append(childMessage.Substring(0, childMessage.LastIndexOf(" ") + 1));
-            sb.Append(decimal.Parse(childMessage.Substring(childMessage.LastIndexOf(" ") + 1).Replace("m", ""), System.Threading.Thread.CurrentThread.CurrentUICulture.NumberFormat));
-            sb.Append("%");
+        //protected string TransformDecimalToPercentage(Action<NUnitFwk.TextMessageWriter> action)
+        //{
+        //    var sb = new System.Text.StringBuilder();
+        //    var localWriter = new NUnitFwk.TextMessageWriter();
+        //    action(localWriter);
+        //    var childMessage = localWriter.ToString();
+        //    sb.Append(childMessage.Substring(0, childMessage.LastIndexOf(" ") + 1));
+        //    sb.Append(decimal.Parse(childMessage.Substring(childMessage.LastIndexOf(" ") + 1).Replace("m", ""), System.Threading.Thread.CurrentThread.CurrentUICulture.NumberFormat));
+        //    sb.Append("%");
 
-            return sb.ToString();
-        }
+        //    return sb.ToString();
+        //}
 
     }
 }

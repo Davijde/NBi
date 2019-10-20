@@ -22,6 +22,11 @@ namespace NBi.NUnit.Member
         {
         }
 
+        public override ConstraintResult ApplyTo<TActual>(TActual actual)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override NUnitCtr.Constraint BuildInternalConstraint()
         {
             NUnitCtr.Constraint ctr = null;
@@ -71,54 +76,54 @@ namespace NBi.NUnit.Member
             return this;
         }
 
-        protected override bool DoMatch(NUnitCtr.Constraint ctr)
-        {
-            IResolveConstraint exp = ctr;
-            var multipleConstraint = exp.Resolve();
-            return multipleConstraint.Matches(((MemberResult)actual).Count);
-        }
+        //protected override bool DoMatch(NUnitCtr.Constraint ctr)
+        //{
+        //    IResolveConstraint exp = ctr;
+        //    var multipleConstraint = exp.Resolve();
+        //    return multipleConstraint.Matches(((MemberResult)actual).Count);
+        //}
 
-        /// <summary>
-        /// Write the constraint description to a MessageWriter
-        /// </summary>
-        /// <param name="writer">The writer on which the description is displayed</param>
-        public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
-        {
-            writer.WritePredicate(string.Format("On perspective \"{0}\", the {1} of \"{2}\" are "
-                                                            , Request.Perspective
-                                                            , Request.Function.ToLower()
-                                                            , Request.Path));
-            if (exactly.HasValue)
-            {
-                writer.WritePredicate("exactly");
-                writer.WriteExpectedValue(exactly.Value);
-                return;
-            }
+        ///// <summary>
+        ///// Write the constraint description to a MessageWriter
+        ///// </summary>
+        ///// <param name="writer">The writer on which the description is displayed</param>
+        //public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    writer.WritePredicate(string.Format("On perspective \"{0}\", the {1} of \"{2}\" are "
+        //                                                    , Request.Perspective
+        //                                                    , Request.Function.ToLower()
+        //                                                    , Request.Path));
+        //    if (exactly.HasValue)
+        //    {
+        //        writer.WritePredicate("exactly");
+        //        writer.WriteExpectedValue(exactly.Value);
+        //        return;
+        //    }
 
-            if (moreThan.HasValue && lessThan.HasValue)
-            {
-                writer.WritePredicate("between");
-                writer.WriteExpectedValue(moreThan.Value);
-                writer.WriteConnector("and");
-                writer.WriteExpectedValue(lessThan.Value); 
-                return;
-            }
+        //    if (moreThan.HasValue && lessThan.HasValue)
+        //    {
+        //        writer.WritePredicate("between");
+        //        writer.WriteExpectedValue(moreThan.Value);
+        //        writer.WriteConnector("and");
+        //        writer.WriteExpectedValue(lessThan.Value); 
+        //        return;
+        //    }
 
-            if (moreThan.HasValue)
-            {
-                writer.WritePredicate("more than");
-                writer.WriteExpectedValue(moreThan.Value);
-                return;
-            }
+        //    if (moreThan.HasValue)
+        //    {
+        //        writer.WritePredicate("more than");
+        //        writer.WriteExpectedValue(moreThan.Value);
+        //        return;
+        //    }
 
-            if (lessThan.HasValue)
-            {
-                writer.WritePredicate("less than");
-                writer.WriteExpectedValue(lessThan.Value);
-                return;
-            }
+        //    if (lessThan.HasValue)
+        //    {
+        //        writer.WritePredicate("less than");
+        //        writer.WriteExpectedValue(lessThan.Value);
+        //        return;
+        //    }
 
-            writer.WriteActualValue(((ICollection)actual).Count);
-        }
+        //    writer.WriteActualValue(((ICollection)actual).Count);
+        //}
     }
 }

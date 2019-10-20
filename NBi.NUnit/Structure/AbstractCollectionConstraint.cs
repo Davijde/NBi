@@ -25,13 +25,13 @@ namespace NBi.NUnit.Structure
             this.Expected = expected;
         }
        
-        public override void WriteActualValueTo(MessageWriter writer)
-        {
-            if (actual is IEnumerable<string> && ((IEnumerable<string>)actual).Count() > 0)
-                base.WriteActualValueTo(writer);
-            else
-                writer.WriteActualValue(new WriterHelper.NothingFoundMessage());
-        }
+        //public override void WriteActualValueTo(MessageWriter writer)
+        //{
+        //    if (actual is IEnumerable<string> && ((IEnumerable<string>)actual).Count() > 0)
+        //        base.WriteActualValueTo(writer);
+        //    else
+        //        writer.WriteActualValue(new WriterHelper.NothingFoundMessage());
+        //}
 
     }
 }

@@ -23,6 +23,11 @@ namespace NBi.NUnit.Structure
             InternalConstraint = new CollectionEquivalentConstraint(expected);
         }
 
+        public override ConstraintResult ApplyTo<TActual>(TActual actual)
+        {
+            throw new NotImplementedException();
+        }
+
         #region Modifiers
         /// <summary>
         /// Flag the constraint to ignore case and return self.
@@ -42,24 +47,24 @@ namespace NBi.NUnit.Structure
         /// Write a description of the constraint to a MessageWriter
         /// </summary>
         /// <param name="writer"></param>
-        public override void WriteDescriptionTo(MessageWriter writer)
-        {
-            if (Command != null)
-            {
-                var description = new DescriptionStructureHelper();
-                var filterExpression = description.GetFilterExpression(Command.Description.Filters.Where(f => f is CaptionFilter).Cast<CaptionFilter>());
-                var nextTargetExpression = description.GetTargetPluralExpression(Command.Description.Target);
-                var expectationExpression = new StringBuilder();
-                foreach (string item in Expected)
-                    expectationExpression.AppendFormat("<{0}>, ", item);
-                expectationExpression.Remove(expectationExpression.Length - 2, 2);
+        //public override void WriteDescriptionTo(MessageWriter writer)
+        //{
+        //    if (Command != null)
+        //    {
+        //        var description = new DescriptionStructureHelper();
+        //        var filterExpression = description.GetFilterExpression(Command.Description.Filters.Where(f => f is CaptionFilter).Cast<CaptionFilter>());
+        //        var nextTargetExpression = description.GetTargetPluralExpression(Command.Description.Target);
+        //        var expectationExpression = new StringBuilder();
+        //        foreach (string item in Expected)
+        //            expectationExpression.AppendFormat("<{0}>, ", item);
+        //        expectationExpression.Remove(expectationExpression.Length - 2, 2);
 
-                writer.WritePredicate(string.Format("find an exact list of {0} named '{1}' contained {2}",
-                    nextTargetExpression,
-                    expectationExpression,
-                    filterExpression));
+        //        writer.WritePredicate(string.Format("find an exact list of {0} named '{1}' contained {2}",
+        //            nextTargetExpression,
+        //            expectationExpression,
+        //            filterExpression));
 
-            }
-        }
+        //    }
+        //}
     }
 }

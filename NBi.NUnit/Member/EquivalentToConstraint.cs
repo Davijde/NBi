@@ -22,6 +22,11 @@ namespace NBi.NUnit.Member
         {
         }
 
+        public override ConstraintResult ApplyTo<TActual>(TActual actual)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Construct a EquivalentToConstraint
         /// </summary>

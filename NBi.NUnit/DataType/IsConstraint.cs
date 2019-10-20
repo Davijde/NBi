@@ -15,7 +15,13 @@ namespace NBi.NUnit.DataType
 
         private DataTypeInfo Actual
         {
-            get { return base.actual as DataTypeInfo; }
+            //get { return base.actual as DataTypeInfo; }
+            get { return null as DataTypeInfo; }
+        }
+
+        public override ConstraintResult ApplyTo<TActual>(TActual actual)
+        {
+            throw new NotImplementedException();
         }
 
         public IDataTypeDiscoveryCommand Command { get; protected set; }
@@ -29,63 +35,63 @@ namespace NBi.NUnit.DataType
             this.expected = factory.Instantiate(expected);
         }
 
-        public override bool Matches(object actual)
-        {
-            if (actual is IDataTypeDiscoveryCommand)
-                return Process((IDataTypeDiscoveryCommand)actual);
-            else if (actual is DataTypeInfo)
-            {
-                this.actual = actual;
-                var result = Actual.Name == expected.Name;
-                result &= expected is ILength && Actual is ILength && ((ILength)expected).Length.HasValue ? ((ILength)Actual).Length.Value == ((ILength)expected).Length.Value : result;
-                result &= expected is IScale && Actual is IScale && ((IScale)expected).Scale.HasValue ? ((IScale)Actual).Scale.Value == ((IScale)expected).Scale.Value : result;
-                result &= expected is IPrecision && Actual is IPrecision && ((IPrecision)expected).Precision.HasValue ? ((IPrecision)Actual).Precision.Value == ((IPrecision)expected).Precision.Value : result;
-                return result;
-            }
-            else
-                throw new ArgumentException();
-        }
+        //public override bool Matches(object actual)
+        //{
+        //    if (actual is IDataTypeDiscoveryCommand)
+        //        return Process((IDataTypeDiscoveryCommand)actual);
+        //    else if (actual is DataTypeInfo)
+        //    {
+        //        this.actual = actual;
+        //        var result = Actual.Name == expected.Name;
+        //        result &= expected is ILength && Actual is ILength && ((ILength)expected).Length.HasValue ? ((ILength)Actual).Length.Value == ((ILength)expected).Length.Value : result;
+        //        result &= expected is IScale && Actual is IScale && ((IScale)expected).Scale.HasValue ? ((IScale)Actual).Scale.Value == ((IScale)expected).Scale.Value : result;
+        //        result &= expected is IPrecision && Actual is IPrecision && ((IPrecision)expected).Precision.HasValue ? ((IPrecision)Actual).Precision.Value == ((IPrecision)expected).Precision.Value : result;
+        //        return result;
+        //    }
+        //    else
+        //        throw new ArgumentException();
+        //}
 
-        protected bool Process(IDataTypeDiscoveryCommand actual)
-        {
-            Command = actual;
-            DataTypeInfo type = Command.Execute();
-            return this.Matches(type);
-        }
+        //protected bool Process(IDataTypeDiscoveryCommand actual)
+        //{
+        //    Command = actual;
+        //    DataTypeInfo type = Command.Execute();
+        //    return this.Matches(type);
+        //}
 
-        /// <summary>
-        /// Write a description of the constraint to a MessageWriter
-        /// </summary>
-        /// <param name="writer"></param>
-        public override void WriteDescriptionTo(MessageWriter writer)
-        {
-            var description = new DescriptionDataTypeHelper();
-            var filterExpression = description.GetFilterExpression(Command.Description.Filters.Where(f => f.Target != Command.Description.Target));
-            var targetExpression = description.GetTargetExpression(Command.Description.Target);
-            var captionExpression = Command.Description.Filters.Single(f => f.Target == Command.Description.Target).Caption;
+        ///// <summary>
+        ///// Write a description of the constraint to a MessageWriter
+        ///// </summary>
+        ///// <param name="writer"></param>
+        //public override void WriteDescriptionTo(MessageWriter writer)
+        //{
+        //    var description = new DescriptionDataTypeHelper();
+        //    var filterExpression = description.GetFilterExpression(Command.Description.Filters.Where(f => f.Target != Command.Description.Target));
+        //    var targetExpression = description.GetTargetExpression(Command.Description.Target);
+        //    var captionExpression = Command.Description.Filters.Single(f => f.Target == Command.Description.Target).Caption;
 
-            writer.WritePredicate(string.Format("the type of {0} '{1}' ({2}) is '{3}'"
-                        , targetExpression
-                        , captionExpression
-                        , filterExpression
-                        , expected.ToString()));
-        }
+        //    writer.WritePredicate(string.Format("the type of {0} '{1}' ({2}) is '{3}'"
+        //                , targetExpression
+        //                , captionExpression
+        //                , filterExpression
+        //                , expected.ToString()));
+        //}
 
-        public override void WriteActualValueTo(MessageWriter writer)
-        {
-            //IF actual is not empty it means we've an issue with Casing or a space at the end
-            if (actual == null)
-                writer.WriteActualValue(new WriterHelper.NothingFoundMessage());
-            else
-            {
-                var result = Actual.Name;
-                result += expected is ILength && Actual is ILength && ((ILength)expected).Length.HasValue ? "(" + ((ILength)Actual).Length.Value : "";
-                result += expected is IPrecision && Actual is IPrecision && ((IPrecision)expected).Precision.HasValue ? "(" + ((IPrecision)Actual).Precision.Value : "";
-                result += expected is IScale && Actual is IScale && ((IScale)expected).Scale.HasValue ? "," + ((IScale)Actual).Scale.Value : "";
-                result += result.Contains("(") ? ")" : "";
+        //public override void WriteActualValueTo(MessageWriter writer)
+        //{
+        //    //IF actual is not empty it means we've an issue with Casing or a space at the end
+        //    if (actual == null)
+        //        writer.WriteActualValue(new WriterHelper.NothingFoundMessage());
+        //    else
+        //    {
+        //        var result = Actual.Name;
+        //        result += expected is ILength && Actual is ILength && ((ILength)expected).Length.HasValue ? "(" + ((ILength)Actual).Length.Value : "";
+        //        result += expected is IPrecision && Actual is IPrecision && ((IPrecision)expected).Precision.HasValue ? "(" + ((IPrecision)Actual).Precision.Value : "";
+        //        result += expected is IScale && Actual is IScale && ((IScale)expected).Scale.HasValue ? "," + ((IScale)Actual).Scale.Value : "";
+        //        result += result.Contains("(") ? ")" : "";
 
-                writer.WriteActualValue(result);
-            }
-        }
+        //        writer.WriteActualValue(result);
+        //    }
+        //}
     }
 }

@@ -55,31 +55,31 @@ namespace NBi.NUnit.Structure
         #endregion
         
         #region Specific NUnit
-        public override bool Matches(object actual)
-        {
-            if (actual is IStructureDiscoveryCommand)
-                return Process((IStructureDiscoveryCommand)actual);
-            else if (actual is IEnumerable<string>)
-            {
-                this.actual = actual;
-                var ctr = InternalConstraint;
-                if (InternalConstraint is CollectionItemsEqualConstraint)
-                    //Only the type CollectionItemsEqualConstraint is supporting Using()
-                    //Others constraint are mostly a composition of constraints and the comparer is applied to each constraint.
-                    ctr = ((CollectionItemsEqualConstraint)ctr).Using(Comparer);
-                var res = ctr.Matches(actual);
-                return res;
-            }
-            else
-                throw new ArgumentException();
-        }
+        //public override bool Matches(object actual)
+        //{
+        //    if (actual is IStructureDiscoveryCommand)
+        //        return Process((IStructureDiscoveryCommand)actual);
+        //    else if (actual is IEnumerable<string>)
+        //    {
+        //        this.actual = actual;
+        //        var ctr = InternalConstraint;
+        //        if (InternalConstraint is CollectionItemsEqualConstraint)
+        //            //Only the type CollectionItemsEqualConstraint is supporting Using()
+        //            //Others constraint are mostly a composition of constraints and the comparer is applied to each constraint.
+        //            ctr = ((CollectionItemsEqualConstraint)ctr).Using(Comparer);
+        //        var res = ctr.Matches(actual);
+        //        return res;
+        //    }
+        //    else
+        //        throw new ArgumentException();
+        //}
 
-        protected bool Process(IStructureDiscoveryCommand actual)
-        {
-            Command = actual;
-            IEnumerable<string> structures = Command.Execute().ToArray();
-            return this.Matches(structures);
-        }
+        //protected bool Process(IStructureDiscoveryCommand actual)
+        //{
+        //    Command = actual;
+        //    IEnumerable<string> structures = Command.Execute().ToArray();
+        //    return this.Matches(structures);
+        //}
 
         #endregion
 

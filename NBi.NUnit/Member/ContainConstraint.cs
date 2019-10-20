@@ -23,7 +23,12 @@ namespace NBi.NUnit.Member
             : this(new List<string>() {expected})
         {
         }
-        
+
+        public override ConstraintResult ApplyTo<TActual>(TActual actual)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Construct a ContainConstraint
         /// </summary>
@@ -83,12 +88,12 @@ namespace NBi.NUnit.Member
             return ctr;
         }
 
-        protected override bool DoMatch(NUnitCtr.Constraint ctr)
-        {
-            IResolveConstraint exp = ctr;
-            var multipleConstraint = exp.Resolve();
-            return multipleConstraint.Matches(actual);
-        }
+        //protected override bool DoMatch(NUnitCtr.Constraint ctr)
+        //{
+        //    IResolveConstraint exp = ctr;
+        //    var multipleConstraint = exp.Resolve();
+        //    return multipleConstraint.Matches(actual);
+        //}
 
         protected override string GetPredicate()
         {

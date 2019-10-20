@@ -4,6 +4,8 @@ using NBi.Framework.FailureMessage;
 using NUnit.Framework;
 using NBi.Core.Configuration.FailureReport;
 using NBi.Extensibility.Resolving;
+using NBi.Core.Scalar.Resolver;
+using NUnit.Framework.Constraints;
 
 namespace NBi.NUnit.Scoring
 {
@@ -16,6 +18,11 @@ namespace NBi.NUnit.Scoring
         public ScoreConstraint(decimal threshold)
         {
             Threshold = threshold;
+        }
+
+        public override ConstraintResult ApplyTo<TActual>(TActual actual)
+        {
+            throw new NotImplementedException();
         }
 
         private IScoreMessageFormatter failure;
@@ -42,60 +49,60 @@ namespace NBi.NUnit.Scoring
         /// </summary>
         /// <param name="actual">An IResultSetService or ResultSet</param>
         /// <returns>true, if the execution of the actual IResultSetService returns a ResultSet identical to the content of the expected ResultSet</returns>
-        public override bool Matches(object actual)
-        {
-            if (actual is IScalarResolver<decimal>)
-                return Process((IScalarResolver<decimal>)actual);
-            if (actual is decimal)
-                return doMatch((decimal)actual);
-            else
-                throw new ArgumentException($"The type of the actual object is '{actual.GetType().Name}' and is not supported for a constraint of type '{this.GetType().Name}'. Use a IScalarResolver.", nameof(actual));
-        }
+        //public override bool Matches(object actual)
+        //{
+        //    if (actual is IScalarResolver<decimal>)
+        //        return Process((IScalarResolver<decimal>)actual);
+        //    if (actual is decimal)
+        //        return doMatch((decimal)actual);
+        //    else
+        //        throw new ArgumentException($"The type of the actual object is '{actual.GetType().Name}' and is not supported for a constraint of type '{this.GetType().Name}'. Use a IScalarResolver.", nameof(actual));
+        //}
 
-        protected bool doMatch(decimal value)
-        {
-            Actual = value;
-            Success = Actual >= Threshold;
+        //protected bool doMatch(decimal value)
+        //{
+        //    Actual = value;
+        //    Success = Actual >= Threshold;
 
-            if (Success && Configuration?.FailureReportProfile.Mode == FailureReportMode.Always)
-                Assert.Pass(Failure.RenderMessage());
+        //    if (Success && Configuration?.FailureReportProfile.Mode == FailureReportMode.Always)
+        //        Assert.Pass(Failure.RenderMessage());
 
-            return Success;
-        }
+        //    return Success;
+        //}
 
-        public bool Process(IScalarResolver<decimal> actual) => Matches(actual.Execute());
+        //public bool Process(IScalarResolver<decimal> actual) => Matches(actual.Execute());
 
-        public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
-                return;
+        //public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        return;
 
-            writer.WriteLine();
-            writer.WriteLine(Failure.RenderExpected());
-        }
+        //    writer.WriteLine();
+        //    writer.WriteLine(Failure.RenderExpected());
+        //}
 
-        public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
-                return;
+        //public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        return;
 
-            writer.WriteLine();
-            writer.WriteLine(Failure.RenderActual());
-        }
+        //    writer.WriteLine();
+        //    writer.WriteLine(Failure.RenderActual());
+        //}
 
-        public override void WriteMessageTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
-                writer.Write(Failure.RenderMessage());
-            else
-            {
-                writer.WritePredicate("Score is not sufficient.");
-                writer.WriteLine();
-                writer.WriteLine();
-                base.WriteMessageTo(writer);
-                writer.WriteLine();
-                writer.WriteLine(Failure.RenderMessage());
-            }
-        }
+        //public override void WriteMessageTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        writer.Write(Failure.RenderMessage());
+        //    else
+        //    {
+        //        writer.WritePredicate("Score is not sufficient.");
+        //        writer.WriteLine();
+        //        writer.WriteLine();
+        //        base.WriteMessageTo(writer);
+        //        writer.WriteLine();
+        //        writer.WriteLine(Failure.RenderMessage());
+        //    }
+        //}
     }
 }

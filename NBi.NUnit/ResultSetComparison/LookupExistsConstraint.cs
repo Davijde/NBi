@@ -7,6 +7,7 @@ using NBi.Extensibility;
 using NBi.Extensibility.Resolving;
 using NBi.Framework.FailureMessage;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -32,6 +33,11 @@ namespace NBi.NUnit.ResultSetComparison
         protected ILookupViolationMessageFormatter Failure
         {
             get => failure ?? (failure = BuildFailure());
+        }
+
+        public override ConstraintResult ApplyTo<TActual>(TActual actual)
+        {
+            throw new NotImplementedException();
         }
 
         protected virtual ILookupViolationMessageFormatter BuildFailure()
@@ -78,52 +84,52 @@ namespace NBi.NUnit.ResultSetComparison
                 () => { rsReference = referenceResolver.Execute(); }
             );
 
-            return Matches(rsCandidate);
-        }
+        //    return Matches(rsCandidate);
+        //}
 
         protected virtual bool doMatch(IResultSet actual)
         {
             violations = Engine.Execute(actual, rsReference);
             var output = violations.Count() == 0;
 
-            if (output && Configuration?.FailureReportProfile.Mode == FailureReportMode.Always)
-                Assert.Pass(Failure.RenderMessage());
+        //    if (output && Configuration?.FailureReportProfile.Mode == FailureReportMode.Always)
+        //        Assert.Pass(Failure.RenderMessage());
 
-            return output;
-        }
+        //    return output;
+        //}
 
-        public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
-                return;
+        //public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        return;
 
-            writer.WriteLine();
-            writer.WriteLine(Failure.RenderReference());
-        }
+        //    writer.WriteLine();
+        //    writer.WriteLine(Failure.RenderReference());
+        //}
 
-        public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
-                return;
+        //public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        return;
 
-            writer.WriteLine();
-            writer.WriteLine(Failure.RenderCandidate());
-        }
+        //    writer.WriteLine();
+        //    writer.WriteLine(Failure.RenderCandidate());
+        //}
 
-        public override void WriteMessageTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
-                writer.Write(Failure.RenderMessage());
-            else
-            {
-                writer.WritePredicate(Failure.RenderPredicate());
-                writer.WriteLine();
-                writer.WriteLine();
-                base.WriteMessageTo(writer);
-                writer.WriteLine();
-                writer.WriteLine(Failure.RenderAnalysis());
-            }
-        }
+        //public override void WriteMessageTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        writer.Write(Failure.RenderMessage());
+        //    else
+        //    {
+        //        writer.WritePredicate(Failure.RenderPredicate());
+        //        writer.WriteLine();
+        //        writer.WriteLine();
+        //        base.WriteMessageTo(writer);
+        //        writer.WriteLine();
+        //        writer.WriteLine(Failure.RenderAnalysis());
+        //    }
+        //}
 
     }
 }

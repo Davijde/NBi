@@ -34,12 +34,12 @@ namespace NBi.Testing.Unit.NUnit.ResultSetComparison
             var rscMock = new Mock<IEquivaler>();
             rscMock.Setup(engine => engine.Compare(It.IsAny<IResultSet>(), It.IsAny<IResultSet>()))
                 .Returns(new ResultResultSet() { Difference = ResultSetDifferenceType.None });
-            var rsc = rscMock.Object;
 
-            var equalToConstraint = new EqualToConstraint(expectedService) { Engine = rsc };
+            var equalToConstraint = new EqualToConstraint(expected);
+            equalToConstraint = equalToConstraint.Using(equivaler);
 
             //Method under test
-            equalToConstraint.Matches(actualService);
+            equalToConstraint.ApplyTo(actual);
 
             //Test conclusion            
             rscMock.Verify(engine => engine.Compare(It.IsAny<IResultSet>(), It.IsAny<IResultSet>()), Times.Once());
@@ -69,15 +69,15 @@ namespace NBi.Testing.Unit.NUnit.ResultSetComparison
             var rscMock = new Mock<IEquivaler>();
             rscMock.Setup(engine => engine.Compare(It.IsAny<IResultSet>(), It.IsAny<IResultSet>()))
                 .Returns(new ResultResultSet() { Difference = ResultSetDifferenceType.Content });
-            var rsc = rscMock.Object;
 
-            var equalToConstraint = new EqualToConstraint(expectedService) { Engine = rsc };
+            var equalToConstraint = new EqualToConstraint(expected);
+            equalToConstraint = equalToConstraint.Using(equivaler);
 
             //Method under test
-            equalToConstraint.Matches(actualService);
+            equalToConstraint.ApplyTo(actual);
 
             //Test conclusion            
-            rscMock.Verify(engine => engine.Compare(actualRs, expectedRs), Times.Once());
+            Mock.Get(equivaler).Verify(engine => engine.Compare(actualRs, expectedRs), Times.Once());
         }
 
         [Test]
@@ -96,18 +96,18 @@ namespace NBi.Testing.Unit.NUnit.ResultSetComparison
                 .Returns(rs);
             var actualService = actualServiceMock.Object;
 
-            var rscMock = new Mock<IEquivaler>();
-            rscMock.Setup(engine => engine.Compare(rs, rs))
+            var equivaler = Mock.Of<IEquivaler>();
+            Mock.Get(equivaler).Setup(engine => engine.Compare(rs, rs))
                 .Returns(new ResultResultSet() { Difference = ResultSetDifferenceType.None });
-            var rsc = rscMock.Object;
 
-            var equalToConstraint = new EqualToConstraint(expectedService) { Engine = rsc };
-
+            var equalToConstraint = new EqualToConstraint(expected);
+            equalToConstraint = equalToConstraint.Using(equivaler);
             //Method under test
-            var result = equalToConstraint.Matches(actualService);
+            var result = equalToConstraint.ApplyTo(actual);
 
             //Test conclusion            
-            Assert.That(result, Is.True);
+            Assert.That(result, Is.TypeOf<ResultSetComparisonConstraintResult>());
+            Assert.That((result as ResultSetComparisonConstraintResult).IsSuccess, Is.True);
         }
 
         [Test]
@@ -129,18 +129,18 @@ namespace NBi.Testing.Unit.NUnit.ResultSetComparison
                 .Returns(actualRs);
             var actualService = actualServiceMock.Object;
 
-            var rscMock = new Mock<IEquivaler>();
-            rscMock.Setup(engine => engine.Compare(actualRs, expectedRs))
+            var equivaler = Mock.Of<IEquivaler>();
+            Mock.Get(equivaler).Setup(engine => engine.Compare(actualRs, expectedRs))
                 .Returns(new ResultResultSet() { Difference = ResultSetDifferenceType.Content });
-            var rsc = rscMock.Object;
 
-            var equalToConstraint = new EqualToConstraint(expectedService) { Engine = rsc };
-
+            var equalToConstraint = new EqualToConstraint(expected);
+            equalToConstraint = equalToConstraint.Using(equivaler);
             //Method under test
-            var result = equalToConstraint.Matches(actualService);
+            var result = equalToConstraint.ApplyTo(actual);
 
             //Test conclusion            
-            Assert.That(result, Is.False);
+            Assert.That(result, Is.TypeOf<ResultSetComparisonConstraintResult>());
+            Assert.That((result as ResultSetComparisonConstraintResult).IsSuccess, Is.False);
         }
         
     }

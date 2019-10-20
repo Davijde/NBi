@@ -81,13 +81,13 @@ namespace NBi.Testing.Acceptance
             }
         }
 
-        [Ignore]
-        public override void ExecuteTestCases(TestXml test, string testName, IDictionary<string, IVariable> localVariables)
+        [Ignore("")]
+        public override void ExecuteTestCases(TestXml test, string testName, IDictionary<string, ITestVariable> localVariables)
         {
             base.ExecuteTestCases(test, testName, localVariables);
         }
 
-        [Ignore]
+        [Ignore("")]
         public void ExecuteTestCases(TestXml test, string testName, IConfiguration configuration)
         {
             base.Configuration = configuration;

@@ -13,7 +13,7 @@ namespace NBi.NUnit
 {
     public abstract class NBiConstraint : NUnitCtr.Constraint
     {
-        public IConfiguration Configuration {get; set;}
+        public IConfiguration Configuration {get; set;} = Core.Configuration.Configuration.Default;
         public IDictionary<string, IVariable> GlobalVariables { get; set; }
 
         public NBiConstraint()

@@ -28,6 +28,11 @@ namespace NBi.NUnit.Query
             Engine = new OrdinalEvaluator();
         }
 
+        public override ConstraintResult ApplyTo<TActual>(TActual actual)
+        {
+            throw new NotImplementedException();
+        }
+
         public UniqueRowsConstraint Using(Evaluator evaluator)
         {
             this.Engine = evaluator;
@@ -57,50 +62,50 @@ namespace NBi.NUnit.Query
                     failure.BuildDuplication(actualResultSet.Rows, result);
                 }
 
-                if (result.AreUnique && Configuration?.FailureReportProfile.Mode == FailureReportMode.Always)
-                    Assert.Pass(failure.RenderMessage());
+        //        if (result.AreUnique && Configuration?.FailureReportProfile.Mode == FailureReportMode.Always)
+        //            Assert.Pass(failure.RenderMessage());
 
-                return result.AreUnique;
-            }
-            else
-                throw new ArgumentException();
+        //        return result.AreUnique;
+        //    }
+        //    else
+        //        throw new ArgumentException();
 
-        }
+        //}
 
-        #region "Error report"
+        //#region "Error report"
 
-        public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration?.FailureReportProfile.Format == FailureReportFormat.Json)
-                return;
+        //public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration?.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        return;
 
-            writer.WriteLine("No duplicated row.");
-        }
+        //    writer.WriteLine("No duplicated row.");
+        //}
 
-        public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration?.FailureReportProfile.Format == FailureReportFormat.Json)
-                return;
+        //public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration?.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        return;
 
-            writer.WriteLine(failure.RenderActual());
-        }
+        //    writer.WriteLine(failure.RenderActual());
+        //}
 
-        public override void WriteMessageTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration?.FailureReportProfile.Format == FailureReportFormat.Json)
-                writer.Write(failure.RenderMessage());
-            else
-            {
-                writer.WritePredicate("Execution of the query returns duplicated rows");
-                writer.WriteLine();
-                writer.WriteLine();
-                base.WriteMessageTo(writer);
-                writer.WriteLine();
-                writer.WriteLine(failure.RenderAnalysis());
-            }
-        }
+        //public override void WriteMessageTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration?.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        writer.Write(failure.RenderMessage());
+        //    else
+        //    {
+        //        writer.WritePredicate("Execution of the query returns duplicated rows");
+        //        writer.WriteLine();
+        //        writer.WriteLine();
+        //        base.WriteMessageTo(writer);
+        //        writer.WriteLine();
+        //        writer.WriteLine(failure.RenderAnalysis());
+        //    }
+        //}
 
-        #endregion
+        //#endregion
 
     }
 }

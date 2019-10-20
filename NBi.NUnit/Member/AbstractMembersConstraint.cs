@@ -60,30 +60,30 @@ namespace NBi.NUnit.Member
         #endregion
         
         #region Specific NUnit
-        public override bool Matches(object actual)
-        {
-            if (!isInitialized)
-                InitializeMatching();
+        //public override bool Matches(object actual)
+        //{
+        //    if (!isInitialized)
+        //        InitializeMatching();
                 
-            if (actual is MembersDiscoveryRequest)
-                return Process((MembersDiscoveryRequest)actual);
-            else if (actual is MemberResult)
-            {
-                this.actual = actual;
-                var ctr = internalConstraint;
-                if (ctr is NUnitCtr.CollectionItemsEqualConstraint)
-                    ctr = ((NUnitCtr.CollectionItemsEqualConstraint)ctr).Using(Comparer);
-                var res = DoMatch(ctr);
-                return res;
-            }
-            else
-                throw new ArgumentException();
-        }
+        //    if (actual is MembersDiscoveryRequest)
+        //        return Process((MembersDiscoveryRequest)actual);
+        //    else if (actual is MemberResult)
+        //    {
+        //        this.actual = actual;
+        //        var ctr = internalConstraint;
+        //        if (ctr is NUnitCtr.CollectionItemsEqualConstraint)
+        //            ctr = ((NUnitCtr.CollectionItemsEqualConstraint)ctr).Using(Comparer);
+        //        var res = DoMatch(ctr);
+        //        return res;
+        //    }
+        //    else
+        //        throw new ArgumentException();
+        //}
 
-        protected virtual bool DoMatch(NUnitCtr.Constraint ctr)
-        {
-            return ctr.Matches(actual);
-        }
+        //protected virtual bool DoMatch(NUnitCtr.Constraint ctr)
+        //{
+        //    return ctr.Matches(actual);
+        //}
 
 
         private void InitializeMatching()
@@ -101,13 +101,13 @@ namespace NBi.NUnit.Member
 
         protected abstract NUnitCtr.Constraint BuildInternalConstraint();
 
-        protected bool Process(MembersDiscoveryRequest actual)
-        {
-            Request = actual;
-            var engine = MembersEngine;
-            MemberResult result = engine.GetMembers(Request);
-            return this.Matches(result);
-        }
+        //protected bool Process(MembersDiscoveryRequest actual)
+        //{
+        //    Request = actual;
+        //    var engine = MembersEngine;
+        //    MemberResult result = engine.GetMembers(Request);
+        //    return this.Matches(result);
+        //}
 
         #endregion
 

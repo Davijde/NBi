@@ -25,6 +25,11 @@ namespace NBi.NUnit.Query
             }
         }
 
+        public override ConstraintResult ApplyTo<TActual>(TActual actual)
+        {
+            throw new NotImplementedException();
+        }
+
         protected IFormatEngine GetEngine(IQuery actual)
         {
             if (engine == null)
@@ -63,75 +68,75 @@ namespace NBi.NUnit.Query
             return ctr;
         }
 
-        protected virtual bool DoMatch(NUnitCtr.Constraint ctr, string caption)
-        {
-            IResolveConstraint exp = ctr;
-            var multipleConstraint = exp.Resolve();
-            return multipleConstraint.Matches(caption);
-        }
+        //protected virtual bool DoMatch(NUnitCtr.Constraint ctr, string caption)
+        //{
+        //    IResolveConstraint exp = ctr;
+        //    var multipleConstraint = exp.Resolve();
+        //    return multipleConstraint.Matches(caption);
+        //}
 
-        public override bool Matches(object actual)
-        {
-            if (actual is IQuery)
-                return Process((IQuery)actual);
-            else if (actual is IEnumerable<string>)
-            {
-                this.actual = actual;
+        //public override bool Matches(object actual)
+        //{
+        //    if (actual is IQuery)
+        //        return Process((IQuery)actual);
+        //    else if (actual is IEnumerable<string>)
+        //    {
+        //        this.actual = actual;
 
-                var res = true;
-                foreach (var result in (IEnumerable<string>)actual)
-                {
-                    var ctr = BuildInternalConstraint();
-                    if (!DoMatch(ctr, result))
-                    {
-                        res = false;
-                        invalidMembers.Add(result);
-                    }
-                }
-                return res;
-            }
-            else
-                throw new ArgumentException();
-        }
+        //        var res = true;
+        //        foreach (var result in (IEnumerable<string>)actual)
+        //        {
+        //            var ctr = BuildInternalConstraint();
+        //            if (!DoMatch(ctr, result))
+        //            {
+        //                res = false;
+        //                invalidMembers.Add(result);
+        //            }
+        //        }
+        //        return res;
+        //    }
+        //    else
+        //        throw new ArgumentException();
+        //}
 
-        /// <summary>
-        /// Handle an IDbCommand (Query and ConnectionString) and check it with the expectation (Another IDbCommand or a ResultSet)
-        /// </summary>
-        /// <param name="actual">IDbCommand</param>
-        /// <returns></returns>
-        public bool Process(IQuery actual)
-        {
-            var result = GetEngine(actual).ExecuteFormat();
-            return this.Matches(result);
-        }
+        ///// <summary>
+        ///// Handle an IDbCommand (Query and ConnectionString) and check it with the expectation (Another IDbCommand or a ResultSet)
+        ///// </summary>
+        ///// <param name="actual">IDbCommand</param>
+        ///// <returns></returns>
+        //public bool Process(IQuery actual)
+        //{
+        //    var result = GetEngine(actual).ExecuteFormat();
+        //    return this.Matches(result);
+        //}
 
-        /// <summary>
-        /// Write the constraint description to a MessageWriter
-        /// </summary>
-        /// <param name="writer">The writer on which the description is displayed</param>
-        public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
-        {
-            //writer.WriteActualValue(actual);
+        ///// <summary>
+        ///// Write the constraint description to a MessageWriter
+        ///// </summary>
+        ///// <param name="writer">The writer on which the description is displayed</param>
+        //public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    //writer.WriteActualValue(actual);
 
-            writer.WritePredicate(string.Format("The formatted value of each cell matchs the"));
+        //    writer.WritePredicate(string.Format("The formatted value of each cell matchs the"));
 
-            if (!string.IsNullOrEmpty(regex))
-            {
-                writer.WritePredicate(" regex pattern ");
-                writer.WritePredicate(regex);
-            }
-        }
+        //    if (!string.IsNullOrEmpty(regex))
+        //    {
+        //        writer.WritePredicate(" regex pattern ");
+        //        writer.WritePredicate(regex);
+        //    }
+        //}
 
-        public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
-        {
-            if (invalidMembers.Count == 1)
-                writer.WriteMessageLine(string.Format("The element <{0}> doesn't validate this pattern", invalidMembers[0]));
-            else
-            {
-                writer.WriteMessageLine(string.Format("{0} elements don't validate this pattern:", invalidMembers.Count));
-                foreach (var invalidMember in invalidMembers)
-                    writer.WriteMessageLine(string.Format("    <{0}>", invalidMember));
-            }
-        }
+        //public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (invalidMembers.Count == 1)
+        //        writer.WriteMessageLine(string.Format("The element <{0}> doesn't validate this pattern", invalidMembers[0]));
+        //    else
+        //    {
+        //        writer.WriteMessageLine(string.Format("{0} elements don't validate this pattern:", invalidMembers.Count));
+        //        foreach (var invalidMember in invalidMembers)
+        //            writer.WriteMessageLine(string.Format("    <{0}>", invalidMember));
+        //    }
+        //}
     }
 }

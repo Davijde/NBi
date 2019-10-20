@@ -21,25 +21,25 @@ namespace NBi.NUnit.Query
         protected override bool doMatch(int actual)
             => filterResultSet.Rows.Count() >= 1;
 
-        public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
-                return;
-            writer.WritePredicate($"some rows validate the predicate '{filter.Describe()}'.");
-        }
+        //public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        return;
+        //    writer.WritePredicate($"some rows validate the predicate '{filter.Describe()}'.");
+        //}
 
-        public override void WriteFilterMessageTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
-                return;
-            writer.WriteLine("Rows validating the predicate:");
-        }
+        //public override void WriteFilterMessageTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        return;
+        //    writer.WriteLine("Rows validating the predicate:");
+        //}
 
-        public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
-                return;
-            writer.WriteLine($"No rows validate the predicate '{filter.Describe()}'.");
-        }
+        //public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        return;
+        //    writer.WriteLine($"No rows validate the predicate '{filter.Describe()}'.");
+        //}
     }
 }

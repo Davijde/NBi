@@ -9,6 +9,7 @@ using NBi.Core.Query.Resolver;
 using NBi.Core.ResultSet.Resolver;
 using NBi.Extensibility.Query;
 using NBi.Extensibility;
+using NUnit.Framework.Constraints;
 
 namespace NBi.NUnit.Query
 {
@@ -28,6 +29,11 @@ namespace NBi.NUnit.Query
             this.expressions = expressions;
         }
 
+        public override ConstraintResult ApplyTo<TActual>(TActual actual)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Handle an IDbCommand and compare it to a predefined resultset
         /// </summary>
@@ -42,31 +48,31 @@ namespace NBi.NUnit.Query
             else
                 return false;
 
-        }
+        //}
 
         protected bool doMatch(IResultSet actual)
         {
             this.actualResultSet = actual;
 
-            var validationEngine = new RowValidator();
-            evaluationResults = new List<RowEvaluationResult>();
-            int rowIndex=0;
-            foreach (DataRow row in actualResultSet.Rows)
-	        {
-		        var valuedVariables = new Dictionary<string, Object>();
-                foreach (var v in variables)
-	                valuedVariables.Add(v.Name, row[v.Column]);
+        //    var validationEngine = new RowValidator();
+        //    evaluationResults = new List<RowEvaluationResult>();
+        //    int rowIndex=0;
+        //    foreach (DataRow row in actualResultSet.Rows)
+        // {
+        //  var valuedVariables = new Dictionary<string, Object>();
+        //        foreach (var v in variables)
+        //         valuedVariables.Add(v.Name, row[v.Column]);
 
-                var valuedExpressions = new List<ValuedExpression>();
-                foreach (var e in expressions)
-                    valuedExpressions.Add(new ValuedExpression(e.Value, row[e.Column], e.Type, e.Tolerance));
+        //        var valuedExpressions = new List<ValuedExpression>();
+        //        foreach (var e in expressions)
+        //            valuedExpressions.Add(new ValuedExpression(e.Value, row[e.Column], e.Type, e.Tolerance));
 
-                evaluationResults.Add(new RowEvaluationResult(rowIndex, valuedVariables, validationEngine.Execute(valuedVariables, valuedExpressions)));
-                rowIndex += 1;
-	        }
-            bool value = evaluationResults.Aggregate<RowEvaluationResult, bool>(true, (total, r) => total && (r.CountExpressionValidationFailed()==0));
-            return value;
-        }
+        //        evaluationResults.Add(new RowEvaluationResult(rowIndex, valuedVariables, validationEngine.Execute(valuedVariables, valuedExpressions)));
+        //        rowIndex += 1;
+        // }
+        //    bool value = evaluationResults.Aggregate<RowEvaluationResult, bool>(true, (total, r) => total && (r.CountExpressionValidationFailed()==0));
+        //    return value;
+        //}
 
         /// <summary>
         /// Handle an IDbCommand (Query and ConnectionString) and check it with the expectation (Another IDbCommand or a ResultSet)
@@ -92,54 +98,54 @@ namespace NBi.NUnit.Query
         /// 
         /// </summary>
         /// <param name="writer"></param>
-        public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
-        {
-            
-        }
+        //public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
+        //{
 
-        public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
-        {
-            writer.WriteActualValue("deprecated feature!");
-        }
+        //}
 
-        public override void WriteMessageTo(NUnitCtr.MessageWriter writer)
-        {
-            writer.WritePredicate("The result of the query's execution doesn't validate the list of expressions.");
-            var totalFailed = evaluationResults.Aggregate<RowEvaluationResult, int>(0, (total, r) => total += r.CountExpressionValidationFailed());
-            if (totalFailed>1)
-                writer.WriteLine("{0} expressions are not matching with the expected result.", totalFailed);
-            else
-                writer.WriteLine("One expression is not matching with the expected result.");
+        //public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    writer.WriteActualValue("deprecated feature!");
+        //}
 
-            base.WriteMessageTo(writer);
-            DisplayDifferences(writer, evaluationResults);
-        }
+        //public override void WriteMessageTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    writer.WritePredicate("The result of the query's execution doesn't validate the list of expressions.");
+        //    var totalFailed = evaluationResults.Aggregate<RowEvaluationResult, int>(0, (total, r) => total += r.CountExpressionValidationFailed());
+        //    if (totalFailed>1)
+        //        writer.WriteLine("{0} expressions are not matching with the expected result.", totalFailed);
+        //    else
+        //        writer.WriteLine("One expression is not matching with the expected result.");
 
-        protected void DisplayDifferences(NUnitCtr.MessageWriter writer, IEnumerable<RowEvaluationResult> results)
-        {
-            var failedRows = results.Where(r => r.CountExpressionValidationFailed() > 0);
-            if (failedRows.Count()>1)
-                writer.WriteLine("{0} of the {1} rows don't validate at least one expression.", failedRows.Count(), results.Count());
-            else
-                writer.WriteLine("{0} of the {1} rows doesn't validate at least one expression.", failedRows.Count(), results.Count());
+        //    base.WriteMessageTo(writer);
+        //    DisplayDifferences(writer, evaluationResults);
+        //}
 
-            var failedRowsSample = failedRows.Take(10);
-            foreach (var failedRow in failedRowsSample)
-            {               
-                writer.WriteLine();
-                writer.WriteLine("Row {0}: ", failedRow.RowIndex);
-                foreach (var failedExpression in failedRow.Results.Where(exp => !exp.IsValid))
-                {
-                    writer.WriteLine("    The expression '{0}' is not validated.", failedExpression.Sentence);
-                    writer.WriteLine("    The expected result was '{0}' but the actual value is '{1}'", failedExpression.Expected, failedExpression.Actual);
-                }
+        //protected void DisplayDifferences(NUnitCtr.MessageWriter writer, IEnumerable<RowEvaluationResult> results)
+        //{
+        //    var failedRows = results.Where(r => r.CountExpressionValidationFailed() > 0);
+        //    if (failedRows.Count()>1)
+        //        writer.WriteLine("{0} of the {1} rows don't validate at least one expression.", failedRows.Count(), results.Count());
+        //    else
+        //        writer.WriteLine("{0} of the {1} rows doesn't validate at least one expression.", failedRows.Count(), results.Count());
 
-                foreach (var variable in failedRow.ValuedVariables)
-                    writer.WriteLine("    Variable '{0}' had value of '{1}'", variable.Key, variable.Value);
-            }
-            writer.WriteLine();
-            if (failedRowsSample.Count()<failedRows.Count())
-                writer.WriteLine("... {0} of {1} failing rows skipped for display purpose.", failedRows.Count()-failedRowsSample.Count(), failedRows.Count());
-        }
+        //    var failedRowsSample = failedRows.Take(10);
+        //    foreach (var failedRow in failedRowsSample)
+        //    {               
+        //        writer.WriteLine();
+        //        writer.WriteLine("Row {0}: ", failedRow.RowIndex);
+        //        foreach (var failedExpression in failedRow.Results.Where(exp => !exp.IsValid))
+        //        {
+        //            writer.WriteLine("    The expression '{0}' is not validated.", failedExpression.Sentence);
+        //            writer.WriteLine("    The expected result was '{0}' but the actual value is '{1}'", failedExpression.Expected, failedExpression.Actual);
+        //        }
+
+        //        foreach (var variable in failedRow.ValuedVariables)
+        //            writer.WriteLine("    Variable '{0}' had value of '{1}'", variable.Key, variable.Value);
+        //    }
+        //    writer.WriteLine();
+        //    if (failedRowsSample.Count()<failedRows.Count())
+        //        writer.WriteLine("... {0} of {1} failing rows skipped for display purpose.", failedRows.Count()-failedRowsSample.Count(), failedRows.Count());
+        //}
     }
 }

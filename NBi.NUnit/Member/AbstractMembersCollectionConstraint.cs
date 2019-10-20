@@ -39,7 +39,7 @@ namespace NBi.NUnit.Member
             get
             {
                 if (failure == null)
-                    failure = BuildFailure();
+                    failure = null; // BuildFailure();
                 return failure;
             }
             set
@@ -48,21 +48,21 @@ namespace NBi.NUnit.Member
             }
         }
 
-        protected IItemsMessageFormatter BuildFailure()
-        {
-            var factory = new ItemsMessageFormatterFactory();
-            var msg = factory.Instantiate(Configuration.FailureReportProfile);
-            var compare = new ListComparer()
-                        .Compare
-                        (
-                            ExpectedItems
-                            , ((MemberResult)actual).ToCaptions()
-                            , GetComparisonType()
-                        );
+        //protected IItemsMessageFormatter BuildFailure()
+        //{
+        //    var factory = new ItemsMessageFormatterFactory();
+        //    var msg = factory.Instantiate(Configuration.FailureReportProfile);
+        //    var compare = new ListComparer()
+        //                .Compare
+        //                (
+        //                    ExpectedItems
+        //                    , ((MemberResult)actual).ToCaptions()
+        //                    , GetComparisonType()
+        //                );
 
-            msg.Build(ExpectedItems, ((MemberResult)actual).ToCaptions(), compare);
-            return msg;
-        }
+        //    msg.Build(ExpectedItems, ((MemberResult)actual).ToCaptions(), compare);
+        //    return msg;
+        //}
 
         /// <summary>
         /// Construct a AbstractMembersConstraint
@@ -148,29 +148,29 @@ namespace NBi.NUnit.Member
         //    }
         //}
 
-        public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
-        {
-            writer.WriteLine();
-            writer.WriteLine(Failure.RenderExpected());
-        }
+        //public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    writer.WriteLine();
+        //    writer.WriteLine(Failure.RenderExpected());
+        //}
 
-        public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
-        {
-            writer.WriteLine();
-            writer.WriteLine(Failure.RenderActual());
-        }
+        //public override void WriteActualValueTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    writer.WriteLine();
+        //    writer.WriteLine(Failure.RenderActual());
+        //}
 
-        public override void WriteMessageTo(NUnitCtr.MessageWriter writer)
-        {
-            writer.WritePredicate(string.Format("On perspective \"{0}\", {1} "
-                                                            , Request.Perspective
-                                                            , GetPredicate()));
-            writer.WriteLine();
-            writer.WriteLine();
-            base.WriteMessageTo(writer);
-            writer.WriteLine();
-            writer.WriteLine(Failure.RenderAnalysis());
-        }
+        //public override void WriteMessageTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    writer.WritePredicate(string.Format("On perspective \"{0}\", {1} "
+        //                                                    , Request.Perspective
+        //                                                    , GetPredicate()));
+        //    writer.WriteLine();
+        //    writer.WriteLine();
+        //    base.WriteMessageTo(writer);
+        //    writer.WriteLine();
+        //    writer.WriteLine(Failure.RenderAnalysis());
+        //}
 
         protected abstract ListComparer.Comparison GetComparisonType();
         protected abstract string GetPredicate();

@@ -29,6 +29,11 @@ namespace NBi.NUnit.Structure
             BuildInternalConstraint();
         }
 
+        public override ConstraintResult ApplyTo<TActual>(TActual actual)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Build a collection of constraint (in fact one by expected item)
         /// Pay really attention that CollectionContainsConstraint is expecting one unique item!
@@ -36,23 +41,23 @@ namespace NBi.NUnit.Structure
         /// </summary>
         protected virtual void BuildInternalConstraint()
         {
-            NUnitCtr.Constraint ctr = null;
-            foreach (var item in Expected)
-            {
-                var localCtr = new NUnitCtr.CollectionContainsConstraint(item);
-                var usingCtr = localCtr.Using(Comparer);
+            //NUnitCtr.Constraint ctr = null;
+            //foreach (var item in Expected)
+            //{
+            //    var localCtr = new NUnitCtr.CollectionContainsConstraint(item);
+            //    var usingCtr = localCtr.Using(Comparer);
 
-                if (ctr != null)
-                    ctr = new AndConstraint(ctr, usingCtr);
-                else
-                    ctr = usingCtr;
-            }
+            //    if (ctr != null)
+            //        ctr = new AndConstraint(ctr, usingCtr);
+            //    else
+            //        ctr = usingCtr;
+            //}
 
-            if (ctr == null)
-                ctr = new NUnitCtr.EmptyCollectionConstraint();
+            //if (ctr == null)
+            //    ctr = new NUnitCtr.EmptyCollectionConstraint();
 
-            IResolveConstraint exp = ctr;
-            InternalConstraint = exp.Resolve();
+            //IResolveConstraint exp = ctr;
+            //InternalConstraint = exp.Resolve();
         }
 
         #region Modifiers
@@ -77,32 +82,32 @@ namespace NBi.NUnit.Structure
         /// Write a description of the constraint to a MessageWriter
         /// </summary>
         /// <param name="writer"></param>
-        public override void WriteDescriptionTo(MessageWriter writer)
-        {
-            var description = new DescriptionStructureHelper();
-            var filterExpression = description.GetFilterExpression(Command.Description.Filters.Where(f => f is CaptionFilter).Cast<CaptionFilter>());
-            if (!string.IsNullOrEmpty(filterExpression))
-                filterExpression = string.Format(" contained {0}", filterExpression);
+        //public override void WriteDescriptionTo(MessageWriter writer)
+        //{
+        //    var description = new DescriptionStructureHelper();
+        //    var filterExpression = description.GetFilterExpression(Command.Description.Filters.Where(f => f is CaptionFilter).Cast<CaptionFilter>());
+        //    if (!string.IsNullOrEmpty(filterExpression))
+        //        filterExpression = string.Format(" contained {0}", filterExpression);
 
-            if (Expected.Count() == 1)
-            {
-                writer.WritePredicate(string.Format("find a {0} named '{1}'{2}.",
-                    description.GetTargetExpression(Command.Description.Target),
-                    Expected.First(),
-                    filterExpression));
-            }
-            else
-            {
-                var expectationExpression = new StringBuilder();
-                foreach (string item in Expected)
-                    expectationExpression.AppendFormat("<{0}>, ", item);
-                expectationExpression.Remove(expectationExpression.Length - 2, 2);
+        //    if (Expected.Count() == 1)
+        //    {
+        //        writer.WritePredicate(string.Format("find a {0} named '{1}'{2}.",
+        //            description.GetTargetExpression(Command.Description.Target),
+        //            Expected.First(),
+        //            filterExpression));
+        //    }
+        //    else
+        //    {
+        //        var expectationExpression = new StringBuilder();
+        //        foreach (string item in Expected)
+        //            expectationExpression.AppendFormat("<{0}>, ", item);
+        //        expectationExpression.Remove(expectationExpression.Length - 2, 2);
 
-                writer.WritePredicate(string.Format("find the {0} named '{1}'{2}.",
-                    description.GetTargetPluralExpression(Command.Description.Target),
-                    expectationExpression.ToString(),
-                    filterExpression));
-            }
-        }
+        //        writer.WritePredicate(string.Format("find the {0} named '{1}'{2}.",
+        //            description.GetTargetPluralExpression(Command.Description.Target),
+        //            expectationExpression.ToString(),
+        //            filterExpression));
+        //    }
+        //}
     }
 }

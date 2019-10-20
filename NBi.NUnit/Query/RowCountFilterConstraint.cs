@@ -45,34 +45,34 @@ namespace NBi.NUnit.Query
             return Matches(filterResultSet.Rows.Count);
         }
 
-        public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
-                return;
-            writer.WritePredicate($"count of rows validating the predicate '{filter.Describe()}' is");
-            ctr.WriteDescriptionTo(writer);
-        }
+        //public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        return;
+        //    writer.WritePredicate($"count of rows validating the predicate '{filter.Describe()}' is");
+        //    ctr.WriteDescriptionTo(writer);
+        //}
 
-        public override void WriteMessageTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
-                writer.Write(Failure.RenderMessage());
-            else
-            {
-                base.WriteMessageTo(writer);
-                writer.WriteLine();
-                writer.WriteLine();
-                WriteFilterMessageTo(writer);
-                writer.WriteLine(Failure.RenderAnalysis());
-            }
-        }
+        //public override void WriteMessageTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        writer.Write(Failure.RenderMessage());
+        //    else
+        //    {
+        //        base.WriteMessageTo(writer);
+        //        writer.WriteLine();
+        //        writer.WriteLine();
+        //        WriteFilterMessageTo(writer);
+        //        writer.WriteLine(Failure.RenderAnalysis());
+        //    }
+        //}
 
-        public virtual void WriteFilterMessageTo(NUnitCtr.MessageWriter writer)
-        {
-            if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
-                return;
-            writer.WriteLine("Filtered version of the result-set:");
-        }
+        //public virtual void WriteFilterMessageTo(NUnitCtr.MessageWriter writer)
+        //{
+        //    if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
+        //        return;
+        //    writer.WriteLine("Filtered version of the result-set:");
+        //}
 
     }
 }
