@@ -16,6 +16,7 @@ using System.Runtime.CompilerServices;
 [assembly: InternalsVisibleTo("NBi.Testing.Core")]
 [assembly: InternalsVisibleTo("NBi.Testing.Framework")]
 [assembly: InternalsVisibleTo("NBi.Testing.GenbiL")]
+[assembly: InternalsVisibleTo("NBi.Testing.NUnit")]
 [assembly: InternalsVisibleTo("NBi.Testing.Xml")]
 
 // Version information for an assembly consists of the following four values:
