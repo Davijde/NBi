@@ -1,11 +1,13 @@
 ﻿using System;
+using System.IO;
 using System.Xml;
+using System.Linq;
 
 namespace NBi.Testing
 {
     class ConnectionStringReader
     {
-        public static string Get(string name)
+        protected static string Get(string name)
         {
             var xmldoc = new XmlDocument();
             xmldoc.Load(GetFilename());
@@ -16,80 +18,24 @@ namespace NBi.Testing
             throw new Exception();
         }
 
-
-        public static string GetOleDbCube()
-        {
-            return Get("OleDbCube");
-        }
-
-        public static string GetOleDbSql()
-        {
-            return Get("OleDbSql");
-        }
-
-        public static string GetOdbcSql()
-        {
-            return Get("OdbcSql");
-        }
-
-        public static string GetLocalOleDbSql()
-        {
-            return Get("LocalOleDbSql");
-        }
-
-        public static string GetLocalOdbcSql()
-        {
-            return Get("LocalOdbcSql");
-        }
-
-        public static string GetAdomd()
-        {
-            return Get("Adomd");
-        }
-
-        public static string GetSqlClient()
-        {
-            return Get("SqlClient");
-        }
-
         private static string GetFilename()
         {
-            //If available use the user file
-            if (System.IO.File.Exists("ConnectionString.user.config"))
-            {
-                return "ConnectionString.user.config";
-            }
-            else if (System.IO.File.Exists("ConnectionString.config"))
-            {
-                return "ConnectionString.config";
-            }
-            return "";
+            var basePath = Path.GetDirectoryName(typeof(ConnectionStringReader).Assembly.Location);
+            var filenames = new[] { "ConnectionString.user.config", "ConnectionString.config" };
+            return filenames.Select(x => $@"{basePath}\{x}").FirstOrDefault(x => File.Exists(x));
         }
 
-        internal static string GetAdomdTabular()
-        {
-            return Get("AdomdTabular");
-        }
-
-
-        internal static string GetLocalSqlClient()
-        {
-            return Get("LocalSqlClient");
-        }
-        internal static string GetReportServerDatabase()
-        {
-            return Get("ReportServerDatabase");
-        }
-
-        internal static string GetIntegrationServer()
-        {
-            return Get("IntegrationServer");
-        }
-
-        internal static string GetIntegrationServerTargetDatabase()
-        {
-            return Get("IntegrationServerTargetDatabase");
-        }
-
+        public static string GetOleDbCube() => Get("OleDbCube");
+        public static string GetOleDbSql() => Get("OleDbSql");
+        public static string GetOdbcSql()  => Get("OdbcSql");
+        public static string GetLocalOleDbSql() => Get("LocalOleDbSql");
+        public static string GetLocalOdbcSql()  => Get("LocalOdbcSql");
+        public static string GetAdomd() => Get("Adomd");
+        public static string GetSqlClient() => Get("SqlClient");
+        public static string GetAdomdTabular() => Get("AdomdTabular");
+        public static string GetLocalSqlClient() => Get("LocalSqlClient");
+        public static string GetReportServerDatabase() => Get("ReportServerDatabase");
+        public static string GetIntegrationServer() => Get("IntegrationServer");
+        public static string GetIntegrationServerTargetDatabase() => Get("IntegrationServerTargetDatabase");
     }
 }
