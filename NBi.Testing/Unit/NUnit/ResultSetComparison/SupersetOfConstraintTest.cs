@@ -1,15 +1,10 @@
-﻿using System.Data;
-using System.Data.SqlClient;
-using Moq;
+﻿using Moq;
 using NBi.Core.ResultSet;
-using NBi.NUnit.Query;
 using NUnit.Framework;
-using NBi.Core;
-using NBi.NUnit.ResultSetComparison;
-using NBi.Core.ResultSet.Resolver;
 using NBi.Core.ResultSet.Equivalence;
 using NBi.Extensibility;
 using NBi.Extensibility.Resolving;
+using NBi.NUnit.ResultSetBased.Comparison;
 
 namespace NBi.Testing.Unit.NUnit.ResultSetComparison
 {

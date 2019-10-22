@@ -5,6 +5,7 @@ using NBi.Xml.Systems;
 using NBi.NUnit.ResultSetComparison;
 using NBi.Core.ResultSet.Equivalence;
 using NBi.Extensibility.Resolving;
+using NBi.NUnit.ResultSetBased.Comparison;
 
 namespace NBi.NUnit.Builder
 {

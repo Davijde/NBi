@@ -17,6 +17,7 @@ using NBi.Core.ResultSet.Equivalence;
 using System.Data.SqlClient;
 using NBi.Core.Injection;
 using NBi.Extensibility.Resolving;
+using NBi.NUnit.ResultSetBased.Comparison;
 #endregion
 
 namespace NBi.Testing.Unit.NUnit.Builder

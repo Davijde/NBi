@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NBi.NUnit.ResultSetComparison
+namespace NBi.NUnit.ResultSetBased.Comparison
 {
     internal class ResultSetComparisonConstraintResult : ConstraintResult
     {
@@ -33,25 +33,20 @@ namespace NBi.NUnit.ResultSetComparison
             return msg;
         }
 
-        public override void WriteActualValueTo(MessageWriter writer)
-        {
-            if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
-                return;
-
-            writer.WriteLine();
-            writer.WriteLine(Failure.RenderActual());
-        }
-
         public override void WriteMessageTo(MessageWriter writer)
         {
             if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
                 writer.Write(Failure.RenderMessage());
             else
             {
-                writer.WriteLine("Execution of the query doesn't match the expected result");
+                writer.WriteLine("Execution of the query doesn't match the expected result ");
                 writer.WriteLine();
+                writer.WriteLine("  Expected: ");
+                writer.WriteLine(Failure.RenderExpected());
                 writer.WriteLine();
-                base.WriteMessageTo(writer);
+                writer.WriteLine("  But was:  ");
+                writer.WriteLine(Failure.RenderActual());
+                writer.WriteLine();
                 writer.WriteLine();
                 writer.WriteLine(Failure.RenderAnalysis());
             }

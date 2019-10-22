@@ -2,17 +2,14 @@
 using System.Data.SqlClient;
 using Moq;
 using NBi.Core.ResultSet;
-using NBi.NUnit.Query;
 using NUnit.Framework;
-using NBi.Core;
-using NBi.NUnit.ResultSetComparison;
-using NBi.Core.ResultSet.Resolver;
 using NBi.Core.ResultSet.Equivalence;
+using NBi.NUnit.ResultSetBased.Comparison;
 
-namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased
+namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased.Comparison
 {
     [TestFixture]
-    public class IntersectionOfConstraintTest
+    public class SupersetOfConstraintTest
     {
         [Test]
         public void Matches_AnyServices_EachCalledOnce()
@@ -30,11 +27,11 @@ namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased
             Mock.Get(equivaler).Setup(engine => engine.Compare(It.IsAny<ResultSet>(), It.IsAny<ResultSet>()))
                 .Returns(new ResultResultSet() { Difference = ResultSetDifferenceType.None });
 
-            var intersectionOfConstraint = new IntersectionOfConstraint(expected);
-            intersectionOfConstraint = intersectionOfConstraint.Using(equivaler);
+            var supersetOfConstraint = new SupersetOfConstraint(expected);
+            supersetOfConstraint = supersetOfConstraint.Using(equivaler);
 
             //Method under test
-            intersectionOfConstraint.ApplyTo(actual);
+            supersetOfConstraint.ApplyTo(actual);
 
             //Test conclusion            
             Mock.Get(equivaler).Verify(engine => engine.Compare(rs, rs), Times.Once());
@@ -61,11 +58,11 @@ namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased
             Mock.Get(equivaler).Setup(engine => engine.Compare(actualRs, expectedRs))
                 .Returns(new ResultResultSet() { Difference = ResultSetDifferenceType.Content });
 
-            var intersectionOfConstraint = new IntersectionOfConstraint(expected);
-            intersectionOfConstraint = intersectionOfConstraint.Using(equivaler);
+            var supersetOfConstraint = new SupersetOfConstraint(expected);
+            supersetOfConstraint = supersetOfConstraint.Using(equivaler);
 
             //Method under test
-            intersectionOfConstraint.ApplyTo(actual);
+            supersetOfConstraint.ApplyTo(actual);
 
             //Test conclusion            
             Mock.Get(equivaler).Verify(engine => engine.Compare(actualRs, expectedRs), Times.Once());
@@ -87,11 +84,11 @@ namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased
             Mock.Get(equivaler).Setup(engine => engine.Compare(rs, rs))
                 .Returns(new ResultResultSet() { Difference = ResultSetDifferenceType.None });
 
-            var intersectionOfConstraint = new IntersectionOfConstraint(expected);
-            intersectionOfConstraint = intersectionOfConstraint.Using(equivaler);
+            var supersetOfConstraint = new SupersetOfConstraint(expected);
+            supersetOfConstraint = supersetOfConstraint.Using(equivaler);
 
             //Method under test
-            var result = intersectionOfConstraint.ApplyTo(actual);
+            var result = supersetOfConstraint.ApplyTo(actual);
 
             //Test conclusion            
             Assert.That(result, Is.TypeOf<ResultSetComparisonConstraintResult>());
@@ -117,11 +114,11 @@ namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased
             Mock.Get(equivaler).Setup(engine => engine.Compare(actualRs, expectedRs))
                 .Returns(new ResultResultSet() { Difference = ResultSetDifferenceType.Content });
 
-            var intersectionOfConstraint = new IntersectionOfConstraint(expected);
-            intersectionOfConstraint = intersectionOfConstraint.Using(equivaler);
+            var supersetOfConstraint = new SupersetOfConstraint(expected);
+            supersetOfConstraint = supersetOfConstraint.Using(equivaler);
 
             //Method under test
-            var result = intersectionOfConstraint.ApplyTo(actual);
+            var result = supersetOfConstraint.ApplyTo(actual);
 
             //Test conclusion            
             Assert.That(result, Is.TypeOf<ResultSetComparisonConstraintResult>());

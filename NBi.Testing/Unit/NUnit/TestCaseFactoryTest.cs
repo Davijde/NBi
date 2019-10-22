@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using NBi.Core.Variable;
 using NBi.Core.Injection;
 using NBi.NUnit.Scoring;
+using NBi.NUnit.ResultSetBased.Comparison;
 
 namespace NBi.Testing.Unit.NUnit
 {

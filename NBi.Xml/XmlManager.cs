@@ -45,7 +45,7 @@ namespace NBi.Xml
         public virtual void Load(string testSuiteFilename, string settingsFilename, bool isDtdProcessing)
         {
             //define the basePath
-            basePath = Path.GetDirectoryName(testSuiteFilename) + Path.DirectorySeparatorChar;
+            basePath = $"{Path.GetDirectoryName(testSuiteFilename)}{Path.DirectorySeparatorChar}";
 
             //ensure the file is existing
             if (!File.Exists(testSuiteFilename))

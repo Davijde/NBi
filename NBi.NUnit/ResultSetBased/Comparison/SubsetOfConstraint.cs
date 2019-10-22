@@ -7,7 +7,7 @@ using NBi.Core.ResultSet;
 using NBi.Extensibility.Resolving;
 using NBi.Core.ResultSet.Equivalence;
 
-namespace NBi.NUnit.ResultSetComparison
+namespace NBi.NUnit.ResultSetBased.Comparison
 {
     public class SubsetOfConstraint : BaseResultSetComparisonConstraint
     {

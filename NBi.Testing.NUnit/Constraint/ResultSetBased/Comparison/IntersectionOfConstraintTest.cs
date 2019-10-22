@@ -8,11 +8,12 @@ using NBi.Core;
 using NBi.NUnit.ResultSetComparison;
 using NBi.Core.ResultSet.Resolver;
 using NBi.Core.ResultSet.Equivalence;
+using NBi.NUnit.ResultSetBased.Comparison;
 
-namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased
+namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased.Comparison
 {
     [TestFixture]
-    public class SubsetOfConstraintTest
+    public class IntersectionOfConstraintTest
     {
         [Test]
         public void Matches_AnyServices_EachCalledOnce()
@@ -30,11 +31,11 @@ namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased
             Mock.Get(equivaler).Setup(engine => engine.Compare(It.IsAny<ResultSet>(), It.IsAny<ResultSet>()))
                 .Returns(new ResultResultSet() { Difference = ResultSetDifferenceType.None });
 
-            var subsetOfConstraint = new SubsetOfConstraint(expected);
-            subsetOfConstraint = subsetOfConstraint.Using(equivaler);
+            var intersectionOfConstraint = new IntersectionOfConstraint(expected);
+            intersectionOfConstraint = intersectionOfConstraint.Using(equivaler);
 
             //Method under test
-            subsetOfConstraint.ApplyTo(actual);
+            intersectionOfConstraint.ApplyTo(actual);
 
             //Test conclusion            
             Mock.Get(equivaler).Verify(engine => engine.Compare(rs, rs), Times.Once());
@@ -61,11 +62,11 @@ namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased
             Mock.Get(equivaler).Setup(engine => engine.Compare(actualRs, expectedRs))
                 .Returns(new ResultResultSet() { Difference = ResultSetDifferenceType.Content });
 
-            var subsetOfConstraint = new SubsetOfConstraint(expected);
-            subsetOfConstraint = subsetOfConstraint.Using(equivaler);
+            var intersectionOfConstraint = new IntersectionOfConstraint(expected);
+            intersectionOfConstraint = intersectionOfConstraint.Using(equivaler);
 
             //Method under test
-            subsetOfConstraint.ApplyTo(actual);
+            intersectionOfConstraint.ApplyTo(actual);
 
             //Test conclusion            
             Mock.Get(equivaler).Verify(engine => engine.Compare(actualRs, expectedRs), Times.Once());
@@ -87,11 +88,11 @@ namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased
             Mock.Get(equivaler).Setup(engine => engine.Compare(rs, rs))
                 .Returns(new ResultResultSet() { Difference = ResultSetDifferenceType.None });
 
-            var subsetOfConstraint = new SubsetOfConstraint(expected);
-            subsetOfConstraint = subsetOfConstraint.Using(equivaler);
+            var intersectionOfConstraint = new IntersectionOfConstraint(expected);
+            intersectionOfConstraint = intersectionOfConstraint.Using(equivaler);
 
             //Method under test
-            var result = subsetOfConstraint.ApplyTo(actual);
+            var result = intersectionOfConstraint.ApplyTo(actual);
 
             //Test conclusion            
             Assert.That(result, Is.TypeOf<ResultSetComparisonConstraintResult>());
@@ -117,11 +118,11 @@ namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased
             Mock.Get(equivaler).Setup(engine => engine.Compare(actualRs, expectedRs))
                 .Returns(new ResultResultSet() { Difference = ResultSetDifferenceType.Content });
 
-            var subsetOfConstraint = new SubsetOfConstraint(expected);
-            subsetOfConstraint = subsetOfConstraint.Using(equivaler);
+            var intersectionOfConstraint = new IntersectionOfConstraint(expected);
+            intersectionOfConstraint = intersectionOfConstraint.Using(equivaler);
 
             //Method under test
-            var result = subsetOfConstraint.ApplyTo(actual);
+            var result = intersectionOfConstraint.ApplyTo(actual);
 
             //Test conclusion            
             Assert.That(result, Is.TypeOf<ResultSetComparisonConstraintResult>());

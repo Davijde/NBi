@@ -9,7 +9,7 @@ using NBi.Extensibility.Resolving;
 using NBi.Core.ResultSet.Equivalence;
 using NUnit.Framework.Constraints;
 
-namespace NBi.NUnit.ResultSetComparison
+namespace NBi.NUnit.ResultSetBased.Comparison
 {
     class SupersetOfConstraint : BaseResultSetComparisonConstraint
     {

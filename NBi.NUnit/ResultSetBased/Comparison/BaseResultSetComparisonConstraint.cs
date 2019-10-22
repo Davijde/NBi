@@ -14,7 +14,7 @@ using NBi.Extensibility.Resolving;
 using NUnit.Framework.Constraints;
 using NBi.NUnit.ResultSetComparison.Parallelization;
 
-namespace NBi.NUnit.ResultSetComparison
+namespace NBi.NUnit.ResultSetBased.Comparison
 {
     public abstract class BaseResultSetComparisonConstraint : NBiConstraint
     {

@@ -27,19 +27,12 @@ namespace NBi.Testing.Acceptance
 
         internal class TestSuiteProviderOverrider : TestSuiteProvider
         {
-            private readonly string filename;
+            protected string Filename { get; }
             public TestSuiteProviderOverrider(string filename)
-            {
-                this.filename = filename;
-            }
+                => Filename = filename;
 
             public override string GetFilename(string path)
-            {
-                if (string.IsNullOrEmpty(path))
-                    return @"Acceptance\Resources\" + filename;
-                else
-                    return @"Acceptance\Resources\" + path;
-            }
+                => Filename;
         }
 
         internal class ConfigurationProviderOverrider : ConfigurationProvider

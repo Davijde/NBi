@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using NBi.Core.ResultSet.Resolver;
+﻿using System.Collections.Generic;
 using NBi.NUnit.Member;
 using NBi.NUnit.Query;
-using NBi.NUnit.ResultSetComparison;
-using NBi.NUnit.Structure;
 using NF = NUnit.Framework;
 using NBi.Core.ResultSet;
 using NBi.Extensibility.Resolving;
+using NBi.NUnit.ResultSetBased.Comparison;
 
 namespace NBi.NUnit.FluentInterface
 {

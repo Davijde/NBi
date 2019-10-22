@@ -35,8 +35,11 @@ namespace NBi.Testing.Acceptance
 
         public virtual void RunPositiveTestSuite(string filename)
         {
+            var basePath = Path.GetDirectoryName(GetType().Assembly.Location);
+            var fullPath = $@"{basePath}\Acceptance\Resources\Positive\{filename}";
+
             var ignoredTests = new List<string>();
-            var testSuite = new TestSuiteOverrider(@"Positive\" + filename);
+            var testSuite = new TestSuiteOverrider(fullPath);
 
             //First retrieve the NUnit TestCases with base class (NBi.NUnit.Runtime)
             //These NUnit TestCases are defined in the Test Suite file
@@ -78,7 +81,10 @@ namespace NBi.Testing.Acceptance
 
         public virtual void RunNegativeTestSuite(string filename)
         {
-            var testSuite = new TestSuiteOverrider(@"Negative\" + filename);
+            var basePath = Path.GetDirectoryName(GetType().Assembly.Location);
+            var fullPath = $@"{basePath}\Acceptance\Resources\Negative\{filename}";
+
+            var testSuite = new TestSuiteOverrider(fullPath);
             //These NUnit TestCases are defined in the Test Suite file
             var tests = testSuite.GetTestCases();
 
@@ -91,18 +97,13 @@ namespace NBi.Testing.Acceptance
                 try
                 {
                     testSuite.ExecuteTestCases(testXml, testName, localVariables);
-                    Assert.Fail("The test named '{0}' (uid={1}) and defined in '{2}' should have failed but it hasn't."
-                        , testXml.Name
-                        , testXml.UniqueIdentifier
-                        , filename);
+                    Assert.Fail($"The test named '{testXml.Name}' (uid={testXml.UniqueIdentifier}) and defined in '{filename}' should have failed but it hasn't.");
                 }
                 catch (CustomStackTraceAssertionException ex)
                 {
+                    var resourceUri = $"NBi.Testing.Acceptance.Resources.Negative.{filename.Replace(".nbits", string.Empty)}-{testXml.UniqueIdentifier}.txt";
                     using (Stream stream = Assembly.GetCallingAssembly()
-                                           .GetManifestResourceStream(
-                                                "NBi.Testing.Acceptance.Resources.Negative."
-                                                + filename.Replace(".nbits", string.Empty)
-                                                + "-" + testXml.UniqueIdentifier + ".txt"))
+                                           .GetManifestResourceStream(resourceUri))
                     {
                         using (StreamReader reader = new StreamReader(stream))
                         {
@@ -112,6 +113,7 @@ namespace NBi.Testing.Acceptance
                         Assert.That(ex.StackTrace, Is.Not.Null.Or.Empty);
                         Assert.That(ex.StackTrace, Is.EqualTo(testXml.Content));
                     }
+                    Assert.Pass();
                 }
             }
         }

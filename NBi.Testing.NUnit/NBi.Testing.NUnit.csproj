@@ -65,10 +65,10 @@
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ConnectionStringReader.cs" />
-    <Compile Include="Constraint\ResultSetBased\EqualToConstraintTest.cs" />
-    <Compile Include="Constraint\ResultSetBased\SubsetOfConstraintTes.cs" />
-    <Compile Include="Constraint\ResultSetBased\IntersectionOfConstraintTest.cs" />
-    <Compile Include="Constraint\ResultSetBased\SupersetOfConstraintTest.cs" />
+    <Compile Include="Constraint\ResultSetBased\Comparison\EqualToConstraintTest.cs" />
+    <Compile Include="Constraint\ResultSetBased\Comparison\SubsetOfConstraintTes.cs" />
+    <Compile Include="Constraint\ResultSetBased\Comparison\IntersectionOfConstraintTest.cs" />
+    <Compile Include="Constraint\ResultSetBased\Comparison\SupersetOfConstraintTest.cs" />
     <Compile Include="FileOnDisk.cs" />
     <Compile Include="Properties\ProjectAssemblyInfo.cs" />
   </ItemGroup>

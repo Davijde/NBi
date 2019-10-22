@@ -12,6 +12,7 @@ using NBi.NUnit.Builder.Helper;
 using NBi.Xml.Settings;
 using NBi.Core.Variable;
 using NBi.Extensibility.Resolving;
+using NBi.NUnit.ResultSetBased.Comparison;
 
 namespace NBi.NUnit.Builder
 {
