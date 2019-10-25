@@ -10,12 +10,12 @@ using NBi.Framework;
 using NBi.Core.Configuration.FailureReport;
 using NBi.Core.ResultSet.Filtering;
 
-namespace NBi.NUnit.Query
+namespace NBi.NUnit.ResultSetBased.RowPredicate
 {
     public class SingleRowConstraint : NoRowsConstraint
     {
         public SingleRowConstraint(IResultSetFilter filter)
-            : base(filter)
+            : base(new NUnitCtr.EqualConstraint(1), filter)
         { }
 
         protected override bool doMatch(int actual)

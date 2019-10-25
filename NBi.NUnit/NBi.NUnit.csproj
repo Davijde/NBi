@@ -125,9 +125,11 @@
     <Compile Include="DataType\DescriptionDataTypeHelper.cs" />
     <Compile Include="DataType\IsConstraint.cs" />
     <Compile Include="DifferedConstraint.cs" />
-    <Compile Include="Query\RowCountConstraint.cs" />
-    <Compile Include="Query\SingleRowConstraint.cs" />
-    <Compile Include="Query\SomeRowsConstraint.cs" />
+    <Compile Include="ResultSetBased\RowPredicate\RowCountConstraint.cs" />
+    <Compile Include="ResultSetBased\RowPredicate\RowCountConstraintResult.cs" />
+    <Compile Include="ResultSetBased\RowPredicate\RowCountFilterConstraintResult.cs" />
+    <Compile Include="ResultSetBased\RowPredicate\SingleRowConstraint.cs" />
+    <Compile Include="ResultSetBased\RowPredicate\SomeRowsConstraint.cs" />
     <Compile Include="ResultSetBased\Comparison\BaseResultSetComparisonConstraint.cs" />
     <Compile Include="ResultSetBased\LookupMatchesConstraint.cs" />
     <Compile Include="ResultSetBased\LookupReverseExistsConstraint.cs" />
@@ -140,9 +142,9 @@
     <Compile Include="ResultSetBased\Comparison\ResultSetComparisonConstraintResult.cs" />
     <Compile Include="ResultSetBased\UniqueRowsConstraint.cs" />
     <Compile Include="ResultSetBased\Comparison\SubsetOfConstraint.cs" />
-    <Compile Include="Query\NoRowsConstraint.cs" />
-    <Compile Include="Query\AllRowsConstraint.cs" />
-    <Compile Include="Query\RowCountFilterConstraint.cs" />
+    <Compile Include="ResultSetBased\RowPredicate\NoRowsConstraint.cs" />
+    <Compile Include="ResultSetBased\RowPredicate\AllRowsConstraint.cs" />
+    <Compile Include="ResultSetBased\RowPredicate\RowCountFilterConstraint.cs" />
     <Compile Include="Query\RowCountFilterPercentageConstraint.cs" />
     <Compile Include="Execution\FasterThanConstraint.cs" />
     <Compile Include="Execution\SuccessfulConstraint.cs" />
