@@ -184,6 +184,21 @@ namespace NBi.Testing.GenbiL.Parser
         }
 
         [Test]
+        public void SentenceParser_CaseFilterEmptyBetweenQuotes_ValidFilterAction()
+        {
+            var input = "case filter on column 'perspective' values equal '(empty)';";
+            var result = Case.Parser.Parse(input);
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result, Is.InstanceOf<FilterCaseAction>());
+            Assert.That(((FilterCaseAction)result).Values, Has.Member("(empty)"));
+            Assert.That(((FilterCaseAction)result).Values.Count(), Is.EqualTo(1));
+            Assert.That(((FilterCaseAction)result).Negation, Is.EqualTo(false));
+            Assert.That(((FilterCaseAction)result).Operator, Is.EqualTo(OperatorType.Equal));
+            Assert.That(((FilterCaseAction)result).Column, Is.EqualTo("perspective"));
+        }
+
+        [Test]
         public void SentenceParser_CaseFilterMixedQuotedAndNot_ValidFilterAction()
         {
             var input = "case filter on column 'perspective' values equal empty, 'alpha', none;";
