@@ -2,6 +2,7 @@
 using NBi.Core.Configuration.FailureReport;
 using NBi.Core.ResultSet;
 using NBi.Core.ResultSet.Equivalence;
+using NBi.Extensibility;
 using NBi.Framework.FailureMessage;
 using NUnit.Framework.Constraints;
 using System;
@@ -18,18 +19,18 @@ namespace NBi.NUnit.ResultSetBased.Comparison
         protected IConfiguration Configuration { get; }
         protected IDataRowsMessageFormatter Failure { get; }
 
-        public ResultSetComparisonConstraintResult(BaseResultSetComparisonConstraint constraint, ResultSet actual, ResultSet expected, ResultResultSet result)
+        public ResultSetComparisonConstraintResult(BaseResultSetComparisonConstraint constraint, IResultSet actual, IResultSet expected, ResultResultSet result)
             : base(constraint, actual, result.Difference == ResultSetDifferenceType.None)
         { 
             Configuration = constraint.Configuration;
             Failure = BuildFailure(actual, expected, result, constraint.Engine, constraint.Configuration);
         }
 
-        protected virtual IDataRowsMessageFormatter BuildFailure(ResultSet actual, ResultSet expected, ResultResultSet result, IEquivaler engine, IConfiguration configuration)
+        protected virtual IDataRowsMessageFormatter BuildFailure(IResultSet actual, IResultSet expected, ResultResultSet result, IEquivaler engine, IConfiguration configuration)
         {
             var factory = new DataRowsMessageFormatterFactory();
             var msg = factory.Instantiate(configuration.FailureReportProfile, engine.Style);
-            msg.BuildComparaison(expected.Rows.Cast<DataRow>(), actual.Rows.Cast<DataRow>(), result);
+            msg.BuildComparaison(expected.Rows, actual.Rows, result);
             return msg;
         }
 

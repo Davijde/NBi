@@ -64,8 +64,8 @@ namespace NBi.Testing.Integration.Core.Report
 
             Assert.That(query.Text, 
                 Does.Contain("SELECT").And
-                .StringContaining("[CurrencyAlternateKey]").And
-                .StringContaining("[DimCurrency]"));
+                .Contain("[CurrencyAlternateKey]").And
+                .Contain("[DimCurrency]"));
             Assert.That(query.CommandType, Is.EqualTo(CommandType.Text));
         }
 
@@ -96,7 +96,7 @@ namespace NBi.Testing.Integration.Core.Report
 
             var parser = new DatabaseReportingParser();
             var ex = Assert.Throws<ArgumentException>(() => parser.ExtractCommand(request));
-            Assert.That(ex.Message, Does.Contain("DataSet1").And.StringContaining("DataSet2"));
+            Assert.That(ex.Message, Does.Contain("DataSet1").And.Contain("DataSet2"));
         }
 
         [Test]
@@ -145,7 +145,7 @@ namespace NBi.Testing.Integration.Core.Report
 
             var parser = new DatabaseReportingParser();
             var ex = Assert.Throws<ArgumentException>(() => parser.ExtractCommand(request));
-            Assert.That(ex.Message, Does.Contain("Quota").And.StringContaining("EmpSalesMonth"));
+            Assert.That(ex.Message, Does.Contain("Quota").And.Contain("EmpSalesMonth"));
         }
 
         [Test]

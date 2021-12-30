@@ -15,6 +15,7 @@ using NUnitCtr = NUnit.Framework.Constraints;
 using NBi.Xml.Constraints.Comparer;
 using NBi.Core.Calculation;
 using NBi.Core.Evaluate;
+using NBi.NUnit.ResultSetBased.RowPredicate;
 
 namespace NBi.NUnit.Builder
 {

@@ -14,8 +14,8 @@ namespace NBi.NUnit.Builder
         {
             if (sut.BaseItem is IExecutableArgs)
                 Target.Builder = new ExecutionNonQueryFasterThanBuilder();
-            else
-                Target.Builder = new ExecutionFasterThanBuilder();
+            //else
+            //    Target.Builder = new ExecutionFasterThanBuilder();
         }
     }
 }

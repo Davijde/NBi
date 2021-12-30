@@ -13,7 +13,7 @@ using NBi.Core.Variable;
 using NBi.Xml.Settings;
 using NBi.Core.ResultSet.Filtering;
 using NBi.Extensibility.Resolving;
-
+using NBi.NUnit.ResultSetBased.RowPredicate;
 
 namespace NBi.NUnit.Builder
 {
@@ -85,12 +85,12 @@ namespace NBi.NUnit.Builder
                                 );
                 }
                 if ((value is string & (value as string).EndsWith("%")))
-                    ctr = new RowCountFilterPercentageConstraint(childConstraint, filter);
+                    ctr = null; // new RowCountFilterPercentageConstraint(childConstraint, filter);
                 else
-                    ctr = new RowCountFilterConstraint(childConstraint, filter);
+                    ctr = null; // new RowCountFilterConstraint(childConstraint, filter);
             }
             else
-                ctr = new RowCountConstraint(childConstraint);
+                ctr = null; //new RowCountConstraint(childConstraint);
 
             return ctr;
         }

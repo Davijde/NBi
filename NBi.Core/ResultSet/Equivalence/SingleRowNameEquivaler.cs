@@ -10,13 +10,13 @@ namespace NBi.Core.ResultSet.Equivalence
 {
     internal class SingleRowNameEquivaler : NameEquivaler
     {
-        private new SettingsSingleRowNameResultSet  Settings
+        private new SettingsSingleRowNameResultSet Settings
         {
             get { return base.Settings as SettingsSingleRowNameResultSet; }
         }
         
         public SingleRowNameEquivaler(SettingsSingleRowNameResultSet settings)
-            : base(AnalyzersFactory.EqualTo(), settings)
+            : base(settings)
         {}
 
         public override ResultResultSet Compare(IResultSet x, IResultSet y)

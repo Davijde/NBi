@@ -26,22 +26,22 @@ namespace NBi.NUnit.ResultSetComparison
         public new LookupReverseExistsConstraint Using(ColumnMappingCollection mappings)
             => base.Using(mappings) as LookupReverseExistsConstraint;
 
-        public override bool ProcessParallel(IResultSetResolver actual)
-        {
-            Trace.WriteLineIf(Extensibility.NBiTraceSwitch.TraceVerbose, string.Format("Queries exectued in parallel."));
+        //public override bool ProcessParallel(IResultSetResolver actual)
+        //{
+        //    Trace.WriteLineIf(Extensibility.NBiTraceSwitch.TraceVerbose, string.Format("Queries exectued in parallel."));
 
-            Parallel.Invoke(
-                () => { rsReference = actual.Execute(); },
-                () => { rsCandidate = referenceResolver.Execute(); }
-            );
+        //    Parallel.Invoke(
+        //        () => { rsReference = actual.Execute(); },
+        //        () => { rsCandidate = referenceResolver.Execute(); }
+        //    );
 
         //    return Matches(rsReference);
         //}
 
-        protected override bool doMatch(IResultSet actual)
-        {
-            violations = Engine.Execute(rsCandidate, actual);
-            var output = violations.Count() == 0;
+        //protected override bool doMatch(IResultSet actual)
+        //{
+        //    violations = Engine.Execute(rsCandidate, actual);
+        //    var output = violations.Count() == 0;
 
         //    if (output && Configuration?.FailureReportProfile.Mode == FailureReportMode.Always)
         //        Assert.Pass(Failure.RenderMessage());

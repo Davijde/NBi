@@ -19,7 +19,7 @@ namespace NBi.Testing.Acceptance
         {
         }
 
-        public TestSuiteOverrider(string filename, string configFilename) 
+        public TestSuiteOverrider(string filename, string configFilename)
             : base(new TestSuiteProviderOverrider(filename)
                   , new ConfigurationProviderOverrider(configFilename)
                   , new ConnectionStringsFinderOverrider(configFilename))
@@ -75,7 +75,7 @@ namespace NBi.Testing.Acceptance
         }
 
         [Ignore("")]
-        public override void ExecuteTestCases(TestXml test, string testName, IDictionary<string, ITestVariable> localVariables)
+        public override void ExecuteTestCases(TestXml test, string testName, IDictionary<string, IVariable> localVariables)
         {
             base.ExecuteTestCases(test, testName, localVariables);
         }

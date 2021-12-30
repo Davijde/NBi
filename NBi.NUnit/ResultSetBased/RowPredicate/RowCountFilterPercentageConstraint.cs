@@ -8,20 +8,20 @@ using NBi.Core.Calculation;
 using NBi.Core.ResultSet.Filtering;
 using System.Linq;
 
-namespace NBi.NUnit.Query
+namespace NBi.NUnit.ResultSetBased.RowPredicate
 {
-    public class RowCountFilterPercentageConstraint : RowCountFilterConstraint
-    {
-        public RowCountFilterPercentageConstraint(DifferedConstraint differed, IResultSetFilter filter)
-            : base(differed, filter)
-        { }
+    //public class RowCountFilterPercentageConstraint : RowCountFilterConstraint
+    //{
+        //public RowCountFilterPercentageConstraint(DifferedConstraint differed, IResultSetFilter filter)
+        //    : base(differed, filter)
+        //{ }
 
-        protected override bool doMatch(int actual)
-        {
-            this.actual = Convert.ToDecimal(actual) / actualResultSet.Rows.Count() * 100;
-            ctr = differed.Resolve();
-            return ctr.Matches(this.actual);
-        }
+        //protected override bool doMatch(int actual)
+        //{
+        //    this.actual = Convert.ToDecimal(actual) / actualResultSet.Rows.Count() * 100;
+        //    ctr = differed.Resolve();
+        //    return ctr.Matches(this.actual);
+        //}
        
         //public override void WriteDescriptionTo(NUnitCtr.MessageWriter writer)
         //{
@@ -46,5 +46,5 @@ namespace NBi.NUnit.Query
         //    return sb.ToString();
         //}
 
-    }
+    //}
 }

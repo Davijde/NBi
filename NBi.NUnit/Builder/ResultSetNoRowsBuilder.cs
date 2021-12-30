@@ -12,6 +12,7 @@ using NBi.Core.Calculation.Predicate;
 using NBi.Core.ResultSet;
 using NBi.Core.Variable;
 using NBi.Core.ResultSet.Filtering;
+using NBi.NUnit.ResultSetBased.RowPredicate;
 
 namespace NBi.NUnit.Builder
 {

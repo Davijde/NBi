@@ -1,5 +1,6 @@
 ﻿using NBi.Core.Configuration;
 using NBi.Core.ResultSet;
+using NBi.Extensibility;
 using NBi.Framework.FailureMessage;
 using NUnit.Framework.Constraints;
 using System.Data;
@@ -15,7 +16,7 @@ namespace NBi.NUnit.ResultSetBased.RowPredicate
         protected IDataRowsMessageFormatter Failure { get; }
         protected ConstraintResult ChildResult { get; }
 
-        public RowCountConstraintResult(RowCountConstraint constraint, ResultSet actual, ConstraintResult childResult)
+        public RowCountConstraintResult(RowCountConstraint constraint, IResultSet actual, ConstraintResult childResult)
             : base(constraint, actual, childResult.Status)
         {
             Configuration = constraint.Configuration;
@@ -23,11 +24,11 @@ namespace NBi.NUnit.ResultSetBased.RowPredicate
             Failure = BuildFailure(actual, constraint.Configuration);
         }
 
-        protected virtual IDataRowsMessageFormatter BuildFailure(ResultSet actual, IConfiguration configuration)
+        protected virtual IDataRowsMessageFormatter BuildFailure(IResultSet actual, IConfiguration configuration)
         {
             var factory = new DataRowsMessageFormatterFactory();
             var msg = factory.Instantiate(configuration.FailureReportProfile, EngineStyle.ByIndex);
-            msg.BuildCount(actual.Rows.Cast<DataRow>());
+            msg.BuildCount(actual.Rows);
             return msg;
         }
 

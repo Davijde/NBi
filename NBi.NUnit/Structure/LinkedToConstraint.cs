@@ -19,7 +19,7 @@ namespace NBi.NUnit.Structure
         public LinkedToConstraint(string expected)
             : base()
         {
-            InternalConstraint = new CollectionContainsConstraint(expected);
+            InternalConstraint = new SomeItemsConstraint(new EqualConstraint(expected));
             this.Expected = expected;
         }
 

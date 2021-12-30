@@ -36,7 +36,7 @@ namespace NBi.Framework.FailureMessage.Markdown
             analysis = BuildNonEmptyTable(style, compareResult.Unexpected, "Unexpected", samplers["analysis"]);
             analysis.Append(BuildNonEmptyTable(style, compareResult.Missing ?? new List<IResultRow>(), "Missing", samplers["analysis"]));
             analysis.Append(BuildNonEmptyTable(style, compareResult.Duplicated ?? new List<IResultRow>(), "Duplicated", samplers["analysis"]));
-            analysis.Append(BuildCompareTable(style, compareResult.NonMatchingValue.Rows ?? new List<IResultRow>(), "Non matching value", samplers["analysis"]));
+            analysis.Append(BuildCompareTable(style, compareResult?.NonMatchingValue?.Rows ?? new List<IResultRow>(), "Non matching value", samplers["analysis"]));
         }
 
         public void BuildDuplication(IEnumerable<IResultRow> actualRows, ResultUniqueRows result)

@@ -8,6 +8,8 @@ using NBi.Framework.FailureMessage;
 using NUnitCtr = NUnit.Framework.Constraints;
 using NBi.Framework;
 using NBi.Core.Configuration.FailureReport;
+using NBi.Core.ResultSet.Filtering;
+using NBi.Extensibility;
 
 namespace NBi.NUnit.ResultSetBased.RowPredicate
 {
@@ -16,7 +18,7 @@ namespace NBi.NUnit.ResultSetBased.RowPredicate
         public NoRowsConstraint(IResultSetFilter filter)
             : this(filter, filter.Apply) { }
 
-        protected NoRowsConstraint(IResultSetFilter filter, Func<ResultSet, ResultSet> filterFunction)
+        protected NoRowsConstraint(IResultSetFilter filter, Func<IResultSet, IResultSet> filterFunction)
             : base(new NUnitCtr.EqualConstraint(0), filter, filterFunction) { }
 
         protected NoRowsConstraint(NUnitCtr.Constraint childConstraint, IResultSetFilter filter)

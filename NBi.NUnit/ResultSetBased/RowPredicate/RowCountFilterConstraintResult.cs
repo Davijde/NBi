@@ -10,12 +10,13 @@ using NBi.Framework.FailureMessage.Markdown;
 using NBi.Framework;
 using NBi.Core.Configuration.FailureReport;
 using NUnit.Framework.Constraints;
+using NBi.Extensibility;
 
 namespace NBi.NUnit.ResultSetBased.RowPredicate
 {
     public class RowCountFilterConstraintResult : RowCountConstraintResult
     {
-        public RowCountFilterConstraintResult(RowCountConstraint constraint, ResultSet filtered, ConstraintResult childResult)
+        public RowCountFilterConstraintResult(RowCountConstraint constraint, IResultSet filtered, ConstraintResult childResult)
             : base(constraint, filtered, childResult) { }
 
         public override void WriteMessageTo(MessageWriter writer)

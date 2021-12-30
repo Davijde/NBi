@@ -77,7 +77,7 @@ namespace NBi.NUnit.Member
             NUnitCtr.Constraint ctr = null;
             foreach (var item in ExpectedItems)
             {
-                var localCtr = new NUnitCtr.CollectionContainsConstraint(StringComparerHelper.Build(item));
+                var localCtr = new SomeItemsConstraint(new EqualConstraint(StringComparerHelper.Build(item)));
                 var usingCtr = localCtr.Using(Comparer);
 
                 if (ctr != null)

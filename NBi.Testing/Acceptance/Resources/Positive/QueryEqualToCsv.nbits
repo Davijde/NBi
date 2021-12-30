@@ -1,26 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <testSuite name="Acceptance Testing: query equal-to Csv" xmlns="http://NBi/TestSuite">
-	<test name="'Reseller Order Count' by year before 2006 (csv)" uid="0002">
-		<system-under-test>
-			<result-set>
-				<row>
-					<cell>A</cell>
-					<cell>105</cell>
-				</row>
-				<row>
-					<cell>B</cell>
-					<cell />
-				</row>
-			</result-set>
-		</system-under-test>
-		<assert>
-			<equal-to>
-				<column index="0" role="key" type="text"/>
-				<column index="1" role="value" type="numeric"/>
-				<result-set file="..\Csv\NullValues.csv"/>
-			</equal-to>
-		</assert>
-	</test>
 	<test name="'Reseller Order Count' by year before 2006 (csv)" uid="0001">
 		<condition>
 			<service-running name="MSOLAP$SQL2017"/>
@@ -44,16 +23,17 @@
 			</equal-to>
 		</assert>
 	</test>
-	<test name="'Reseller Order Count' by year before 2006 (csv)" uid="0002">
+	<test name="Query equal to file" uid="0002">
 		<system-under-test>
 			<result-set>
-				<query name="SQL Query" connectionString="Data Source=(local)\SQL2017;Initial Catalog=AdventureWorks2017;User Id=sa;password=Password12!">
-					SELECT
-					'A', 105
-					UNION ALL
-					SELECT
-					'B', NULL
-				</query>
+				<row>
+					<cell>A</cell>
+					<cell>105</cell>
+				</row>
+				<row>
+					<cell>B</cell>
+					<cell />
+				</row>
 			</result-set>
 		</system-under-test>
 		<assert>
@@ -64,13 +44,13 @@
 			</equal-to>
 		</assert>
 	</test>
-	<test name="Query equal " uid="0003">
+	<test name="Query equal to file with alteration" uid="0003">
 		<system-under-test>
 			<result-set>
-				<query name="SQL Query" connectionString="Data Source=(local)\SQL2017;Initial Catalog=AdventureWorks2017;User Id=sa;password=Password12!">
-					SELECT
-					'A', 105
-				</query>
+				<row>
+					<cell>A</cell>
+					<cell>105</cell>
+				</row>
 			</result-set>
 		</system-under-test>
 		<assert>
@@ -95,12 +75,11 @@
 	<test name="Ignore column is effectively ignored" uid="0001">
 		<system-under-test>
 			<result-set>
-				<query connectionString="Data Source=(local)\SQL2017;Initial Catalog=AdventureWorks2017;User Id=sa;password=Password12!">
-					select
-					'Key',
-					'Wrong', /*Should be ignored*/
-					'Value'
-				</query>
+				<row>
+					<cell>Key</cell>
+					<cell>Ignored</cell>
+					<cell>Value</cell>
+				</row>
 			</result-set>
 		</system-under-test>
 		<assert>
@@ -111,7 +90,7 @@
 				<result-set>
 					<row>
 						<cell>Key</cell>
-						<cell>Ignore</cell>
+						<cell>Other Ignored value</cell>
 						<cell>Value</cell>
 					</row>
 				</result-set>

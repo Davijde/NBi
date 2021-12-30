@@ -20,12 +20,12 @@ namespace NBi.NUnit.FluentInterface
             return new SyntacticallyCorrectConstraint();
         }
 
-        public static FasterThanConstraint FasterThan(int maxTimeMilliSeconds)
-        {
-            var ctr = new FasterThanConstraint();
-            ctr.MaxTimeMilliSeconds(maxTimeMilliSeconds);
-            return ctr;
-        }
+        //public static FasterThanConstraint FasterThan(int maxTimeMilliSeconds)
+        //{
+        //    var ctr = new FasterThanConstraint();
+        //    ctr.MaxTimeMilliSeconds(maxTimeMilliSeconds);
+        //    return ctr;
+        //}
 
         public static EqualToConstraint EqualTo(IResultSetResolver resolver)
         {

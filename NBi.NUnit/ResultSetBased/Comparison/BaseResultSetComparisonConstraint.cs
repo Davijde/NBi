@@ -13,19 +13,21 @@ using NBi.Extensibility;
 using NBi.Extensibility.Resolving;
 using NUnit.Framework.Constraints;
 using NBi.NUnit.ResultSetComparison.Parallelization;
+using System.Collections.Generic;
 
 namespace NBi.NUnit.ResultSetBased.Comparison
 {
     public abstract class BaseResultSetComparisonConstraint : NBiConstraint
     {
-        protected IResultSetService Expected { get; }
-        protected IResultSetService Actual { get; }
-        public IEquivaler Engine { get; private set; } = new OrdinalEquivaler(AnalyzersFactory.EqualTo(), null);
+        protected IResultSetResolver Expected { get; }
+        protected IResultSetResolver Actual { get; }
+        protected IReadOnlyCollection<IRowsAnalyzer> Analyzers { get; }
+        public IEquivaler Engine { get; private set; } = new OrdinalEquivaler(null);
 
-        private bool parallelizeQueries = false;
+        private bool ParallelizeQueries = false;
 
-        public BaseResultSetComparisonConstraint(IResultSetService expected)
-            => (Expected) = (expected);
+        protected BaseResultSetComparisonConstraint(IResultSetResolver expected, IEnumerable<IRowsAnalyzer> analyzers)
+            => (Expected, Analyzers) = (expected, analyzers.ToList().AsReadOnly());
 
         public BaseResultSetComparisonConstraint Using(IEquivaler engine)
         {
@@ -41,13 +43,13 @@ namespace NBi.NUnit.ResultSetBased.Comparison
 
         public BaseResultSetComparisonConstraint WithParallelQueries()
         {
-            this.parallelizeQueries = true;
+            ParallelizeQueries = true;
             return this;
         }
 
         public BaseResultSetComparisonConstraint WithSequentialQueries()
         {
-            this.parallelizeQueries = false;
+            ParallelizeQueries = false;
             return this;
         }
 
@@ -55,23 +57,18 @@ namespace NBi.NUnit.ResultSetBased.Comparison
         {
             switch (actual)
             {
-                case IResultSetService x: return Matches(x);
+                case IResultSetResolver x: return Matches(x);
                 default: throw new ArgumentException();
             }
         }
 
-        protected ConstraintResult Matches(IResultSetService actual)
+        protected ConstraintResult Matches(IResultSetResolver actual)
         {
-            var resolvers = new MultipleResolverEngineFactory().Instantiate(actual, Expected, parallelizeQueries);
+            var resolvers = new MultipleResolverEngineFactory().Instantiate(actual, Expected, ParallelizeQueries);
             resolvers.Execute();
 
-            var result = Engine.Compare(resolvers.Actual, resolvers.Expected);
+            var result = Engine.Using(Analyzers).Compare(resolvers.Actual, resolvers.Expected);
             return new ResultSetComparisonConstraintResult(this, resolvers.Actual, resolvers.Expected, result);
-        }
-
-        internal bool IsParallelizeQueries()
-        {
-            return parallelizeQueries;
         }
     }
 }

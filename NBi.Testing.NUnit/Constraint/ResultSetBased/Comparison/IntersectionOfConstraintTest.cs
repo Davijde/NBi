@@ -9,8 +9,14 @@ using NBi.NUnit.ResultSetComparison;
 using NBi.Core.ResultSet.Resolver;
 using NBi.Core.ResultSet.Equivalence;
 using NBi.NUnit.ResultSetBased.Comparison;
+using NBi.Extensibility.Resolving;
+using NBi.Extensibility;
+using System.Collections.Generic;
+using NBi.Core.ResultSet.Analyzer;
+using System;
+using System.Linq;
 
-namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased.Comparison
+namespace NBi.Testing.NUnit.Constraint.ResultSetBased.Comparison
 {
     [TestFixture]
     public class IntersectionOfConstraintTest
@@ -18,17 +24,19 @@ namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased.Comparison
         [Test]
         public void Matches_AnyServices_EachCalledOnce()
         {
-            var rs = new ResultSet();
+            var rs = new DataTableResultSet();
             rs.Load("a;b;c");
 
-            var expected = Mock.Of<IResultSetService>();
+            var expected = Mock.Of<IResultSetResolver>();
             Mock.Get(expected).Setup(s => s.Execute()).Returns(rs);
 
-            var actual = Mock.Of<IResultSetService>();
+            var actual = Mock.Of<IResultSetResolver>();
             Mock.Get(actual).Setup(s => s.Execute()).Returns(rs);
 
             var equivaler = Mock.Of<IEquivaler>();
-            Mock.Get(equivaler).Setup(engine => engine.Compare(It.IsAny<ResultSet>(), It.IsAny<ResultSet>()))
+            Mock.Get(equivaler).Setup(engine => engine.Using(It.IsAny<IEnumerable<IRowsAnalyzer>>()))
+                .Returns(equivaler);
+            Mock.Get(equivaler).Setup(engine => engine.Compare(It.IsAny<IResultSet>(), It.IsAny<IResultSet>()))
                 .Returns(new ResultResultSet() { Difference = ResultSetDifferenceType.None });
 
             var intersectionOfConstraint = new IntersectionOfConstraint(expected);
@@ -38,6 +46,13 @@ namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased.Comparison
             intersectionOfConstraint.ApplyTo(actual);
 
             //Test conclusion            
+            Func<IList<IRowsAnalyzer>, bool> CheckAnalyzers = (analyzers)
+                => analyzers.Any(analyzer => analyzer is KeyMatchingRowsAnalyzer)
+                && analyzers.Count == 1;
+
+            Mock.Get(equivaler).Verify(engine => engine.Using(
+                It.Is<IEnumerable<IRowsAnalyzer>>(analyzers => CheckAnalyzers(analyzers.ToList())))
+                , Times.Once());
             Mock.Get(equivaler).Verify(engine => engine.Compare(rs, rs), Times.Once());
             Mock.Get(expected).Verify(s => s.Execute(), Times.Once);
             Mock.Get(actual).Verify(s => s.Execute(), Times.Once);
@@ -46,19 +61,21 @@ namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased.Comparison
         [Test]
         public void Matches_AnyServices_TheirResultsAreCompared()
         {
-            var expectedRs = new ResultSet();
+            var expectedRs = new DataTableResultSet();
             expectedRs.Load("a;b;c");
 
-            var actualRs = new ResultSet();
+            var actualRs = new DataTableResultSet();
             actualRs.Load("x;y;z");
 
-            var expected = Mock.Of<IResultSetService>();
+            var expected = Mock.Of<IResultSetResolver>();
             Mock.Get(expected).Setup(s => s.Execute()).Returns(expectedRs);
 
-            var actual = Mock.Of<IResultSetService>();
+            var actual = Mock.Of<IResultSetResolver>();
             Mock.Get(actual).Setup(s => s.Execute()).Returns(actualRs);
 
             var equivaler = Mock.Of<IEquivaler>();
+            Mock.Get(equivaler).Setup(engine => engine.Using(It.IsAny<IEnumerable<IRowsAnalyzer>>()))
+                .Returns(equivaler);
             Mock.Get(equivaler).Setup(engine => engine.Compare(actualRs, expectedRs))
                 .Returns(new ResultResultSet() { Difference = ResultSetDifferenceType.Content });
 
@@ -75,16 +92,18 @@ namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased.Comparison
         [Test]
         public void Matches_TwoIdenticalResultSets_ReturnTrue()
         {
-            var rs = new ResultSet();
+            var rs = new DataTableResultSet();
             rs.Load("a;b;c");
 
-            var expected = Mock.Of<IResultSetService>();
+            var expected = Mock.Of<IResultSetResolver>();
             Mock.Get(expected).Setup(s => s.Execute()).Returns(rs);
 
-            var actual = Mock.Of<IResultSetService>();
+            var actual = Mock.Of<IResultSetResolver>();
             Mock.Get(actual).Setup(s => s.Execute()).Returns(rs);
 
             var equivaler = Mock.Of<IEquivaler>();
+            Mock.Get(equivaler).Setup(engine => engine.Using(It.IsAny<IEnumerable<IRowsAnalyzer>>()))
+                .Returns(equivaler);
             Mock.Get(equivaler).Setup(engine => engine.Compare(rs, rs))
                 .Returns(new ResultResultSet() { Difference = ResultSetDifferenceType.None });
 
@@ -102,19 +121,21 @@ namespace NBi.Testing.Unit.NUnit.Constraint.ResultSetBased.Comparison
         [Test]
         public void Matches_TwoDifferentResultSets_ReturnFalse()
         {
-            var expectedRs = new ResultSet();
+            var expectedRs = new DataTableResultSet();
             expectedRs.Load("a;b;c");
 
-            var actualRs = new ResultSet();
+            var actualRs = new DataTableResultSet();
             actualRs.Load("x;y;z");
 
-            var expected = Mock.Of<IResultSetService>();
+            var expected = Mock.Of<IResultSetResolver>();
             Mock.Get(expected).Setup(s => s.Execute()).Returns(expectedRs);
 
-            var actual = Mock.Of<IResultSetService>();
+            var actual = Mock.Of<IResultSetResolver>();
             Mock.Get(actual).Setup(s => s.Execute()).Returns(actualRs);
 
             var equivaler = Mock.Of<IEquivaler>();
+            Mock.Get(equivaler).Setup(engine => engine.Using(It.IsAny<IEnumerable<IRowsAnalyzer>>()))
+                .Returns(equivaler);
             Mock.Get(equivaler).Setup(engine => engine.Compare(actualRs, expectedRs))
                 .Returns(new ResultResultSet() { Difference = ResultSetDifferenceType.Content });
 

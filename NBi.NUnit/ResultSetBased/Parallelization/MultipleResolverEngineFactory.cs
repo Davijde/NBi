@@ -1,4 +1,5 @@
 ﻿using NBi.Core.ResultSet;
+using NBi.Extensibility.Resolving;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace NBi.NUnit.ResultSetComparison.Parallelization
 {
     public class MultipleResolverEngineFactory
     {
-        public MultipleResolverEngine Instantiate(IResultSetService actual, IResultSetService expected, bool isParallel)
+        public MultipleResolverEngine Instantiate(IResultSetResolver actual, IResultSetResolver expected, bool isParallel)
         {
             if (isParallel)
                 return new ParallelResolverEngine(actual, expected);

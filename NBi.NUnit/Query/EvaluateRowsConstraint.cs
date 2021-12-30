@@ -39,20 +39,20 @@ namespace NBi.NUnit.Query
         /// </summary>
         /// <param name="actual">An OleDbCommand, SqlCommand or AdomdCommand</param>
         /// <returns>true, if the result of query execution is exactly identical to the content of the resultset</returns>
-        public override bool Matches(object actual)
-        {
-            if (actual is IQuery)
-                return Process((IQuery)actual);
-            else if (actual is IResultSet)
-                return doMatch((IResultSet)actual);
-            else
-                return false;
+        //public override bool Matches(object actual)
+        //{
+        //    if (actual is IQuery)
+        //        return Process((IQuery)actual);
+        //    else if (actual is IResultSet)
+        //        return doMatch((IResultSet)actual);
+        //    else
+        //        return false;
 
         //}
 
-        protected bool doMatch(IResultSet actual)
-        {
-            this.actualResultSet = actual;
+        //protected bool doMatch(IResultSet actual)
+        //{
+        //    this.actualResultSet = actual;
 
         //    var validationEngine = new RowValidator();
         //    evaluationResults = new List<RowEvaluationResult>();
@@ -79,20 +79,20 @@ namespace NBi.NUnit.Query
         /// </summary>
         /// <param name="actual">IDbCommand</param>
         /// <returns></returns>
-        public bool Process(IQuery actual)
-        {
-            IResultSet rsActual = GetResultSet(actual);
-            return this.Matches(rsActual);
-        }
+        //public bool Process(IQuery actual)
+        //{
+        //    IResultSet rsActual = GetResultSet(actual);
+        //    return this.Matches(rsActual);
+        //}
 
-        protected IResultSet GetResultSet(IQuery query)
-        {
-            var argsQuery = new QueryResolverArgs(query.Statement, query.ConnectionString, query.Parameters, query.TemplateTokens, query.Timeout, query.CommandType);
-            var args = new QueryResultSetResolverArgs(argsQuery);
-            var factory = new ResultSetResolverFactory(null);
-            var resolver = factory.Instantiate(args);
-            return resolver.Execute();
-        }
+        //protected IResultSet GetResultSet(IQuery query)
+        //{
+        //    var argsQuery = new QueryResolverArgs(query.Statement, query.ConnectionString, query.Parameters, query.TemplateTokens, query.Timeout, query.CommandType);
+        //    var args = new QueryResultSetResolverArgs(argsQuery);
+        //    var factory = new ResultSetResolverFactory(null);
+        //    var resolver = factory.Instantiate(args);
+        //    return resolver.Execute();
+        //}
 
         /// <summary>
         /// 

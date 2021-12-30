@@ -10,6 +10,7 @@ using NBi.Core.ResultSet.Uniqueness;
 using NBi.Framework.FailureMessage.Markdown;
 using NBi.Framework;
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 using NBi.Core.Configuration.FailureReport;
 using NBi.Extensibility;
 using NBi.Extensibility.Resolving;
@@ -19,7 +20,7 @@ namespace NBi.NUnit.Query
     public class UniqueRowsConstraint : NBiConstraint
     {
         protected IResultSet actualResultSet;
-        private IDataRowsMessageFormatter failure;
+        //private IDataRowsMessageFormatter failure;
 
         protected Evaluator Engine { get; set; }
 
@@ -44,23 +45,23 @@ namespace NBi.NUnit.Query
         /// </summary>
         /// <param name="actual">An IResultSetService or a result-set</param>
         /// <returns>true, if the result-set has unique rows</returns>
-        public override bool Matches(object actual)
-        {
-            if (actual is IResultSetResolver)
-            {
-                return Matches((actual as IResultSetResolver).Execute());
-            }
-            else if (actual is IResultSet)
-            {
-                actualResultSet = (IResultSet)actual;
-                var result = Engine.Execute(actualResultSet);
+        //public override bool Matches(object actual)
+        //{
+        //    if (actual is IResultSetResolver)
+        //    {
+        //        return Matches((actual as IResultSetResolver).Execute());
+        //    }
+        //    else if (actual is IResultSet)
+        //    {
+        //        actualResultSet = (IResultSet)actual;
+        //        var result = Engine.Execute(actualResultSet);
 
-                if (!result.AreUnique || Configuration.FailureReportProfile.Mode == FailureReportMode.Always)
-                {
-                    var factory = new DataRowsMessageFormatterFactory();
-                    failure = factory.Instantiate(Configuration.FailureReportProfile, Engine is OrdinalEvaluator ? EngineStyle.ByIndex : EngineStyle.ByName);
-                    failure.BuildDuplication(actualResultSet.Rows, result);
-                }
+        //        if (!result.AreUnique || Configuration.FailureReportProfile.Mode == FailureReportMode.Always)
+        //        {
+        //            var factory = new DataRowsMessageFormatterFactory();
+        //            failure = factory.Instantiate(Configuration.FailureReportProfile, Engine is OrdinalEvaluator ? EngineStyle.ByIndex : EngineStyle.ByName);
+        //            failure.BuildDuplication(actualResultSet.Rows, result);
+        //        }
 
         //        if (result.AreUnique && Configuration?.FailureReportProfile.Mode == FailureReportMode.Always)
         //            Assert.Pass(failure.RenderMessage());

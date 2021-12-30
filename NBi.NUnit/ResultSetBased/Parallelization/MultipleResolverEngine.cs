@@ -1,21 +1,22 @@
-﻿using NBi.Core.ResultSet;
+﻿using NBi.Extensibility;
+using NBi.Extensibility.Resolving;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+
 
 namespace NBi.NUnit.ResultSetComparison.Parallelization
 {
     public abstract class MultipleResolverEngine
     {
-        protected IResultSetService ActualService { get; }
-        protected IResultSetService ExpectedService { get; }
+        protected IResultSetResolver ActualService { get; }
+        protected IResultSetResolver ExpectedService { get; }
 
-        public ResultSet Actual { get; protected set; }
-        public ResultSet Expected { get; protected set; }
+        public IResultSet Actual { get; protected set; }
+        public IResultSet Expected { get; protected set; }
 
-        public MultipleResolverEngine(IResultSetService actual, IResultSetService expected)
+        public MultipleResolverEngine(IResultSetResolver actual, IResultSetResolver expected)
             => (ActualService, ExpectedService) = (actual, expected);
 
         public abstract void Execute();

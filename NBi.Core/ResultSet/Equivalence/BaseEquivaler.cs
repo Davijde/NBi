@@ -15,16 +15,16 @@ namespace NBi.Core.ResultSet.Equivalence
 {
     public abstract class BaseEquivaler : IEquivaler
     {
-        private readonly IList<IRowsAnalyzer> analyzers;
-        private IReadOnlyCollection<IRowsAnalyzer> Analyzers
-        {
-            get { return new ReadOnlyCollection<IRowsAnalyzer>(analyzers); }
-        }
+        private IReadOnlyCollection<IRowsAnalyzer> Analyzers { get; set; } 
         protected CellComparer CellComparer { get; } = new CellComparer();
 
-        public BaseEquivaler(IEnumerable<IRowsAnalyzer> analyzers)
+        public BaseEquivaler()
+            => Analyzers = new AnalyzersFactory().Instantiate(EquivalenceKind.EqualTo).ToList().AsReadOnly();
+
+        public virtual IEquivaler Using(IEnumerable<IRowsAnalyzer> analyzers)
         {
-            this.analyzers = new List<IRowsAnalyzer>(analyzers);
+            Analyzers = analyzers.ToList().AsReadOnly();
+            return this;
         }
 
         public ISettingsResultSet Settings { get; set; }
@@ -56,13 +56,13 @@ namespace NBi.Core.ResultSet.Equivalence
             Trace.WriteLineIf(NBiTraceSwitch.TraceInfo, $"Building second rows dictionary: {y.RowCount} [{stopWatch.Elapsed:d\\d\\.hh\\h\\:mm\\m\\:ss\\s\\ \\+fff\\m\\s}]");
             stopWatch.Reset();
 
-            var missingRowsAnalyzer = analyzers.FirstOrDefault(a => a.GetType() == typeof(MissingRowsAnalyzer));
+            var missingRowsAnalyzer = Analyzers.FirstOrDefault(a => a.GetType() == typeof(MissingRowsAnalyzer));
             var missingRows = missingRowsAnalyzer?.Retrieve(xDict, yDict) ?? new List<RowHelper>();
 
-            var unexpectedRowsAnalyzer = analyzers.FirstOrDefault(a => a.GetType() == typeof(UnexpectedRowsAnalyzer));
+            var unexpectedRowsAnalyzer = Analyzers.FirstOrDefault(a => a.GetType() == typeof(UnexpectedRowsAnalyzer));
             var unexpectedRows = unexpectedRowsAnalyzer?.Retrieve(xDict, yDict) ?? new List<RowHelper>();
 
-            var keyMatchingRowsAnalyzer = analyzers.FirstOrDefault(a => a.GetType() == typeof(KeyMatchingRowsAnalyzer));
+            var keyMatchingRowsAnalyzer = Analyzers.FirstOrDefault(a => a.GetType() == typeof(KeyMatchingRowsAnalyzer));
             var keyMatchingRows = keyMatchingRowsAnalyzer?.Retrieve(xDict, yDict) ?? new List<RowHelper>();
 
             stopWatch.Start();

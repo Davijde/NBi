@@ -123,8 +123,8 @@ namespace NBi.Testing.Integration.Core.Transformation.Transformer.Native
             var filename = string.IsNullOrEmpty(basePath) ? notExistingFile : notExistingFile.Replace(basePath, string.Empty);
             var function = new FileToUpdateDateTimeUtc(basePath);
             var ex = Assert.Throws<ExternalDependencyNotFoundException>(() => function.Evaluate(filename));
-            Assert.That(ex.Message, Is.Not.StringContaining(@"Temp\Temp"));
-            Assert.That(ex.Message, Is.Not.StringContaining(@"\\"));
+            Assert.That(ex.Message, Is.Not.Contain(@"Temp\Temp"));
+            Assert.That(ex.Message, Is.Not.Contain(@"\\"));
             Assert.That(ex.Message, Does.Contain(@":\"));
             Assert.That(ex.Message, Does.EndWith(@".txt'."));
         }

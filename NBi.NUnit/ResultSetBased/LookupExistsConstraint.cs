@@ -65,32 +65,32 @@ namespace NBi.NUnit.ResultSetComparison
             return this;
         }
 
-        public override bool Matches(object actual)
-        {
-            if (actual is IResultSetResolver)
-                return ProcessParallel((IResultSetResolver)actual);
-            else if (actual is IResultSet)
-                return doMatch((IResultSet)actual);
-            else
-                throw new ArgumentException($"The type of the actual object is '{actual.GetType().Name}' and is not supported for a constraint of type '{this.GetType().Name}'. Use a ResultSet or a ResultSetService.", nameof(actual));
-        }
+        //public override bool Matches(object actual)
+        //{
+        //    if (actual is IResultSetResolver)
+        //        return ProcessParallel((IResultSetResolver)actual);
+        //    else if (actual is IResultSet)
+        //        return doMatch((IResultSet)actual);
+        //    else
+        //        throw new ArgumentException($"The type of the actual object is '{actual.GetType().Name}' and is not supported for a constraint of type '{this.GetType().Name}'. Use a ResultSet or a ResultSetService.", nameof(actual));
+        //}
 
-        public virtual bool ProcessParallel(IResultSetResolver actual)
-        {
-            Trace.WriteLineIf(NBiTraceSwitch.TraceVerbose, string.Format("Queries exectued in parallel."));
+        //public virtual bool ProcessParallel(IResultSetResolver actual)
+        //{
+        //    Trace.WriteLineIf(NBiTraceSwitch.TraceVerbose, string.Format("Queries exectued in parallel."));
 
-            Parallel.Invoke(
-                () => { rsCandidate = actual.Execute(); },
-                () => { rsReference = referenceResolver.Execute(); }
-            );
+        //    Parallel.Invoke(
+        //        () => { rsCandidate = actual.Execute(); },
+        //        () => { rsReference = referenceResolver.Execute(); }
+        //    );
 
         //    return Matches(rsCandidate);
         //}
 
-        protected virtual bool doMatch(IResultSet actual)
-        {
-            violations = Engine.Execute(actual, rsReference);
-            var output = violations.Count() == 0;
+        //protected virtual bool doMatch(IResultSet actual)
+        //{
+        //    violations = Engine.Execute(actual, rsReference);
+        //    var output = violations.Count() == 0;
 
         //    if (output && Configuration?.FailureReportProfile.Mode == FailureReportMode.Always)
         //        Assert.Pass(Failure.RenderMessage());

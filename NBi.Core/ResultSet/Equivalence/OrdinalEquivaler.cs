@@ -14,11 +14,8 @@ namespace NBi.Core.ResultSet.Equivalence
             get => base.Settings as SettingsOrdinalResultSet;
         }
 
-        public OrdinalEquivaler(IEnumerable<IRowsAnalyzer> analyzers, SettingsOrdinalResultSet settings)
-            : base(analyzers)
-        {
-            base.Settings = settings;
-        }
+        public OrdinalEquivaler(SettingsOrdinalResultSet settings)
+            => base.Settings = settings;
 
         protected override void PreliminaryChecks(IResultSet x, IResultSet y)
         {

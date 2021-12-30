@@ -16,7 +16,7 @@ namespace NBi.Core.ResultSet.Equivalence
         }
         
         public SingleRowOrdinalEquivaler(SettingsSingleRowOrdinalResultSet  settings)
-            : base(AnalyzersFactory.EqualTo(), settings)
+            : base(settings)
         {}
 
         public override ResultResultSet Compare(IResultSet x, IResultSet y)

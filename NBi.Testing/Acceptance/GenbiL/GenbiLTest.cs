@@ -69,7 +69,7 @@ namespace NBi.Testing.Acceptance.GenbiL
             Assert.That(content, Does.Contain("<dimension "));
             Assert.That(content, Does.Contain("caption=\"first-dimension\""));
             Assert.That(content, Does.Contain("caption=\"second-dimension\""));
-            Assert.That(content, Is.Not.StringContaining("caption=\"exclude-dimension\""));
+            Assert.That(content, Does.Not.Contain("caption=\"exclude-dimension\""));
             Assert.That(content, Does.Contain("perspective=\"first-perspective\""));
             Assert.That(content, Does.Contain("exist"));
 
@@ -83,8 +83,8 @@ namespace NBi.Testing.Acceptance.GenbiL
             Assert.That(content, Does.Contain("<default"));
             Assert.That(content, Does.Contain("apply-to=\"system-under-test\""));
             Assert.That(content, Does.Contain("<connection-string>youyou-default-sut</connection-string>"));
-            Assert.That(content, Is.Not.StringContaining("name=\"System-Under-Test\""));
-            Assert.That(content, Is.Not.StringContaining("<report />"));
+            Assert.That(content, Is.Not.Contain("name=\"System-Under-Test\""));
+            Assert.That(content, Is.Not.Contain("<report />"));
 
             Assert.That(content, Does.Contain("<reference"));
             Assert.That(content, Does.Contain("name=\"noway\""));
@@ -93,12 +93,12 @@ namespace NBi.Testing.Acceptance.GenbiL
             Assert.That(content, Does.Contain("<hierarchy "));
             Assert.That(content, Does.Contain("caption=\"first-hierarchy\""));
             Assert.That(content, Does.Contain("caption=\"second-hierarchy\""));
-            Assert.That(content, Is.Not.StringContaining("caption=\"third-hierarchy\""));
+            Assert.That(content, Is.Not.Contain("caption=\"third-hierarchy\""));
             Assert.That(content, Does.Contain("dimension=\"first-dimension\""));
 
             Assert.That(content, Does.Contain("<hierarchies "));
             Assert.That(content, Does.Contain("<contained-in"));
-            Assert.That(content, Is.Not.StringContaining("<item>fourth-hierarchy</item>"));
+            Assert.That(content, Is.Not.Contain("<item>fourth-hierarchy</item>"));
 
             Assert.That(content, Does.Contain("<parallelize-queries>false</parallelize-queries>"));
         }

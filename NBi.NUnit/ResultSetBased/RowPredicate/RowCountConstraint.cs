@@ -1,44 +1,36 @@
 ﻿using System;
-using System.Data;
 using System.Linq;
-using NBi.Core.ResultSet.Resolver;
-using NBi.Core.ResultSet;
-using NBi.Framework.FailureMessage;
-using NUnitCtr = NUnit.Framework.Constraints;
-using NBi.Framework.FailureMessage.Markdown;
-using NUnit.Framework;
-using NBi.Framework;
-using NBi.Core.Scalar.Resolver;
-using NBi.Core.Configuration.FailureReport;
 using NUnit.Framework.Constraints;
+using NBi.Extensibility.Resolving;
+using NBi.Extensibility;
 
 namespace NBi.NUnit.ResultSetBased.RowPredicate
 {
     public class RowCountConstraint : NBiConstraint
     {
-        protected IResultSetService Actual { get; }
-        protected internal NUnitCtr.Constraint childConstraint { get; }
+        protected IResultSet Actual { get; }
+        protected internal Constraint ChildConstraint { get; }
 
-        public RowCountConstraint(NUnitCtr.Constraint childConstraint)
-            => this.childConstraint = childConstraint;
+        public RowCountConstraint(Constraint childConstraint)
+            => ChildConstraint = childConstraint;
 
         public override ConstraintResult ApplyTo<TActual>(TActual actual)
         {
             switch (actual)
             {
-                case IResultSetService x: return Matches(x);
+                case IResultSetResolver x: return Matches(x);
                 default: throw new ArgumentException();
             }
         }
 
-        protected virtual ConstraintResult Matches(IResultSetService actual)
+        protected virtual ConstraintResult Matches(IResultSetResolver actual)
         {
             var actualRs = actual.Execute();
             var childResult = Matches(actualRs);
             return new RowCountConstraintResult(this, actualRs, childResult);
         }
 
-        protected ConstraintResult Matches(ResultSet effective)
-            => childConstraint.ApplyTo(effective.Rows.Count);
+        protected ConstraintResult Matches(IResultSet effective)
+            => ChildConstraint.ApplyTo(effective.Rows.Count);
     }
 }

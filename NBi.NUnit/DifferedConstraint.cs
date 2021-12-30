@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NUnitCtr = NUnit.Framework.Constraints;
+using NUnit.Framework.Constraints;
 
 namespace NBi.NUnit
 {
@@ -19,11 +19,11 @@ namespace NBi.NUnit
             Resolver = resolver;
         }
 
-        public NUnitCtr.Constraint Resolve()
+        public Constraint Resolve()
         {
             var expected = Resolver.Execute();
             var ctr = Activator.CreateInstance(ConstraintType, expected);
-            return (NUnitCtr.Constraint)ctr;
+            return (Constraint)ctr;
         }
         
     }

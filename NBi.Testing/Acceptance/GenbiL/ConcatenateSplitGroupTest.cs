@@ -54,7 +54,7 @@ namespace NBi.Testing.Acceptance.GenbiL
 
             Assert.That(File.Exists(TargetFilename));
             var text = File.ReadAllText(TargetFilename);
-            Assert.That(text, Is.Not.StringContaining("System.Collections.Generic.List`1[System.String]"));
+            Assert.That(text, Is.Not.Contain("System.Collections.Generic.List`1[System.String]"));
             Assert.That(text, Does.Contain("<category>91675</category>"));
             Assert.That(text, Does.Contain("<category>75755</category>"));
         }

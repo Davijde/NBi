@@ -7,6 +7,7 @@ using NBi.Xml.Constraints;
 using NBi.Xml.Systems;
 using NBi.Core.Calculation;
 using NBi.Core.Evaluate;
+using NBi.NUnit.ResultSetBased.RowPredicate;
 
 namespace NBi.NUnit.Builder
 {

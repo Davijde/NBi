@@ -31,13 +31,10 @@ namespace NBi.Core.ResultSet.Equivalence
 
         public IEquivaler InstantiateMultipleRows(ISettingsResultSet settings, EquivalenceKind kind)
         {
-            var factory = new AnalyzersFactory();
-            var analyzers = factory.Instantiate(kind);
-
             switch (settings)
             {
-                case SettingsOrdinalResultSet x: return new OrdinalEquivaler(analyzers, x);
-                case SettingsNameResultSet x: return new NameEquivaler(analyzers, x);
+                case SettingsOrdinalResultSet x: return new OrdinalEquivaler(x);
+                case SettingsNameResultSet x: return new NameEquivaler(x);
                 default: throw new ArgumentException();
             }
         }

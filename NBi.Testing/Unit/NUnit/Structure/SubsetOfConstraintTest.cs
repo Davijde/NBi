@@ -44,12 +44,12 @@ namespace NBi.Testing.Unit.NUnit.Structure
 
             //Test conclusion            
             Assert.That(assertionText, Does.Contain("set").And
-                                            .StringContaining("perspective-name").And
-                                            .StringContaining("dimension-caption").And
-                                            .StringContaining("hierarchy-caption").And
-                                            .StringContaining("levels").And
-                                            .StringContaining("Expected level 1").And
-                                            .StringContaining("Expected level 2"));
+                                            .Contain("perspective-name").And
+                                            .Contain("dimension-caption").And
+                                            .Contain("hierarchy-caption").And
+                                            .Contain("levels").And
+                                            .Contain("Expected level 1").And
+                                            .Contain("Expected level 2"));
         }
 
 

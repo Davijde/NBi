@@ -19,11 +19,8 @@ namespace NBi.Core.ResultSet.Equivalence
             get => base.Settings as SettingsNameResultSet;
         }
 
-        public NameEquivaler(IEnumerable<IRowsAnalyzer> analyzers, SettingsNameResultSet settings)
-            : base(analyzers)
-        {
-            base.Settings = settings;
-        }
+        public NameEquivaler(SettingsNameResultSet settings)
+            => base.Settings = settings;
 
         protected override void PreliminaryChecks(IResultSet x, IResultSet y)
         {

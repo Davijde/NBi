@@ -1,0 +1,474 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Csv\20191001_083001.xml" />
+    <None Remove="Resources\Csv\20191001_093001.xml" />
+    <None Remove="Resources\Csv\BusinessEntity.csv" />
+    <None Remove="Resources\Csv\Info_20161001_154512.csv" />
+    <None Remove="Resources\Csv\Info_20161001_160013.csv" />
+    <None Remove="Resources\Csv\Info_20161001_161514.csv" />
+    <None Remove="Resources\Csv\MyData_2016_01.csv" />
+    <None Remove="Resources\Csv\MyData_2016_02.csv" />
+    <None Remove="Resources\Csv\MyData_2016_03.csv" />
+    <None Remove="Resources\Csv\MyEmpty.csv" />
+    <None Remove="Resources\Csv\NullValues.csv" />
+    <None Remove="Resources\Csv\PurchaseOrders.json" />
+    <None Remove="Resources\Csv\PurchaseOrders.xml" />
+    <None Remove="Resources\Csv\ResellerOrderCountByYearBefore2006.csv" />
+    <None Remove="Resources\Csv\ResellerOrderCountByYearBefore2006bis.csv" />
+    <None Remove="Resources\Csv\ResellerOrderCountByYearBefore2006WithProfile.csv" />
+    <None Remove="Resources\Csv\SampleData.csv" />
+    <None Remove="Resources\Ignored\Ignored.nbits" />
+    <None Remove="Resources\Negative\Config-Full-0001.txt" />
+    <None Remove="Resources\Negative\Config-Full-Json-0001.txt" />
+    <None Remove="Resources\Negative\Config-Full-Json.nbits" />
+    <None Remove="Resources\Negative\Config-Full-Json.nbits.config" />
+    <None Remove="Resources\Negative\Config-Full.nbits" />
+    <None Remove="Resources\Negative\Config-Full.nbits.config" />
+    <None Remove="Resources\Negative\Config-Light-0001.txt" />
+    <None Remove="Resources\Negative\Config-Light.nbits" />
+    <None Remove="Resources\Negative\Config-Light.nbits.config" />
+    <None Remove="Resources\Negative\DataRowsMessage-0005.txt" />
+    <None Remove="Resources\Negative\DataRowsMessage-0010.txt" />
+    <None Remove="Resources\Negative\DataRowsMessage-0020.txt" />
+    <None Remove="Resources\Negative\DataRowsMessage.nbits" />
+    <None Remove="Resources\Negative\ItemsMessage-0001.txt" />
+    <None Remove="Resources\Negative\ItemsMessage-0002.txt" />
+    <None Remove="Resources\Negative\ItemsMessage.nbits" />
+    <None Remove="Resources\Negative\Lookup-Exists-Json-0001.txt" />
+    <None Remove="Resources\Negative\Lookup-Exists-Json.nbits" />
+    <None Remove="Resources\Negative\Lookup-Exists-Json.nbits.config" />
+    <None Remove="Resources\Negative\Lookup-Matches-Json-0001.txt" />
+    <None Remove="Resources\Negative\Lookup-Matches-Json.nbits" />
+    <None Remove="Resources\Negative\Lookup-Matches-Json.nbits.config" />
+    <None Remove="Resources\Negative\Lookup-ReverseExists-Json-0001.txt" />
+    <None Remove="Resources\Negative\Lookup-ReverseExists-Json.nbits" />
+    <None Remove="Resources\Negative\Lookup-ReverseExists-Json.nbits.config" />
+    <None Remove="Resources\Negative\Scoring-Json-0001.txt" />
+    <None Remove="Resources\Negative\Scoring-Json.nbits" />
+    <None Remove="Resources\Negative\Scoring-Json.nbits.config" />
+    <None Remove="Resources\Positive\AssemblyEqualToResultSet.nbits" />
+    <None Remove="Resources\Positive\Contain.nbits" />
+    <None Remove="Resources\Positive\ContainStructure.nbits" />
+    <None Remove="Resources\Positive\Count.nbits" />
+    <None Remove="Resources\Positive\create-file.cmd" />
+    <None Remove="Resources\Positive\CsvEqualToResultSet.nbits" />
+    <None Remove="Resources\Positive\CustomFlatFileParser.nbits" />
+    <None Remove="Resources\Positive\Decoration.nbits" />
+    <None Remove="Resources\Positive\Environment.nbits" />
+    <None Remove="Resources\Positive\EquivalentToMembers.nbits" />
+    <None Remove="Resources\Positive\EquivalentToStructure.nbits" />
+    <None Remove="Resources\Positive\EvaluateRows.nbits" />
+    <None Remove="Resources\Positive\Exists.nbits" />
+    <None Remove="Resources\Positive\ExternalSettings.nbits" />
+    <None Remove="Resources\Positive\FasterThan.nbits" />
+    <None Remove="Resources\Positive\Is.nbits" />
+    <None Remove="Resources\Positive\LinkedTo.nbits" />
+    <None Remove="Resources\Positive\MatchPatternMembers.nbits" />
+    <None Remove="Resources\Positive\MultipleInstance.nbits" />
+    <None Remove="Resources\Positive\Ordered.nbits" />
+    <None Remove="Resources\Positive\PowerBiDesktop.nbits" />
+    <None Remove="Resources\Positive\QueryAllNoRows.nbits" />
+    <None Remove="Resources\Positive\QueryEqualToCsv.nbits" />
+    <None Remove="Resources\Positive\QueryEqualToCsvWithProfile.nbits" />
+    <None Remove="Resources\Positive\QueryEqualToQuery - MySQL.nbits" />
+    <None Remove="Resources\Positive\QueryEqualToQuery.nbits" />
+    <None Remove="Resources\Positive\QueryEqualToResultSet.nbits" />
+    <None Remove="Resources\Positive\QueryEqualToResultSetProvider.nbits" />
+    <None Remove="Resources\Positive\QueryEqualToResultSetWithNull.nbits" />
+    <None Remove="Resources\Positive\QueryEqualToWithParameter.nbits" />
+    <None Remove="Resources\Positive\QueryEqualToXml.nbits" />
+    <None Remove="Resources\Positive\QueryRowCount.nbits" />
+    <None Remove="Resources\Positive\QuerySubsetOfQuery.nbits" />
+    <None Remove="Resources\Positive\QuerySupersetOfQuery.nbits" />
+    <None Remove="Resources\Positive\QueryUniqueRows.nbits" />
+    <None Remove="Resources\Positive\QueryWithParameters.nbits" />
+    <None Remove="Resources\Positive\QueryWithReference.nbits" />
+    <None Remove="Resources\Positive\ReportEqualTo.nbits" />
+    <None Remove="Resources\Positive\Rest.nbits" />
+    <None Remove="Resources\Positive\ResultSetConstraint.nbits" />
+    <None Remove="Resources\Positive\ResultSetMatchPattern.nbits" />
+    <None Remove="Resources\Positive\Scoring.nbits" />
+    <None Remove="Resources\Positive\SubsetOfMembers.nbits" />
+    <None Remove="Resources\Positive\SubsetOfStructure.nbits" />
+    <None Remove="Resources\Positive\SyntacticallyCorrect.nbits" />
+    <None Remove="Resources\Positive\Variable.nbits" />
+    <None Remove="Resources\PowerBiDesktop\Source.txt" />
+    <None Remove="Resources\PurchaseOrders.xml" />
+    <None Remove="Resources\PurchaseOrdersDefaultNamespace.xml" />
+    <None Remove="Resources\PurchaseOrdersManyNamespaces.xml" />
+    <None Remove="Resources\Query\ResellerOrderCount.sql" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\PowerBiDesktop\Source.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Query\ResellerOrderCount.sql">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Csv\20191001_083001.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Csv\20191001_093001.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Csv\BusinessEntity.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Csv\Info_20161001_154512.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Csv\Info_20161001_160013.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Csv\Info_20161001_161514.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Csv\MyData_2016_01.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Csv\MyData_2016_02.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Csv\MyData_2016_03.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Csv\MyEmpty.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Csv\NullValues.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Csv\PurchaseOrders.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Csv\PurchaseOrders.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Csv\ResellerOrderCountByYearBefore2006.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Csv\ResellerOrderCountByYearBefore2006bis.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Csv\ResellerOrderCountByYearBefore2006WithProfile.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Csv\SampleData.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Ignored\Ignored.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Negative\Config-Full-0001.txt" />
+    <EmbeddedResource Include="Resources\Negative\Config-Full-Json-0001.txt" />
+    <EmbeddedResource Include="Resources\Negative\Config-Full-Json.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Negative\Config-Full-Json.nbits.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Negative\Config-Full.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Negative\Config-Full.nbits.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Negative\Config-Light-0001.txt" />
+    <EmbeddedResource Include="Resources\Negative\Config-Light.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Negative\Config-Light.nbits.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Negative\DataRowsMessage-0005.txt" />
+    <EmbeddedResource Include="Resources\Negative\DataRowsMessage-0010.txt" />
+    <EmbeddedResource Include="Resources\Negative\DataRowsMessage-0020.txt" />
+    <EmbeddedResource Include="Resources\Negative\DataRowsMessage.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Negative\ItemsMessage-0001.txt" />
+    <EmbeddedResource Include="Resources\Negative\ItemsMessage-0002.txt" />
+    <EmbeddedResource Include="Resources\Negative\ItemsMessage.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Negative\Lookup-Exists-Json-0001.txt" />
+    <EmbeddedResource Include="Resources\Negative\Lookup-Exists-Json.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Negative\Lookup-Exists-Json.nbits.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Negative\Lookup-Matches-Json-0001.txt" />
+    <EmbeddedResource Include="Resources\Negative\Lookup-Matches-Json.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Negative\Lookup-Matches-Json.nbits.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Negative\Lookup-ReverseExists-Json-0001.txt" />
+    <EmbeddedResource Include="Resources\Negative\Lookup-ReverseExists-Json.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Negative\Lookup-ReverseExists-Json.nbits.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Negative\Scoring-Json-0001.txt" />
+    <EmbeddedResource Include="Resources\Negative\Scoring-Json.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Negative\Scoring-Json.nbits.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\AssemblyEqualToResultSet.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\Contain.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\ContainStructure.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\Count.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\create-file.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\CsvEqualToResultSet.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\CustomFlatFileParser.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\Decoration.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\Environment.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\EquivalentToMembers.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\EquivalentToStructure.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\EvaluateRows.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\Exists.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\ExternalSettings.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\FasterThan.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\Is.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\LinkedTo.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\MatchPatternMembers.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\MultipleInstance.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\Ordered.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\PowerBiDesktop.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\QueryAllNoRows.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\QueryEqualToCsv.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\QueryEqualToCsvWithProfile.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\QueryEqualToQuery - MySQL.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\QueryEqualToQuery.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\QueryEqualToResultSet.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\QueryEqualToResultSetProvider.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\QueryEqualToResultSetWithNull.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\QueryEqualToWithParameter.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\QueryEqualToXml.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\QueryRowCount.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\QuerySubsetOfQuery.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\QuerySupersetOfQuery.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\QueryUniqueRows.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\QueryWithParameters.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\QueryWithReference.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\ReportEqualTo.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\Rest.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\ResultSetConstraint.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\ResultSetMatchPattern.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\Scoring.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\SubsetOfMembers.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\SubsetOfStructure.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\SyntacticallyCorrect.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Positive\Variable.nbits">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PurchaseOrders.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PurchaseOrdersDefaultNamespace.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\PurchaseOrdersManyNamespaces.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.11.0" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
+    <PackageReference Include="NUnit3TestAdapter" Version="4.2.0" />
+    <PackageReference Include="coverlet.collector" Version="3.1.0" />
+    <PackageReference Include="PocketCsvReader" Version="1.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NBi.Core\NBi.Core.csproj" />
+    <ProjectReference Include="..\NBi.Extensibility\NBi.Extensibility.csproj" />
+    <ProjectReference Include="..\NBi.Framework\NBi.Framework.csproj" />
+    <ProjectReference Include="..\NBi.NUnit.Runtime\NBi.NUnit.Runtime.csproj" />
+    <ProjectReference Include="..\NBi.NUnit\NBi.NUnit.csproj" />
+    <ProjectReference Include="..\NBi.Xml\NBi.Xml.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="ConnectionString.azuredevops.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="ConnectionString.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Csv\Entsoe.tsv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Csv\Orders.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Positive\CustomFlatFileParser.nbits.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Positive\ExternalSettings.nbits.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Positive\ExternalSettings.nbitset">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Positive\KeyDates.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Positive\OrderCountByYear.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Positive\QueryEqualToResultSetProvider.nbits.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Positive\Users.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Positive\Variable.nbits.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\PowerBiDesktop\Sales Analysis.pbix">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Reports\EmployeeSalesDetail.rsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Reports\EmployeeSalesYearOverYear.rsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Reports\Employee_Sales_Summary.rdl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Reports\EmpSalesMonth.rsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Reports\SalesEmployees.rsd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Reports\Store_Contacts.rdl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

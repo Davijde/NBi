@@ -10,7 +10,7 @@ namespace NBi.NUnit.Query
 {
     public class SyntacticallyCorrectConstraint : NBiConstraint
     {
-        private ParserResult parserResult;
+        //private ParserResult parserResult;
         private IValidationEngine engine;
         protected internal IValidationEngine Engine
             { set => engine = value ?? throw new ArgumentNullException(); }
