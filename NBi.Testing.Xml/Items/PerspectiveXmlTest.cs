@@ -12,7 +12,7 @@ using NBi.Xml;
 using System.Reflection;
 using NBi.Xml.Systems;
 
-namespace NBi.Testing.Xml.Unit.Items
+namespace NBi.Testing.Xml.Items
 {
     [TestFixture]
     public class PerspectiveXmlTest : BaseXmlTest

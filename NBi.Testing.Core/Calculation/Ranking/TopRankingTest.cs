@@ -32,7 +32,7 @@ namespace NBi.Testing.Core.Calculation.Ranking
             var rs = resolver.Execute();
 
             var ranking = new TopRanking(new ColumnOrdinalIdentifier(1), columnType, null, null);
-            var filteredRs = ranking.Apply(rs);
+            var filteredRs = ranking.Execute(rs);
 
             Assert.That(filteredRs.RowCount, Is.EqualTo(1));
             Assert.That(filteredRs[0][0], Is.EqualTo(index));
@@ -53,7 +53,7 @@ namespace NBi.Testing.Core.Calculation.Ranking
             var rs = resolver.Execute();
 
             var ranking = new TopRanking(2, new ColumnOrdinalIdentifier(1), columnType, null, null);
-            var filteredRs = ranking.Apply(rs);
+            var filteredRs = ranking.Execute(rs);
 
             Assert.That(filteredRs.RowCount, Is.EqualTo(2));
             Assert.That(filteredRs[0][0], Is.EqualTo(index[0]));
@@ -74,7 +74,7 @@ namespace NBi.Testing.Core.Calculation.Ranking
             var rs = resolver.Execute();
 
             var ranking = new TopRanking(10, new ColumnOrdinalIdentifier(1), columnType, null, null);
-            var filteredRs = ranking.Apply(rs);
+            var filteredRs = ranking.Execute(rs);
 
             Assert.That(filteredRs.RowCount, Is.EqualTo(values.Count()));
             Assert.That(filteredRs[0][0], Is.EqualTo(index[0]));
@@ -100,7 +100,7 @@ namespace NBi.Testing.Core.Calculation.Ranking
             var alias = Mock.Of<IColumnAlias>(x => x.Column == 1 && x.Name == "myValue");
 
             var ranking = new TopRanking(new ColumnNameIdentifier("myValue"), columnType, Enumerable.Repeat(alias, 1), null);
-            var filteredRs = ranking.Apply(rs);
+            var filteredRs = ranking.Execute(rs);
 
             Assert.That(filteredRs.RowCount, Is.EqualTo(1));
             Assert.That(filteredRs[0][0], Is.EqualTo(index));
@@ -122,7 +122,7 @@ namespace NBi.Testing.Core.Calculation.Ranking
             var exp = Mock.Of<IColumnExpression>(x => x.Name == "exp" && x.Value == "myValue % 10");
 
             var ranking = new TopRanking(new ColumnNameIdentifier("exp"), columnType, Enumerable.Repeat(alias, 1), Enumerable.Repeat(exp, 1));
-            var filteredRs = ranking.Apply(rs);
+            var filteredRs = ranking.Execute(rs);
 
             Assert.That(filteredRs.RowCount, Is.EqualTo(1));
             Assert.That(filteredRs[0][0], Is.EqualTo(index));

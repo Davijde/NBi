@@ -26,7 +26,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace NBi.Testing.Xml.Unit.Systems
+namespace NBi.Testing.Xml.Systems
 {
     [TestFixture]
     public class ResultSetSystemXmlTest : BaseXmlTest

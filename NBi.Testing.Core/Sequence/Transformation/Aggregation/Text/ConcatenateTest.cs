@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NBi.Testing.Unit.Core.Sequence.Transformation.Aggregation.Text
+namespace NBi.Testing.Core.Sequence.Transformation.Aggregation.Text
 {
     public class ConcatenationTest
     {

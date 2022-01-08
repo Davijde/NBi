@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System;
 #endregion
 
-namespace NBi.Testing.Xml.Unit.Items.ResultSet
+namespace NBi.Testing.Xml.Items.ResultSet
 {
     [TestFixture]
     public class TransformXmlTest : BaseXmlTest

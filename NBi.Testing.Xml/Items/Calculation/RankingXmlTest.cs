@@ -19,7 +19,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace NBi.Testing.Xml.Unit.Items.Calculation
+namespace NBi.Testing.Xml.Items.Calculation
 {
     public class RankingXmlTest : BaseXmlTest
     {

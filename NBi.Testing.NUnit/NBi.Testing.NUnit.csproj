@@ -65,10 +65,18 @@
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ConnectionStringReader.cs" />
+    <Compile Include="Constraint\DifferedConstraintTest.cs" />
     <Compile Include="Constraint\ResultSetBased\Comparison\EqualToConstraintTest.cs" />
     <Compile Include="Constraint\ResultSetBased\Comparison\SubsetOfConstraintTest.cs" />
     <Compile Include="Constraint\ResultSetBased\Comparison\IntersectionOfConstraintTest.cs" />
     <Compile Include="Constraint\ResultSetBased\Comparison\SupersetOfConstraintTest.cs" />
+    <Compile Include="Constraint\ResultSetBased\RowPredicate\AllRowsConstraintTest.cs" />
+    <Compile Include="Constraint\ResultSetBased\RowPredicate\RowCountFilterPercentageConstraintTest.cs" />
+    <Compile Include="Constraint\ResultSetBased\RowPredicate\RowCountFilterConstraintTest.cs" />
+    <Compile Include="Constraint\ResultSetBased\RowPredicate\NoRowsConstraintTest.cs" />
+    <Compile Include="Constraint\ResultSetBased\RowPredicate\RowCountConstraintTest.cs" />
+    <Compile Include="Constraint\ResultSetBased\RowPredicate\SingleRowConstraintTest.cs" />
+    <Compile Include="Constraint\ResultSetBased\RowPredicate\SomeRowsConstraintTest.cs" />
     <Compile Include="FileOnDisk.cs" />
     <Compile Include="Properties\ProjectAssemblyInfo.cs" />
   </ItemGroup>
@@ -105,9 +113,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Constraint\ResultSetBased\RowPredicate\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

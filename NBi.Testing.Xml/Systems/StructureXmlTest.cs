@@ -12,7 +12,7 @@ using NBi.Xml.Systems;
 using NUnit.Framework;
 #endregion
 
-namespace NBi.Testing.Xml.Unit.Systems
+namespace NBi.Testing.Xml.Systems
 {
     [TestFixture]
     public class StructureXmlTest : BaseXmlTest

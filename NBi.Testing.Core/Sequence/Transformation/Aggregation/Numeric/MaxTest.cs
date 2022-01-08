@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NBi.Testing.Unit.Core.Sequence.Transformation.Aggregation.Numeric
+namespace NBi.Testing.Core.Sequence.Transformation.Aggregation.Numeric
 {
     public class MaxTest
     {

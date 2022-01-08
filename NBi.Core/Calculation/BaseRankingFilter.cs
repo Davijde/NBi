@@ -20,24 +20,16 @@ namespace NBi.Core.Calculation
         protected ColumnType ColumnType { get; }
         protected IEnumerable<IColumnAlias> Aliases { get; }
         protected IEnumerable<IColumnExpression> Expressions { get; }
-        protected Func<IResultSet, IResultSet> Execution { get; }
-
+        
         protected BaseRankingFilter(IColumnIdentifier operand, ColumnType columnType, IEnumerable<IColumnAlias> aliases, IEnumerable<IColumnExpression> expressions)
         {
             Operand = operand;
             ColumnType = columnType;
             Aliases = aliases;
             Expressions = expressions;
-            Execution = Apply;
         }
 
         public IResultSet Execute(IResultSet rs)
-            => Execution.Invoke(rs);    
-
-        public IResultSet AntiApply(IResultSet rs)
-            => throw new NotImplementedException();
-
-        public IResultSet Apply(IResultSet rs)
         {
             IList<ScoredObject> subset = new List<ScoredObject>();
             var scorer = new DataRowScorer(Operand, Aliases, Expressions);

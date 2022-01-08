@@ -7,7 +7,7 @@ using NBi.Xml.Constraints;
 using NUnit.Framework;
 using System;
 
-namespace NBi.Testing.Xml.Unit.Items.Hierarchical
+namespace NBi.Testing.Xml.Items.Hierarchical
 {
     public class XmlSourceXmlTest : BaseXmlTest
     {

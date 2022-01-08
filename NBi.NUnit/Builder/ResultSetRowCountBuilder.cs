@@ -14,6 +14,7 @@ using NBi.Xml.Settings;
 using NBi.Core.ResultSet.Filtering;
 using NBi.Extensibility.Resolving;
 using NBi.NUnit.ResultSetBased.RowPredicate;
+using NUnit.Framework.Constraints;
 
 namespace NBi.NUnit.Builder
 {
@@ -85,17 +86,17 @@ namespace NBi.NUnit.Builder
                                 );
                 }
                 if ((value is string & (value as string).EndsWith("%")))
-                    ctr = null; // new RowCountFilterPercentageConstraint(childConstraint, filter);
+                    ctr = new RowCountFilterPercentageConstraint(childConstraint, filter);
                 else
-                    ctr = null; // new RowCountFilterConstraint(childConstraint, filter);
+                    ctr = new RowCountFilterConstraint(childConstraint, filter);
             }
             else
-                ctr = null; //new RowCountConstraint(childConstraint);
+                ctr = new RowCountConstraint(childConstraint);
 
             return ctr;
         }
 
-        protected virtual DifferedConstraint BuildChildConstraint(ScalarReferencePredicateXml xml)
+        protected virtual Constraint BuildChildConstraint(ScalarReferencePredicateXml xml)
         {
             var builder = new ScalarResolverArgsBuilder(ServiceLocator, new Context(Variables));
 
@@ -120,25 +121,15 @@ namespace NBi.NUnit.Builder
             var resolver = factory.Instantiate<decimal>(args);
 
             Type ctrType = null;
-            if (xml is LessThanXml)
-            {
-                if (((LessThanXml)xml).OrEqual)
-                    ctrType = typeof(NUnitCtr.LessThanOrEqualConstraint);
-                else
-                    ctrType = typeof(NUnitCtr.LessThanConstraint);
-            }
-            else if (xml is MoreThanXml)
-            {
-                if (((MoreThanXml)xml).OrEqual)
-                    ctrType = typeof(NUnitCtr.GreaterThanOrEqualConstraint);
-                else
-                    ctrType = typeof(NUnitCtr.GreaterThanConstraint);
-            }
-            else if (xml is EqualXml)
-                ctrType = typeof(NUnitCtr.EqualConstraint);
 
-            if (ctrType == null)
-                throw new ArgumentException();
+            switch (xml)
+            {
+                case LessThanXml lessOrEqual when lessOrEqual.OrEqual: ctrType = typeof(LessThanOrEqualConstraint); break;    
+                case LessThanXml less when !less.OrEqual: ctrType = typeof(LessThanConstraint); break;
+                case MoreThanXml moreOrEqual when moreOrEqual.OrEqual: ctrType = typeof(GreaterThanOrEqualConstraint); break;
+                case MoreThanXml more when !more.OrEqual: ctrType = typeof(GreaterThanConstraint); break;
+                case EqualXml _: ctrType = typeof(EqualConstraint); break;
+            }
 
             return new DifferedConstraint(ctrType, resolver);
         }

@@ -28,16 +28,14 @@ namespace NBi.NUnit.Builder
 
         protected override void SpecificSetup(AbstractSystemUnderTestXml sutXml, AbstractConstraintXml ctrXml)
         {
-            if (!(ctrXml is EqualToXml))
-                throw new ArgumentException("Constraint must be a 'EqualToXml'");
-
-            ConstraintXml = (EqualToXml)ctrXml;
+            if (ctrXml is EqualToXml equalToXml)
+                ConstraintXml = equalToXml; 
+            else
+                throw new ArgumentException($"Constraint must be a 'EqualToXml' and was '{ctrXml.GetType().Name}'");
         }
 
         protected override void SpecificBuild()
-        {
-            Constraint = InstantiateConstraint();
-        }
+        => Constraint = InstantiateConstraint();
 
         protected NBiConstraint InstantiateConstraint()
         {
@@ -51,16 +49,9 @@ namespace NBi.NUnit.Builder
                     transformationProvider.Add(columnDef.Identifier, columnDef.Transformation);
             }
 
-            if (ConstraintXml.BaseItem is QueryXml xml)
-                ctr = InstantiateConstraint(xml, ConstraintXml.Settings, transformationProvider);
-            else if (ConstraintXml.ResultSetOld != null)
-                ctr = InstantiateConstraint(ConstraintXml.ResultSetOld, ConstraintXml.Settings, transformationProvider);
-            else if (ConstraintXml.ResultSet != null)
+            if (ConstraintXml.ResultSet != null)
                 ctr = InstantiateConstraint(ConstraintXml.ResultSet, ConstraintXml.Settings, transformationProvider);
-            else if (ConstraintXml.XmlSource != null)
-                ctr = InstantiateConstraint(ConstraintXml.XmlSource, ConstraintXml.Settings, transformationProvider);
-
-            if (ctr == null)
+            else
                 throw new ArgumentException();
 
             //Manage settings for comparaison
@@ -90,11 +81,7 @@ namespace NBi.NUnit.Builder
             ctr = ctr.Using(settings);
 
             //Manage parallelism
-            if (ConstraintXml.ParallelizeQueries)
-                ctr = ctr.WithParallelQueries();
-            else
-                ctr = ctr.WithSequentialQueries();
-
+            ctr = (ConstraintXml.ParallelizeQueries) ? ctr.WithParallelQueries() : ctr.WithSequentialQueries();
             return ctr;
         }
 

@@ -38,19 +38,14 @@ namespace NBi.NUnit.Builder
 
         protected override void BaseSetup(AbstractSystemUnderTestXml sutXml, AbstractConstraintXml ctrXml)
         {
-            if (!(sutXml is ExecutionXml || sutXml is ResultSetSystemXml))
-                throw new ArgumentException("System-under-test must be a 'ExecutionXml' or 'ResultSetXml'");
-
-            SystemUnderTestXml = sutXml;
+            if (sutXml is ResultSetSystemXml typedXml)
+                SystemUnderTestXml = typedXml;
+            else
+                throw new ArgumentException($"System-under-test must be a 'ResultSetXml' and was '{sutXml.GetType().Name}'");
         }
 
         protected override void BaseBuild()
-        {
-            if (SystemUnderTestXml is ExecutionXml)
-                SystemUnderTest = InstantiateSystemUnderTest((ExecutionXml)SystemUnderTestXml);
-            else
-                SystemUnderTest = InstantiateSystemUnderTest((ResultSetSystemXml)SystemUnderTestXml);
-        }
+            => SystemUnderTest = InstantiateSystemUnderTest((ResultSetSystemXml)SystemUnderTestXml);
 
         protected virtual IResultSetResolver InstantiateSystemUnderTest(ExecutionXml executionXml)
         {

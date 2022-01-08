@@ -11,7 +11,7 @@ using NBi.Xml.Settings;
 using System;
 #endregion
 
-namespace NBi.Testing.Xml.Unit.Settings
+namespace NBi.Testing.Xml.Settings
 {
     [TestFixture]
     public class SettingsXmlTest

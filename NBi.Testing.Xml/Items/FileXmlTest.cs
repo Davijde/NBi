@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NBi.Testing.Xml.Unit.Items
+namespace NBi.Testing.Xml.Items
 {
     public class FileXmlTest
     {

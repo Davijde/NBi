@@ -40,10 +40,10 @@ namespace NBi.Core.Scalar.Casting
                     || value is decimal)
                 return true;
             
-            if (value is string && ((string)value) == "(value)")
+            if (value is string valueStr && valueStr == "(value)")
                 return true;
 
-            if (value is string && ((string)value) == "(any)")
+            if (value is string anyStr && anyStr == "(any)")
                 return true;
 
             return IsParsableNumeric(value);

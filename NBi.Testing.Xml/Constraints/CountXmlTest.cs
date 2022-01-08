@@ -4,7 +4,7 @@ using NBi.Xml;
 using NBi.Xml.Constraints;
 using NUnit.Framework;
 
-namespace NBi.Testing.Xml.Unit.Constraints
+namespace NBi.Testing.Xml.Constraints
 {
     [TestFixture]
     public class CountXmlTest : BaseXmlTest

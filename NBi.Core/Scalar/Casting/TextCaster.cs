@@ -10,14 +10,14 @@ namespace NBi.Core.Scalar.Casting
     {
         public string Execute(object value)
         {
-            if (value is string)
-                return (string)value;
+            if (value is string strValue)
+                return strValue;
             
-            if (value is DateTime)
-                return ((DateTime)value).ToString("yyyy-MM-dd HH:mm:ss");
+            if (value is DateTime dateTime)
+                return dateTime.ToString("yyyy-MM-dd HH:mm:ss");
 
-            if (value is bool)
-                return (bool)value ? "True" : "False";
+            if (value is bool boolean)
+                return boolean ? "True" : "False";
             
             var numericCaster = new NumericCaster();
             if (numericCaster.IsStrictlyValid(value))
@@ -37,7 +37,7 @@ namespace NBi.Core.Scalar.Casting
             if (value == DBNull.Value)
                 return false;
 
-            if (value is string && ((string) value) == "(null)")
+            if (value is string strNull && strNull == "(null)")
                 return false;
             
             return true;

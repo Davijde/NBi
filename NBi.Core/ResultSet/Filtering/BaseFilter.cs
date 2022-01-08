@@ -9,46 +9,55 @@ using System.Threading.Tasks;
 
 namespace NBi.Core.ResultSet.Filtering
 {
-    public abstract class BaseFilter : IResultSetFilter
+    public abstract class BaseFilter : IPredicateFilter
     {
         protected Context Context { get; }
-        protected Func<IResultSet, IResultSet> Execution { get; }
+        protected Func<IResultSet, IResultSet> Execution { get; private set; }
 
         protected BaseFilter(Context context)
-        => (Context, Execution) = (context, Apply);
+        => (Context, Execution) = (context, Keep);
 
         public IResultSet Execute(IResultSet rs)
             => Execution.Invoke(rs);
 
-        public IResultSet AntiApply(IResultSet rs) => Apply(rs, (x => !x));
+        protected IResultSet Discard(IResultSet rs) 
+            => Execute(rs, (x => !x));
 
-        public IResultSet Apply(IResultSet rs) => Apply(rs, (x => x));
+        protected IResultSet Keep(IResultSet rs) 
+            => Execute(rs, (x => x));
 
-        protected IResultSet Apply(IResultSet rs, Func<bool, bool> onApply)
+        public IResultSetFilter Revert()
         {
-            var table = rs.Clone();
-            table.Clear();
+            Execution = Execution == Keep ? (Func<IResultSet, IResultSet>)Discard : Keep;
+            return this;
+        }
 
-            foreach (var row in rs.Rows)
-            {
-                Context.Switch(row);
-                if (onApply(RowApply(Context)))
+
+                protected IResultSet Execute(IResultSet rs, Func<bool, bool> onApply)
                 {
-                    if (table.RowCount == 0 && table.ColumnCount != rs.ColumnCount)
+                    var table = rs.Clone();
+                    table.Clear();
+
+                    foreach (var row in rs.Rows)
                     {
-                        foreach (var column in rs.Columns)
+                        Context.Switch(row);
+                        if (onApply(RowApply(Context)))
                         {
-                            if (!table.ContainsColumn(column.Name))
-                                table.AddColumn(column.Name);
+                            if (table.RowCount == 0 && table.ColumnCount != rs.ColumnCount)
+                            {
+                                foreach (var column in rs.Columns)
+                                {
+                                    if (!table.ContainsColumn(column.Name))
+                                        table.AddColumn(column.Name);
+                                }
+                            }
+                            table.AddRow(row);
                         }
                     }
-                    table.AddRow(row);
-                }
-            }
 
-            table.AcceptChanges();
-            return table;
-        }
+                    table.AcceptChanges();
+                    return table;
+                }
 
         protected abstract bool RowApply(Context context);
 

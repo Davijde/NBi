@@ -19,7 +19,7 @@ using NBi.Core.Calculation;
 using NBi.Xml.Items.Calculation;
 #endregion
 
-namespace NBi.Testing.Xml.Unit.Constraints
+namespace NBi.Testing.Xml.Constraints
 {
     [TestFixture]
     public class EqualToXmlTest : BaseXmlTest

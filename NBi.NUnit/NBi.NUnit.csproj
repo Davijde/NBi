@@ -127,6 +127,7 @@
     <Compile Include="DifferedConstraint.cs" />
     <Compile Include="ResultSetBased\RowPredicate\RowCountConstraint.cs" />
     <Compile Include="ResultSetBased\RowPredicate\RowCountConstraintResult.cs" />
+    <Compile Include="ResultSetBased\RowPredicate\RowCountFilterPercentageConstraintResult.cs" />
     <Compile Include="ResultSetBased\RowPredicate\RowCountFilterConstraintResult.cs" />
     <Compile Include="ResultSetBased\RowPredicate\SingleRowConstraint.cs" />
     <Compile Include="ResultSetBased\RowPredicate\SomeRowsConstraint.cs" />

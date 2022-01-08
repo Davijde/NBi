@@ -1,13 +1,16 @@
 ﻿using System;
-using System.Data;
 using System.Linq;
 using NBi.Core.ResultSet.Filtering;
+using NUnit.Framework.Constraints;
 
 namespace NBi.NUnit.ResultSetBased.RowPredicate
 {
-    public class AllRowsConstraint : NoRowsConstraint
+    public class AllRowsConstraint : RowCountFilterConstraint
     {
-        public AllRowsConstraint(IResultSetFilter filter)
-            : base(filter, filter.AntiApply) { }
+        public AllRowsConstraint(IPredicateFilter filter)
+            : base(new EqualConstraint(0), filter) 
+        {
+            filter.Revert();    
+        }
     }
 }

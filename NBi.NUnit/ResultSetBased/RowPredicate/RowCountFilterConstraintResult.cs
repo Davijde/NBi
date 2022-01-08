@@ -16,8 +16,8 @@ namespace NBi.NUnit.ResultSetBased.RowPredicate
 {
     public class RowCountFilterConstraintResult : RowCountConstraintResult
     {
-        public RowCountFilterConstraintResult(RowCountConstraint constraint, IResultSet filtered, ConstraintResult childResult)
-            : base(constraint, filtered, childResult) { }
+        public RowCountFilterConstraintResult(RowCountConstraint constraint, IResultSet actual, ConstraintResult childResult)
+            : base(constraint, actual, childResult) { }
 
         public override void WriteMessageTo(MessageWriter writer)
             => WriteMessageTo(writer, "count of rows returned by system-under-test after filtering is");

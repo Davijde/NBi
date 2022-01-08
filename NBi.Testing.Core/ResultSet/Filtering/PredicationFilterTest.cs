@@ -21,7 +21,7 @@ namespace NBi.Testing.Core.ResultSet.Filtering
     {
 
         [Test]
-        public void Apply_And_CorrectResult()
+        public void Execute_And_CorrectResult()
         {
             var service = new ObjectsResultSetResolver(
                 new ObjectsResultSetResolverArgs(
@@ -57,14 +57,14 @@ namespace NBi.Testing.Core.ResultSet.Filtering
 
             var factory = new ResultSetFilterFactory(null);
             var filter = factory.Instantiate(CombinationOperator.And, new[] { predication1.Object, predication2.Object }, new Context(null, aliases, Array.Empty<IColumnExpression>()));
-            var result = filter.Apply(rs);
+            var result = filter.Execute(rs);
 
             Assert.That(result.Rows.Count(), Is.EqualTo(2));
         }
 
 
         [Test]
-        public void Apply_AndWillNotEvaluateAll_CorrectResult()
+        public void Execute_AndWillNotEvaluateAll_CorrectResult()
         {
             var service = new ObjectsResultSetResolver(
                 new ObjectsResultSetResolverArgs(
@@ -99,13 +99,13 @@ namespace NBi.Testing.Core.ResultSet.Filtering
 
             var factory = new ResultSetFilterFactory(null);
             var filter = factory.Instantiate(CombinationOperator.And, new[] { predication1.Object, predication2.Object }, new Context(null, aliases, Array.Empty<IColumnExpression>()));
-            var result = filter.Apply(rs);
+            var result = filter.Execute(rs);
 
             Assert.That(result.Rows.Count(), Is.EqualTo(1));
         }
 
         [Test]
-        public void Apply_Or_CorrectResult()
+        public void Execute_Or_CorrectResult()
         {
             var service = new ObjectsResultSetResolver(
                 new ObjectsResultSetResolverArgs(
@@ -140,13 +140,13 @@ namespace NBi.Testing.Core.ResultSet.Filtering
 
             var factory = new ResultSetFilterFactory(null);
             var filter = factory.Instantiate(CombinationOperator.Or, new[] { predication1.Object, predication2.Object }, new Context(null, aliases, Array.Empty<IColumnExpression>()));
-            var result = filter.Apply(rs);
+            var result = filter.Execute(rs);
 
             Assert.That(result.Rows.Count(), Is.EqualTo(4));
         }
 
         [Test]
-        public void Apply_OrWillNotEvaluateAll_CorrectResult()
+        public void Execute_OrWillNotEvaluateAll_CorrectResult()
         {
             var service = new ObjectsResultSetResolver(
                 new ObjectsResultSetResolverArgs(
@@ -180,13 +180,13 @@ namespace NBi.Testing.Core.ResultSet.Filtering
 
             var factory = new ResultSetFilterFactory(null);
             var filter = factory.Instantiate(CombinationOperator.Or, new[] { predication1.Object, predication2.Object }, new Context(null, aliases, Array.Empty<IColumnExpression>()));
-            var result = filter.Apply(rs);
+            var result = filter.Execute(rs);
 
             Assert.That(result.Rows.Count(), Is.EqualTo(3));
         }
 
         [Test]
-        public void Apply_XOr_CorrectResult()
+        public void Execute_XOr_CorrectResult()
         {
             var service = new ObjectsResultSetResolver(
                 new ObjectsResultSetResolverArgs(
@@ -220,7 +220,7 @@ namespace NBi.Testing.Core.ResultSet.Filtering
 
             var factory = new ResultSetFilterFactory(null);
             var filter = factory.Instantiate(CombinationOperator.XOr, new[] { predication1.Object, predication2.Object }, new Context(null, aliases, Array.Empty<IColumnExpression>()));
-            var result = filter.Apply(rs);
+            var result = filter.Execute(rs);
 
             Assert.That(result.Rows.Count(), Is.EqualTo(3));
         }

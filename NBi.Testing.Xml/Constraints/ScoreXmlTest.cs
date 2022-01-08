@@ -16,7 +16,7 @@ using System.Text;
 using System.Diagnostics;
 #endregion
 
-namespace NBi.Testing.Xml.Unit.Constraints
+namespace NBi.Testing.Xml.Constraints
 {
     [TestFixture]
     public class ScoreXmlTest : BaseXmlTest

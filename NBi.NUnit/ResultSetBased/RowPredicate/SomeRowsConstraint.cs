@@ -5,9 +5,9 @@ using NBi.Core.ResultSet.Filtering;
 
 namespace NBi.NUnit.ResultSetBased.RowPredicate
 {
-    public class SomeRowsConstraint : NoRowsConstraint
+    public class SomeRowsConstraint : RowCountFilterConstraint
     {
-        public SomeRowsConstraint(IResultSetFilter filter)
+        public SomeRowsConstraint(IPredicateFilter filter)
             : base(new GreaterThanOrEqualConstraint(1), filter)
         { }
     }

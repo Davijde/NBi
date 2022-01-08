@@ -31,6 +31,6 @@ namespace NBi.NUnit.ResultSetBased.RowPredicate
         }
 
         protected ConstraintResult Matches(IResultSet effective)
-            => ChildConstraint.ApplyTo(effective.Rows.Count);
+            => ChildConstraint.ApplyTo(effective.RowCount);
     }
 }

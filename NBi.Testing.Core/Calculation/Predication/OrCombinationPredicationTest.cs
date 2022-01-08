@@ -15,7 +15,7 @@ using NBi.Core.Calculation.Predicate;
 using NBi.Core.Calculation.Predication;
 using NBi.Core.Variable;
 
-namespace NBi.Testing.Unit.Core.Calculation.Predication
+namespace NBi.Testing.Core.Calculation.Predication
 {
     public class OrCombinationPredicationTest
     {

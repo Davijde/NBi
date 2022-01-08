@@ -15,13 +15,7 @@ namespace NBi.NUnit.ResultSetBased.RowPredicate
 {
     public class NoRowsConstraint : RowCountFilterConstraint
     {
-        public NoRowsConstraint(IResultSetFilter filter)
-            : this(filter, filter.Apply) { }
-
-        protected NoRowsConstraint(IResultSetFilter filter, Func<IResultSet, IResultSet> filterFunction)
-            : base(new NUnitCtr.EqualConstraint(0), filter, filterFunction) { }
-
-        protected NoRowsConstraint(NUnitCtr.Constraint childConstraint, IResultSetFilter filter)
-            : base(childConstraint, filter, filter.Apply) { }
+        public NoRowsConstraint(IPredicateFilter filter)
+            : base(new NUnitCtr.EqualConstraint(0), filter) { }
     }
 }

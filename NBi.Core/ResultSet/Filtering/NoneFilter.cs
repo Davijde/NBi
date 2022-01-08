@@ -12,15 +12,15 @@ namespace NBi.Core.ResultSet.Filtering
         protected Func<IResultSet, IResultSet> Execution { get; }
 
         public NoneFilter()
-            => Execution = Apply;
+            => Execution = Keep;
 
         public IResultSet Execute(IResultSet rs)
             => Execution.Invoke(rs);
 
-        public IResultSet Apply(IResultSet rs)
+        public IResultSet Keep(IResultSet rs)
             => rs ?? throw new ArgumentNullException();
 
-        public IResultSet AntiApply(IResultSet rs)
+        public IResultSet Discard(IResultSet rs)
             => rs ?? throw new ArgumentNullException();
 
         public string Describe() => "none";

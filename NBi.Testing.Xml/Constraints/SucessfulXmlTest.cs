@@ -6,7 +6,7 @@ using NBi.Xml.Constraints;
 using NUnit.Framework;
 #endregion
 
-namespace NBi.Testing.Xml.Unit.Constraints
+namespace NBi.Testing.Xml.Constraints
 {
     [TestFixture]
     public class SuccessfulXmlTest : BaseXmlTest

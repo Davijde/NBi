@@ -231,14 +231,8 @@
     <Compile Include="Unit\NUnit\Builder\MembersCountBuilderTest.cs" />
     <Compile Include="Unit\NUnit\Builder\StructureContainBuilderTest.cs" />
     <Compile Include="Unit\NUnit\DataType\IsConstraintTest.cs" />
-    <Compile Include="Unit\NUnit\DifferedConstraintTest.cs" />
     <Compile Include="Unit\NUnit\ResultSetComparison\LookupReverseExistsConstraintTest.cs" />
-    <Compile Include="Unit\NUnit\ResultSetComparison\NoRowsConstraintTest.cs" />
     <Compile Include="Unit\NUnit\ResultSetComparison\LookupExistsConstraintTest.cs" />
-    <Compile Include="Unit\NUnit\ResultSetComparison\SingleRowConstraintTest.cs" />
-    <Compile Include="Unit\NUnit\ResultSetComparison\SomeRowsConstraintTest.cs" />
-    <Compile Include="Unit\NUnit\ResultSetComparison\AllRowsConstraintTest.cs" />
-    <Compile Include="Unit\NUnit\ResultSetComparison\RowCountConstraintTest.cs" />
     <Compile Include="Unit\NUnit\Execution\SuccessfulConstraintTest.cs" />
     <Compile Include="Unit\NUnit\Execution\FasterThanConstraintTest.cs" />
     <Compile Include="Unit\NUnit\Member\CountConstraintTest.cs" />

@@ -40,7 +40,7 @@ namespace NBi.NUnit.Builder
             return ctr;
         }
 
-        protected IResultSetFilter InstantiateFilter()
+        protected IPredicateFilter InstantiateFilter()
         {
             var context = new Context(Variables, ConstraintXml.Aliases, ConstraintXml.Expressions);
             var factory = new ResultSetFilterFactory(ServiceLocator);
@@ -53,7 +53,7 @@ namespace NBi.NUnit.Builder
                             (
                                 new PredicationArgs(ConstraintXml.Predication.Operand, args)
                                 , context
-                            );
+                            ) as IPredicateFilter;
             }
             else if (ConstraintXml.Combination != null)
             {
@@ -71,7 +71,7 @@ namespace NBi.NUnit.Builder
                                 ConstraintXml.Combination.Operator
                                 , predicationArgs
                                 , context
-                            );
+                            ) as IPredicateFilter;
             }
             else
                 throw new ArgumentException("You must specify a predicate or a combination of predicates. None of them is specified");

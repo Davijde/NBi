@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NBi.Testing.Unit.Core.Sequence.Transformation.Aggregation
+namespace NBi.Testing.Core.Sequence.Transformation.Aggregation
 {
     public class AggregationFactoryTest
     {

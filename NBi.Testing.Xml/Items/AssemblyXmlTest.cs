@@ -9,7 +9,7 @@ using NBi.Xml.Systems;
 using NUnit.Framework;
 #endregion
 
-namespace NBi.Testing.Xml.Unit.Items
+namespace NBi.Testing.Xml.Items
 {
     [TestFixture]
     public class AssemblyXmlTest : BaseXmlTest

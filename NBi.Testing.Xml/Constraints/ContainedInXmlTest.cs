@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 using System.Text;
 using System.Diagnostics;
 
-namespace NBi.Testing.Xml.Unit.Constraints
+namespace NBi.Testing.Xml.Constraints
 {
     [TestFixture]
     public class ContainedInXmlTest : BaseXmlTest

@@ -103,7 +103,7 @@ namespace NBi.Core.ResultSet
             if (ReferenceEquals(obj1, obj2))
                 return true;
             
-            if (ReferenceEquals(obj1, null) || ReferenceEquals(obj2, null))
+            if (obj1 is null || obj2 is null)
                 return false;
 
             return obj1.Equals(obj2);

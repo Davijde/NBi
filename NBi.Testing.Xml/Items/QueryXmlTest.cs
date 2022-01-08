@@ -12,7 +12,7 @@ using System.Text;
 using System.Diagnostics;
 using NBi.Xml.SerializationOption;
 
-namespace NBi.Testing.Xml.Unit.Items
+namespace NBi.Testing.Xml.Items
 {
     [TestFixture]
     public class QueryXmlTest : BaseXmlTest

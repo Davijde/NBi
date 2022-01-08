@@ -17,17 +17,17 @@ namespace NBi.Core.ResultSet.Filtering
         {
             protected Func<IResultSet, IResultSet> Execution { get; }
             public SingleFilter()
-                => Execution = Apply;
+                => Execution = Keep;
 
             public IResultSet Execute(IResultSet rs)
                 => Execution.Invoke(rs);
 
             public string Describe() => "Unique rows";
 
-            public IResultSet Apply(IResultSet rs)
+            public IResultSet Keep(IResultSet rs)
                 => rs.RowCount == 1 ? rs : rs.Clone();
 
-            public IResultSet AntiApply(IResultSet rs)
+            public IResultSet Discard(IResultSet rs)
                 => rs.RowCount != 1 ? rs : rs.Clone();
         }
     }

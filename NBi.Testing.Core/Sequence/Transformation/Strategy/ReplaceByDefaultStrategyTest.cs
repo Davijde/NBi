@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NBi.Testing.Unit.Core.Sequence.Transformation.Strategy
+namespace NBi.Testing.Core.Sequence.Transformation.Strategy
 {
     public class ReplaceByDefaultStrategyTest
     {
