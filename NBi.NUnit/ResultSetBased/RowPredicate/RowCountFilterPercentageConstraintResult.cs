@@ -16,26 +16,27 @@ namespace NBi.NUnit.ResultSetBased.RowPredicate
 {
     public class RowCountFilterPercentageConstraintResult : RowCountFilterConstraintResult
     {
-        public RowCountFilterPercentageConstraintResult(RowCountConstraint constraint, IResultSet actual, IResultSet filtered, ConstraintResult childResult)
+        public new RowCountFilterPercentageConstraint Constraint
+        { get => (RowCountFilterPercentageConstraint)base.Constraint; }
+
+        public RowCountFilterPercentageConstraintResult(RowCountFilterPercentageConstraint constraint, IResultSet actual, IResultSet filtered, ConstraintResult childResult)
             : base(constraint, actual, filtered, childResult) { }
 
-        //public override void WriteMessageTo(MessageWriter writer)
-        //    => WriteMessageTo(writer, $"percentage of rows matching the predicate is {TransformDecimalToPercentage(this.WriteDescriptionTo)}");
+        public override void WriteMessageTo(MessageWriter writer)
+        {
+            var factory = new RowCountFilteredPercentageMessengerFactory();
+            var msg = factory.Instantiate(Configuration.FailureReportProfile, Style);   
+            var value = msg.WriteMessage(ActualValue, FilteredValue, ChildResult);
+            writer.Write(value);
+        }
 
-        //protected string TransformDecimalToPercentage(Action<NUnitFwk.TextMessageWriter> action)
-        //{
-        //    Constraint ctr;
-        //    ctr.
-
-        //    var sb = new System.Text.StringBuilder();
-        //    var localWriter = new NUnitFwk.TextMessageWriter();
-        //    action(localWriter);
-        //    var childMessage = localWriter.ToString();
-        //    sb.Append(childMessage.Substring(0, childMessage.LastIndexOf(" ") + 1));
-        //    sb.Append(decimal.Parse(childMessage.Substring(childMessage.LastIndexOf(" ") + 1).Replace("m", ""), System.Threading.Thread.CurrentThread.CurrentUICulture.NumberFormat));
-        //    sb.Append("%");
-
-        //    return sb.ToString();
-        //}
+        public decimal Threshold
+        {
+            get
+            {
+                (_, var threshold) = ((RowCountFilterPercentageConstraint)base.Constraint).Describe();
+                return threshold;
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@ using NBi.Extensibility;
 using NBi.Core.ResultSet.Discrimination;
 using NUnit.Framework.Constraints;
 using NUnit.Framework.Internal;
+using NBi.NUnit.ResultSetBased.RowPredicate;
 
 namespace NBi.NUnit.Messaging.Json.ResultSetBased
 {

@@ -94,6 +94,7 @@
     <Compile Include="Messaging\Json\LookupMatchesViolationMessageJsonTest.cs" />
     <Compile Include="Messaging\Json\LookupReverseExistsViolationMessageJsonTest.cs" />
     <Compile Include="Messaging\Json\ResultSetBased\ComparisonMessengerJsonTest.cs" />
+    <Compile Include="Messaging\Json\ResultSetBased\RowCountFilteredPercentageMessengerJsonTest.cs" />
     <Compile Include="Messaging\Json\ResultSetBased\RowCountFilteredMessengerJsonTest.cs" />
     <Compile Include="Messaging\Json\ResultSetBased\RowCountMessengerJsonTest.cs" />
     <Compile Include="Messaging\Json\ResultSetBased\UniquenessMessengerJsonTest.cs" />
@@ -103,6 +104,7 @@
     <Compile Include="Messaging\Markdown\Helper\TableHelperMarkdownTest.cs" />
     <Compile Include="Messaging\Markdown\ItemsMessageMardownTest.cs" />
     <Compile Include="Messaging\Markdown\ResultSetBased\ComparisonMessengerMarkdownTest.cs" />
+    <Compile Include="Messaging\Markdown\ResultSetBased\RowCountFilteredPercentageMessengerMarkdownTest.cs" />
     <Compile Include="Messaging\Markdown\ResultSetBased\RowCountFilteredMessengerMarkdownTest.cs" />
     <Compile Include="Messaging\Markdown\ResultSetBased\RowCountMessengerMarkdownTest.cs" />
     <Compile Include="Messaging\Markdown\ResultSetBased\UniquenessMessengerMarkdownTest.cs" />

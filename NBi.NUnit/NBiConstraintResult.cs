@@ -14,9 +14,10 @@ namespace NBi.NUnit
     public abstract class NBiConstraintResult : ConstraintResult
     {
         public IConfiguration Configuration { get; }
+        public NBiConstraint Constraint { get; }
 
         public NBiConstraintResult(NBiConstraint constraint, object actualValue, bool isSuccess)
         : base(constraint, actualValue, isSuccess) 
-            => Configuration = constraint.Configuration;
+            => (Configuration, Constraint) = (constraint.Configuration, constraint);
     }
 }

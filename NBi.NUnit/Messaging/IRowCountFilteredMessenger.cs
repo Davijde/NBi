@@ -2,6 +2,7 @@
 using NBi.Core.ResultSet.Discrimination;
 using NBi.Core.ResultSet.Uniqueness;
 using NBi.Extensibility;
+using NBi.NUnit.ResultSetBased.RowPredicate;
 using NUnit.Framework.Constraints;
 using System;
 using System.Collections.Generic;

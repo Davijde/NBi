@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using static System.FormattableString;
 using NBi.Core.ResultSet;
 using System.IO;
 using Newtonsoft.Json;
 using NBi.Core.Sampling;
-using NBi.Core.ResultSet.Uniqueness;
 using NBi.Extensibility;
-using NBi.Core.ResultSet.Discrimination;
 using NUnit.Framework.Constraints;
 using NUnit.Framework.Internal;
+using NBi.NUnit.ResultSetBased.RowPredicate;
 
 namespace NBi.NUnit.Messaging.Json.ResultSetBased
 {
@@ -51,9 +51,30 @@ namespace NBi.NUnit.Messaging.Json.ResultSetBased
             writer.WritePropertyName("constraint");
             writer.WriteStartObject();
             writer.WritePropertyName("type");
-            writer.WriteValue(result.Name);
+            writer.WriteValue(((RowCountConstraintResult)result).ChildResult.Name);
             writer.WritePropertyName("description");
-            writer.WriteValue(result.Description);
+            writer.WriteValue(((RowCountConstraintResult)result).ChildResult.Description);
+            WriteAdditionalConstraint(result, writer);
+            writer.WriteEndObject();
+        }
+
+        protected virtual void WriteAdditionalConstraint(ConstraintResult result, JsonWriter writer)
+        {
+            WriteThreshold(result, writer);
+        }
+
+        protected virtual void WriteThreshold(ConstraintResult result, JsonWriter writer)
+        {
+            var rowCount = Int32.Parse(((RowCountConstraintResult)result).ChildResult.Description.Split(' ').Reverse().ElementAt(0));
+
+            writer.WritePropertyName("threshold");
+            writer.WriteStartObject();
+            writer.WritePropertyName("value");
+            writer.WriteValue(rowCount);
+            writer.WritePropertyName("unit");
+            writer.WriteValue("absolute");
+            writer.WritePropertyName("display");
+            writer.WriteValue(Invariant($"{rowCount:F0} rows"));
             writer.WriteEndObject();
         }
 
@@ -62,7 +83,7 @@ namespace NBi.NUnit.Messaging.Json.ResultSetBased
             writer.WritePropertyName("result");
             writer.WriteStartObject();
             writer.WritePropertyName("row-count");
-            writer.WriteValue(result.ActualValue);
+            writer.WriteValue(((RowCountConstraintResult)result).ChildResult.ActualValue);
             writer.WritePropertyName("message");
             writer.WriteValue(GetUnderlyingMessage(result.WriteMessageTo));
             writer.WriteEndObject();
@@ -74,7 +95,7 @@ namespace NBi.NUnit.Messaging.Json.ResultSetBased
             {
                 write(writer);
                 writer.Flush();
-                return writer.ToString().TrimStart();   
+                return writer.ToString().TrimStart();
             }
         }
     }

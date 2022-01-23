@@ -21,5 +21,11 @@ namespace NBi.NUnit.ResultSetBased.RowPredicate
             var childResult = Matches(filterResultSet);
             return new RowCountFilterConstraintResult(this, actualRs, filterResultSet, childResult);
         }
+
+        public override string Description
+        {
+            get => $"{ChildConstraint.Description} rows validating the predicate '{Filter.Describe()}'";
+            protected set => base.Description = value;
+        }
     }
 }

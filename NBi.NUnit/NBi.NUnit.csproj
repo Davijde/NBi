@@ -139,6 +139,7 @@
     <Compile Include="Messaging\IComparisonMessenger.cs" />
     <Compile Include="Messaging\IItemsMessageFormatter.cs" />
     <Compile Include="Messaging\ILookupViolationMessageFormatter.cs" />
+    <Compile Include="Messaging\IRowCountFilteredPercentageMessenger.cs" />
     <Compile Include="Messaging\IRowCountFilteredMessenger.cs" />
     <Compile Include="Messaging\IRowCountMessenger.cs" />
     <Compile Include="Messaging\IScoreMessageFormatter.cs" />
@@ -156,6 +157,7 @@
     <Compile Include="Messaging\Json\LookupViolationMessageJson.cs" />
     <Compile Include="Messaging\Json\ResultSetBased\ComparisonMessengerJson.cs" />
     <Compile Include="Messaging\Json\ResultSetBased\ResultSetBasedMessengerJson.cs" />
+    <Compile Include="Messaging\Json\ResultSetBased\RowCountFilteredPercentageMessengerJson.cs" />
     <Compile Include="Messaging\Json\ResultSetBased\RowCountFilteredMessengerJson.cs" />
     <Compile Include="Messaging\Json\ResultSetBased\RowCountMessengerJson.cs" />
     <Compile Include="Messaging\Json\ResultSetBased\UniquenessMessengerJson.cs" />
@@ -182,10 +184,12 @@
     <Compile Include="Messaging\Markdown\MarkdownLogExtension\TableRowExtended.cs" />
     <Compile Include="Messaging\Markdown\ResultSetBased\ComparisonMessengerMarkdown.cs" />
     <Compile Include="Messaging\Markdown\ResultSetBased\ResultSetBasedMessengerMarkdown.cs" />
+    <Compile Include="Messaging\Markdown\ResultSetBased\RowCountFilteredPercentageMessengerMarkdown.cs" />
     <Compile Include="Messaging\Markdown\ResultSetBased\RowCountFilteredMessengerMarkdown.cs" />
     <Compile Include="Messaging\Markdown\ResultSetBased\RowCountMessengerMarkdown.cs" />
     <Compile Include="Messaging\Markdown\ResultSetBased\UniquenessMessengerMarkdown.cs" />
     <Compile Include="Messaging\Markdown\ScoreMessageMarkdown.cs" />
+    <Compile Include="Messaging\RowCountFilteredPercentageMessengerFactory.cs" />
     <Compile Include="Messaging\RowCountFilteredMessengerFactory.cs" />
     <Compile Include="Messaging\RowCountMessengerFactory.cs" />
     <Compile Include="Messaging\ScoreMessageFormatterFactory.cs" />

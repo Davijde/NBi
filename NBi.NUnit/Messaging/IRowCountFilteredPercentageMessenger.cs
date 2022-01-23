@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace NBi.NUnit.Messaging
 {
-    public interface IRowCountMessenger
+    public interface IRowCountFilteredPercentageMessenger
     {
-        string WriteMessage(IResultSet actual, ConstraintResult result);
+        string WriteMessage(IResultSet actual, IResultSet filtered, ConstraintResult result);
     }
 }
