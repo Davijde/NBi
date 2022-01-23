@@ -14,25 +14,15 @@ namespace NBi.Core.ResultSet.Lookup
 {
     public class LookupExistsAnalyzer : ILookupAnalyzer
     {
-        protected ColumnMappingCollection Keys { get; private set; }
+        protected ColumnMappingCollection Keys { get; private set; } = ColumnMappingCollection.DefaultKey;
 
-        public LookupExistsAnalyzer(ColumnMappingCollection keys)
+        public LookupExistsAnalyzer UsingKeys(ColumnMappingCollection keys)
         {
             Keys = keys;
+            return this;
         }
 
-        public virtual LookupViolationCollection Execute(object candidate, object reference)
-        {
-            if (candidate is DataTable candidateTable && reference is DataTable referenceTable)
-                return Execute(candidateTable, referenceTable);
-
-            if (candidate is IResultSet candidateRs && reference is IResultSet referenceRs)
-                return Execute(candidateRs, referenceRs);
-
-            throw new ArgumentException();
-        }
-
-        protected virtual LookupViolationCollection Execute(IResultSet candidate, IResultSet reference)
+        public virtual LookupViolationCollection Execute(IResultSet candidate, IResultSet reference)
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();

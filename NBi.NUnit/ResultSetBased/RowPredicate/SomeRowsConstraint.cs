@@ -10,5 +10,11 @@ namespace NBi.NUnit.ResultSetBased.RowPredicate
         public SomeRowsConstraint(IPredicateFilter filter)
             : base(new GreaterThanOrEqualConstraint(1), filter)
         { }
+
+        public override string Description
+        {
+            get => $"some rows validating the predicate '{Filter.Describe()}'";
+            protected set => base.Description = value;
+        }
     }
 }

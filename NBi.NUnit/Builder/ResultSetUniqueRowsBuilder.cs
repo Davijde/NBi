@@ -6,6 +6,8 @@ using NBi.NUnit.Query;
 using NBi.Xml.Constraints;
 using NBi.Xml.Systems;
 using NBi.Core.ResultSet.Uniqueness;
+using NBi.NUnit.ResultSetBased.Discrimination;
+using NBi.Core.ResultSet.Discrimination;
 
 namespace NBi.NUnit.Builder
 {
@@ -39,7 +41,7 @@ namespace NBi.NUnit.Builder
 
             var settings = builder.GetSettings();
 
-            var factory = new EvaluatorFactory();
+            var factory = new UniquenessFactory();
             var evaluator = factory.Instantiate(settings);
             Constraint = ctr.Using(evaluator);
         }

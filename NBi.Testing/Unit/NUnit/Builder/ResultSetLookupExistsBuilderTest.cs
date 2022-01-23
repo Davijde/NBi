@@ -22,6 +22,7 @@ using NBi.Core.Injection;
 using NBi.NUnit.ResultSetComparison;
 using NBi.Xml.Items.ResultSet.Lookup;
 using NBi.Extensibility.Resolving;
+using NBi.NUnit.ResultSetBased.Lookup;
 #endregion
 
 namespace NBi.Testing.Unit.NUnit.Builder
@@ -75,7 +76,7 @@ namespace NBi.Testing.Unit.NUnit.Builder
             builder.Build();
             var ctr = builder.GetConstraint();
 
-            Assert.That(ctr, Is.InstanceOf<LookupExistsConstraint>());
+            Assert.That(ctr, Is.InstanceOf<ExistsConstraint>());
         }
 
         [Test]
@@ -96,7 +97,7 @@ namespace NBi.Testing.Unit.NUnit.Builder
             builder.Build();
             var ctr = builder.GetConstraint();
 
-            Assert.That(ctr, Is.InstanceOf<LookupReverseExistsConstraint>());
+            Assert.That(ctr, Is.InstanceOf<ReverseExistsConstraint>());
         }
 
 

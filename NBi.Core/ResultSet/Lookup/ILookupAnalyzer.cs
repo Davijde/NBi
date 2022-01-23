@@ -1,4 +1,5 @@
 ﻿using NBi.Core.ResultSet.Lookup.Violation;
+using NBi.Extensibility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace NBi.Core.ResultSet.Lookup
 {
     public interface ILookupAnalyzer
     {
-        LookupViolationCollection Execute(object candidate, object reference);
+        LookupViolationCollection Execute(IResultSet candidate, IResultSet reference);
     }
 }

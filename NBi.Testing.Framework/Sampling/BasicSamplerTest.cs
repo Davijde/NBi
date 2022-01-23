@@ -1,8 +1,4 @@
-﻿using Moq;
-using NBi.Core.ResultSet;
-using NBi.Framework.FailureMessage;
-using NBi.Framework.FailureMessage.Json;
-using NBi.Framework.Sampling;
+﻿using NBi.Framework.Sampling;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;

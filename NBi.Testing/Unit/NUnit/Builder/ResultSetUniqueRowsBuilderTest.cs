@@ -20,6 +20,7 @@ using NBi.Core.Variable;
 using NBi.Core.ResultSet;
 using NBi.Core.Injection;
 using NBi.Extensibility.Resolving;
+using NBi.NUnit.ResultSetBased.Discrimination;
 #endregion
 
 namespace NBi.Testing.Unit.NUnit.Builder

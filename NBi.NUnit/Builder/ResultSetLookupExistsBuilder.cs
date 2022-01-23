@@ -11,6 +11,7 @@ using NBi.NUnit.Builder.Helper;
 using NBi.Core.ResultSet;
 using NBi.NUnit.ResultSetComparison;
 using NBi.Xml.Settings;
+using NBi.NUnit.ResultSetBased.Lookup;
 
 namespace NBi.NUnit.Builder
 {
@@ -52,7 +53,7 @@ namespace NBi.NUnit.Builder
             var helper = new ResultSetSystemHelper(ServiceLocator, SettingsXml.DefaultScope.Assert, Variables);
             var resolver = helper.InstantiateResolver(ctrXml.ResultSet);
 
-            var ctr = ctrXml.IsReversed ? new LookupReverseExistsConstraint(resolver) : new LookupExistsConstraint(resolver);
+            var ctr = ctrXml.IsReversed ? new ReverseExistsConstraint(resolver) : new ExistsConstraint(resolver);
             Constraint = ctr.Using(mappings);
         }
 

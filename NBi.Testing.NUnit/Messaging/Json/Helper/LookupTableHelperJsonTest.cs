@@ -1,0 +1,60 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
+using System.Text;
+using NUnit.Framework;
+using NBi.Core.ResultSet;
+using NBi.Core.ResultSet.Lookup.Violation;
+using NBi.Core.ResultSet.Lookup;
+using System.IO;
+using Newtonsoft.Json;
+using NBi.Core.Sampling;
+using NBi.NUnit.Messaging.Json.Helper;
+
+namespace NBi.Testing.NUnit.Messaging.Json.Helper
+{
+    public class LookupTableHelperJsonTest
+    {
+        [Test]
+        public void Render_OneViolationWithOneRecordOfOneField_Correct()
+        {
+            var candidateTable = new DataTable() { TableName = "MyTable" };
+            candidateTable.Columns.Add(new DataColumn("ForeignKey"));
+            candidateTable.Columns.Add(new DataColumn("Numeric value"));
+            candidateTable.Columns.Add(new DataColumn("Boolean value"));
+            candidateTable.LoadDataRow(new object[] { "Alpha", 10, true }, false);
+            candidateTable.LoadDataRow(new object[] { "Beta", 20, false }, false);
+            var rsCandidate = new DataTableResultSet(candidateTable);
+
+            var foreignKeyDefinition = new ColumnMetadata() { Identifier = new ColumnIdentifierFactory().Instantiate("ForeignKey"), Role = ColumnRole.Key };
+            var numericDefinition = new ColumnMetadata() { Identifier = new ColumnIdentifierFactory().Instantiate("Numeric value"), Role = ColumnRole.Value };
+
+            var keyMappings = new ColumnMappingCollection() { new ColumnMapping(foreignKeyDefinition.Identifier, ColumnType.Text) };
+            var valueMappings = new ColumnMappingCollection() { new ColumnMapping(numericDefinition.Identifier, ColumnType.Numeric) };
+
+            var records = new List<LookupMatchesViolationRecord>()
+            {
+                new LookupMatchesViolationRecord()
+                {
+                    { rsCandidate.GetColumn(1) , new LookupMatchesViolationData(false, 15) },
+                },
+            };
+            var association = new LookupMatchesViolationComposite(rsCandidate.Rows.ElementAt(0), records);
+
+            var sampler = new FullSampler<LookupMatchesViolationComposite>();
+            sampler.Build(new[] { association });
+            var msg = new LookupTableHelperJson(new[] { association }
+                , new[] { foreignKeyDefinition, numericDefinition }
+                , sampler);
+            var sb = new StringBuilder();
+            using (var sw = new StringWriter(sb))
+            using (var writer = new JsonTextWriter(sw))
+            {
+                msg.Render(writer);
+                var value = sb.ToString();
+                Assert.That(value, Does.Contain(",\"rows\":[[\"Alpha\",{\"value\":\"10\",\"expectation\":\"15\"},\"True\"]]}"));
+            }
+        }
+    }
+}

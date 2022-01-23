@@ -13,6 +13,10 @@ namespace NBi.Core.ResultSet
 
         private DataTable Table { get; set; }
 
+
+        private static DataTableResultSet empty;
+        public static DataTableResultSet Empty { get => empty = empty ?? new DataTableResultSet(new DataTable()); }
+
         public IEnumerable<IResultColumn> Columns
         {
             get { foreach (DataColumn column in Table.Columns) { yield return new DataColumnResultSet(column); } }

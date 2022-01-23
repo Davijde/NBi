@@ -43,6 +43,9 @@ namespace NBi.Core.ResultSet.Lookup.Violation
             }
         }
 
+        protected static LookupViolationCollection empty;
+
+        
         //public IEnumerable<IResultRow> GetRows(RowViolationState state)
         //{
         //    if (Count > 0 && !isBuilt)
@@ -69,6 +72,10 @@ namespace NBi.Core.ResultSet.Lookup.Violation
         : base(keyMappings, null) { }
         public LookupViolationInformation Register(NBiRs.KeyCollection key, IResultRow candidateRow)
             => Register(RowViolationState.Unexpected, key, candidateRow);
+
+        public static LookupViolationCollection Empty
+            => empty = empty ?? new LookupExistsViolationCollection(ColumnMappingCollection.DefaultKey);
+
     }
 
     public class LookupMatchesViolationCollection : LookupViolationCollection

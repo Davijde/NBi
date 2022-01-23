@@ -1,7 +1,7 @@
 ﻿using NBi.Core.Configuration;
 using NBi.Core.ResultSet;
 using NBi.Extensibility;
-using NBi.Framework.FailureMessage;
+using NBi.NUnit.Messaging;
 using NUnit.Framework.Constraints;
 using System.Data;
 using System.Linq;
@@ -10,38 +10,21 @@ using System.Threading.Tasks;
 
 namespace NBi.NUnit.ResultSetBased.RowPredicate
 {
-    public class RowCountConstraintResult : ConstraintResult
+    public class RowCountConstraintResult : ResultSetBasedConstraintResult
     {
-        protected IConfiguration Configuration { get; }
-        protected IDataRowsMessageFormatter Failure { get; }
-        protected ConstraintResult ChildResult { get; }
+        public EngineStyle Style { get; } = EngineStyle.ByIndex;
+        public ConstraintResult ChildResult { get; }
 
         public RowCountConstraintResult(RowCountConstraint constraint, IResultSet actual, ConstraintResult childResult)
-            : base(constraint, actual, childResult.Status)
-        {
-            Configuration = constraint.Configuration;
-            ChildResult = childResult;
-            Failure = BuildFailure(actual, constraint.Configuration);
-        }
-
-        protected virtual IDataRowsMessageFormatter BuildFailure(IResultSet actual, IConfiguration configuration)
-        {
-            var factory = new DataRowsMessageFormatterFactory();
-            var msg = factory.Instantiate(configuration.FailureReportProfile, EngineStyle.ByIndex);
-            msg.BuildCount(actual.Rows);
-            return msg;
-        }
+            : base(constraint, actual, childResult.IsSuccess)
+            => (ChildResult, Style) = (childResult, EngineStyle.ByIndex);
 
         public override void WriteMessageTo(MessageWriter writer)
-            => WriteMessageTo(writer, "count of rows returned by system-under-test is");
-
-        protected void WriteMessageTo(MessageWriter writer, string text)
         {
-            writer.Write($"count of rows returned by system-under-test is");
-            ChildResult.WriteMessageTo(writer);
-            writer.WriteLine();
-            writer.WriteLine("Actual result-set:");
-            writer.WriteLine(Failure.RenderActual());
+            var factory = new RowCountMessengerFactory();
+            var msg = factory.Instantiate(Configuration.FailureReportProfile, Style);
+            var value = msg.WriteMessage(ActualValue, ChildResult);
+            writer.Write(value);
         }
     }
 }

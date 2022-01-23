@@ -69,7 +69,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             var candidate = BuildDataTable(new[] { "Key0", "Key1" }, new object[] { 0, 1 });
             var reference = BuildDataTable(new[] { "Key0", "Key1", "Key2" }, new object[] { 0, 1, 1 });
 
-            var analyzer = new LookupMatchesAnalyzer(BuildColumnMapping(1), BuildColumnMapping(1,1));
+            var analyzer = new LookupMatchesAnalyzer().UsingKeys(BuildColumnMapping(1)).UsingValues(BuildColumnMapping(1,1));
             var violations = analyzer.Execute(candidate, reference);
             Assert.That(violations.Count(), Is.EqualTo(0));
         }
@@ -80,7 +80,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             var candidate = BuildDataTable(new[] { "Key0", "Key1" }, new object[] { 0, 1 });
             var reference = BuildDataTable(new[] { "Key0", "Key1", "Key2" }, new object[] { 0, 2, 1 });
 
-            var analyzer = new LookupMatchesAnalyzer(BuildColumnMapping(1), BuildColumnMapping(1, 1, ColumnType.Numeric));
+            var analyzer = new LookupMatchesAnalyzer().UsingKeys(BuildColumnMapping(1)).UsingValues(BuildColumnMapping(1, 1, ColumnType.Numeric));
             var violations = analyzer.Execute(candidate, reference);
             Assert.That(violations.Count(), Is.EqualTo(1));
         }
@@ -92,7 +92,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             var reference = BuildDataTable(new[] { "Key0", "Key1", "Key2" }, new object[] { 0, 2, 1 });
             var tolerances = new Dictionary<IColumnIdentifier, Tolerance>() { { new ColumnIdentifierFactory().Instantiate("#1"), new NumericAbsoluteTolerance(1, SideTolerance.Both) } };
  
-            var analyzer = new LookupMatchesAnalyzer(BuildColumnMapping(1), BuildColumnMapping(1, 1, ColumnType.Numeric), tolerances);
+            var analyzer = new LookupMatchesAnalyzer().UsingKeys(BuildColumnMapping(1)).UsingValues(BuildColumnMapping(1, 1, ColumnType.Numeric)).Using(tolerances);
             var violations = analyzer.Execute(candidate, reference);
             Assert.That(violations.Count(), Is.EqualTo(0));
         }
@@ -103,7 +103,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             var candidate = BuildDataTable(new[] { "Key0", "Key1" }, new object[] { 0, 1 });
             var reference = BuildDataTable(new[] { "Key0", "Key1", "Key2", "Key1", "Key2" }, new object[] { 0, 2, 3, 1, 3 });
 
-            var analyzer = new LookupMatchesAnalyzer(BuildColumnMapping(1), BuildColumnMapping(1, 1));
+            var analyzer = new LookupMatchesAnalyzer().UsingKeys(BuildColumnMapping(1)).UsingValues(BuildColumnMapping(1, 1));
             var violations = analyzer.Execute(candidate, reference);
             Assert.That(violations.Count(), Is.EqualTo(0));
         }
@@ -114,7 +114,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             var candidate = BuildDataTable(new[] { "Key0", "Key1" }, new object[] { 0, 1 });
             var reference = BuildDataTable(new[] { "Key0", "Key2", "Key2", "Key0", "Key2" }, new object[] { 0, 1, 1, 1, 1 });
 
-            var analyzer = new LookupMatchesAnalyzer(BuildColumnMapping(1), BuildColumnMapping(1, 1));
+            var analyzer = new LookupMatchesAnalyzer().UsingKeys(BuildColumnMapping(1)).UsingValues(BuildColumnMapping(1, 1));
             var violations = analyzer.Execute(candidate, reference);
             Assert.That(violations.Count(), Is.EqualTo(1));
         }
@@ -125,7 +125,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             var candidate = BuildDataTable(new[] { "Key0", "Key1" }, new object[] { 0, 1 });
             var reference = BuildDataTable(new[] { "Key0", "Key1", "Key1", "Key0", "Key2" }, new object[] { 0, 2, 3, 4, 5 });
 
-            var analyzer = new LookupMatchesAnalyzer(BuildColumnMapping(1), BuildColumnMapping(1, 1));
+            var analyzer = new LookupMatchesAnalyzer().UsingKeys(BuildColumnMapping(1)).UsingValues(BuildColumnMapping(1, 1));
             var violations = analyzer.Execute(candidate, reference);
             Assert.That(violations.Count(), Is.EqualTo(1));
         }
@@ -136,7 +136,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             var candidate = BuildDataTable(new[] { "Key0", "Key1" }, new[] { "Foo", "Bar" }, new object[] { 0, 1 });
             var reference = BuildDataTable(new[] { "Key0", "Key1", "Key2" }, new[] { "Foo", "Bar", "Bar" }, new object[] { 0, 1, 2 });
 
-            var referencer = new LookupMatchesAnalyzer(BuildColumnMapping(2), BuildColumnMapping(1, 2));
+            var referencer = new LookupMatchesAnalyzer().UsingKeys(BuildColumnMapping(2)).UsingValues(BuildColumnMapping(1, 2));
             var violations = referencer.Execute(candidate, reference);
             Assert.That(violations.Count(), Is.EqualTo(0));
         }
@@ -175,7 +175,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             {
                 new ColumnMapping(new ColumnNameIdentifier("one"), new ColumnNameIdentifier("value"), ColumnType.Text)
             };
-            var analyzer = new LookupMatchesAnalyzer(mappingKey, mappingValue);
+            var analyzer = new LookupMatchesAnalyzer().UsingKeys(mappingKey).UsingValues(mappingValue);
             var stopWatch = new Stopwatch();
             stopWatch.Start();
             analyzer.Execute(candidate, reference);
@@ -215,7 +215,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             {
                 new ColumnMapping(new ColumnNameIdentifier("value"), new ColumnNameIdentifier("one"), ColumnType.Text)
             };
-            var analyzer = new LookupMatchesAnalyzer(mappingKey, mappingValue);
+            var analyzer = new LookupMatchesAnalyzer().UsingKeys(mappingKey).UsingValues(mappingValue);
             var stopWatch = new Stopwatch();
             stopWatch.Start();
             var violations = analyzer.Execute(candidate, reference);

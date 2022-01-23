@@ -14,7 +14,6 @@ using System.Runtime.CompilerServices;
 //Reference the testing class to ensure access to internal members
 [assembly: InternalsVisibleTo("NBi.Testing")]
 [assembly: InternalsVisibleTo("NBi.Testing.Core")]
-[assembly: InternalsVisibleTo("NBi.Testing.Framework")]
 [assembly: InternalsVisibleTo("NBi.Testing.GenbiL")]
 [assembly: InternalsVisibleTo("NBi.Testing.NUnit")]
 [assembly: InternalsVisibleTo("NBi.Testing.Xml")]

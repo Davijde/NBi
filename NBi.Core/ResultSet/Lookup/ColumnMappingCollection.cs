@@ -28,13 +28,23 @@ namespace NBi.Core.ResultSet.Lookup
         private bool CheckIdentifierConformity(Func<ColumnMapping, IColumnIdentifier> target, ColumnMapping item)
             => this.All(x => target(x).GetType() == target(item).GetType());
 
-        private static ColumnMappingCollection @default;
-        public static ColumnMappingCollection Default
+        private static ColumnMappingCollection defaultKey;
+        public static ColumnMappingCollection DefaultKey
         {
             get
             {
-                @default = @default ?? new ColumnMappingCollection() { new ColumnMapping(new ColumnOrdinalIdentifier(0), ColumnType.Text) };
-                return @default;
+                defaultKey = defaultKey ?? new ColumnMappingCollection() { new ColumnMapping(new ColumnOrdinalIdentifier(0), ColumnType.Text) };
+                return defaultKey;
+            }
+        }
+
+        private static ColumnMappingCollection defaultValue;
+        public static ColumnMappingCollection DefaultValue
+        {
+            get
+            {
+                defaultValue = defaultValue ?? new ColumnMappingCollection() { new ColumnMapping(new ColumnOrdinalIdentifier(1), ColumnType.Text) };
+                return defaultValue;
             }
         }
 

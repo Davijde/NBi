@@ -7,6 +7,7 @@ using NUnit.Framework;
 using NBi.Core.ResultSet.Uniqueness;
 using System.Data;
 using NBi.Core.ResultSet;
+using NBi.Core.ResultSet.Discrimination;
 
 namespace NBi.Testing.Core.ResultSet.Uniqueness
 {
@@ -46,7 +47,7 @@ namespace NBi.Testing.Core.ResultSet.Uniqueness
                     new List<object>() {"a" , "d", 150 },
                 });
 
-            var finder = new OrdinalEvaluator();
+            var finder = new OrdinalUniquenessEngine();
             var result = finder.Execute(resultSet);
             Assert.That(result.AreUnique, Is.True);
         }
@@ -62,7 +63,7 @@ namespace NBi.Testing.Core.ResultSet.Uniqueness
                     new List<object>() {"a" , "d", 150 },
                 });
 
-            var finder = new OrdinalEvaluator();
+            var finder = new OrdinalUniquenessEngine();
             var result = finder.Execute(resultSet);
             Assert.That(result.AreUnique, Is.False);
         }
@@ -78,7 +79,7 @@ namespace NBi.Testing.Core.ResultSet.Uniqueness
                     new List<object>() {"a" , "d", 150 },
                 });
 
-            var finder = new OrdinalEvaluator();
+            var finder = new OrdinalUniquenessEngine();
             var result = finder.Execute(resultSet);
             Assert.That(result.Values.Count(), Is.EqualTo(1));
             Assert.That(result.Values.ElementAt(0).OccurenceCount, Is.EqualTo(2));
@@ -95,7 +96,7 @@ namespace NBi.Testing.Core.ResultSet.Uniqueness
                     new List<object>() {"a" , "b", 120 },
                 });
 
-            var finder = new OrdinalEvaluator();
+            var finder = new OrdinalUniquenessEngine();
             var result = finder.Execute(resultSet);
             Assert.That(result.Values.Count(), Is.EqualTo(1));
             Assert.That(result.Values.ElementAt(0).OccurenceCount, Is.EqualTo(3));

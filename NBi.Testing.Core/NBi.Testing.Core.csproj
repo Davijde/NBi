@@ -199,6 +199,9 @@
     <Compile Include="ResultSet\Resolver\SequenceCombinationResultSetResolverTest.cs" />
     <Compile Include="ResultSet\ResultSetTest.cs" />
     <Compile Include="ResultSet\Uniqueness\OrdinalUniqueRowsEvaluatorTest.cs" />
+    <Compile Include="Sampling\BasicSamplerTest.cs" />
+    <Compile Include="Sampling\FullSamplerTest.cs" />
+    <Compile Include="Sampling\NoneSamplerTest.cs" />
     <Compile Include="Scalar\Casting\BaseNumericCasterTest.cs" />
     <Compile Include="Scalar\Casting\DateTimeCasterTest.cs" />
     <Compile Include="Scalar\Casting\NumericCasterTest.cs" />

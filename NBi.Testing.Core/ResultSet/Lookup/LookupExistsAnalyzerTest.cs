@@ -25,8 +25,8 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             for (int i = 0; i < keys.Length; i++)
             {
                 var dr = dt.NewRow();
-                dr.SetField<object>(keyCol, keys[i]);
-                dr.SetField<object>(valueCol, values[i]);
+                dr.SetField(keyCol, keys[i]);
+                dr.SetField(valueCol, values[i]);
                 dt.Rows.Add(dr);
             }
 
@@ -68,7 +68,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             var child = BuildDataTable(new[] { "Key0", "Key1" }, new object[] { 0, 1 });
             var reference = BuildDataTable(new[] { "Key0", "Key1", "Key2" }, new object[] { 1, 1, 1 });
 
-            var referencer = new LookupExistsAnalyzer(BuildColumnMapping(1));
+            var referencer = new LookupExistsAnalyzer().UsingKeys(BuildColumnMapping(1));
             var violations = referencer.Execute(child, reference);
             Assert.That(violations.Count(), Is.EqualTo(0));
         }
@@ -79,7 +79,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             var child = BuildDataTable(new[] { "Key0", "Key1" }, new object[] { 0, 1 });
             var reference = BuildDataTable(new[] { "Key0", "Key1", "Key2", "Key1", "Key2" }, new object[] { 1, 1, 1, 1, 1 });
 
-            var referencer = new LookupExistsAnalyzer(BuildColumnMapping(1));
+            var referencer = new LookupExistsAnalyzer().UsingKeys(BuildColumnMapping(1));
             var violations = referencer.Execute(child, reference);
             Assert.That(violations.Count(), Is.EqualTo(0));
         }
@@ -90,7 +90,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             var child = BuildDataTable(new[] { "Key0", "Key1" }, new object[] { 0, 1 });
             var reference = BuildDataTable(new[] { "Key0", "Key2", "Key2", "Key0", "Key2" }, new object[] { 1, 1, 1, 1, 1 });
 
-            var referencer = new LookupExistsAnalyzer(BuildColumnMapping(1));
+            var referencer = new LookupExistsAnalyzer().UsingKeys(BuildColumnMapping(1));
             var violations = referencer.Execute(child, reference);
             Assert.That(violations.Count(), Is.EqualTo(1));
         }
@@ -101,7 +101,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             var child = BuildDataTable(new[] { "Key0", "Key1" }, new[] { "Foo", "Bar" }, new object[] { 0, 1 });
             var reference = BuildDataTable(new[] { "Key0", "Key1", "Key2" }, new[] { "Foo", "Bar", "Bar" }, new object[] { 1, 2, 3 });
 
-            var referencer = new LookupExistsAnalyzer(BuildColumnMapping(2));
+            var referencer = new LookupExistsAnalyzer().UsingKeys(BuildColumnMapping(2));
             var violations = referencer.Execute(child, reference);
             Assert.That(violations.Count(), Is.EqualTo(0));
         }
@@ -112,7 +112,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             var child = BuildDataTable(new[] { "Key0", "Key1" }, new[] { "Foo", "Bar" }, new object[] { 0, 1 });
             var reference = BuildDataTable(new[] { "Key0" }, new[] { "Foo" }, new object[] { 1 });
 
-            var referencer = new LookupExistsAnalyzer(BuildColumnMapping(2));
+            var referencer = new LookupExistsAnalyzer().UsingKeys(BuildColumnMapping(2));
             var violations = referencer.Execute(child, reference);
             Assert.That(violations.Count(), Is.EqualTo(1));
         }
@@ -124,7 +124,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             var reference = BuildDataTable(new[] { "Key0", "Key1", "Key2" }, new[] { "Foo", "Bar",  "Fie" }, new object[] { 1, 2, 3 });
             reference.GetColumn(2).Move(0);
 
-            var referencer = new LookupExistsAnalyzer(BuildColumnMapping(2, 1));
+            var referencer = new LookupExistsAnalyzer().UsingKeys(BuildColumnMapping(2, 1));
             var violations = referencer.Execute(child, reference);
             Assert.That(violations.Count(), Is.EqualTo(0));
         }
@@ -136,7 +136,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             var reference = BuildDataTable(new[] { "Key0", "Key1" }, new[] { "Foo", "Bar" }, new object[] { 0, 1 });
             reference.GetColumn(2).Move(0);
 
-            var referencer = new LookupExistsAnalyzer(BuildColumnMapping(2, 1));
+            var referencer = new LookupExistsAnalyzer().UsingKeys(BuildColumnMapping(2, 1));
             var violations = referencer.Execute(child, reference);
             Assert.That(violations.Count(), Is.EqualTo(1));
         }
@@ -153,7 +153,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
                 new ColumnMapping(new ColumnOrdinalIdentifier(0), new ColumnOrdinalIdentifier(1), ColumnType.Text),
                 new ColumnMapping(new ColumnOrdinalIdentifier(1), new ColumnOrdinalIdentifier(0), ColumnType.Text)
             };
-            var referencer = new LookupExistsAnalyzer(mapping);
+            var referencer = new LookupExistsAnalyzer().UsingKeys(mapping);
             var violations = referencer.Execute(child, reference);
             Assert.That(violations.Count(), Is.EqualTo(0));
         }
@@ -170,7 +170,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
                 new ColumnMapping(new ColumnOrdinalIdentifier(0), new ColumnOrdinalIdentifier(1), ColumnType.Text),
                 new ColumnMapping(new ColumnOrdinalIdentifier(1), new ColumnOrdinalIdentifier(0), ColumnType.Text)
             };
-            var referencer = new LookupExistsAnalyzer(mapping);
+            var referencer = new LookupExistsAnalyzer().UsingKeys(mapping);
             var violations = referencer.Execute(child, reference);
             Assert.That(violations.Count(), Is.EqualTo(1));
         }
@@ -186,7 +186,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
                 new ColumnMapping(new ColumnOrdinalIdentifier(0), ColumnType.Text),
                 new ColumnMapping(new ColumnOrdinalIdentifier(1), ColumnType.Text)
             };
-            var referencer = new LookupExistsAnalyzer(mapping);
+            var referencer = new LookupExistsAnalyzer().UsingKeys(mapping);
             var violations = referencer.Execute(child, reference);
             Assert.That(violations.Count(), Is.EqualTo(0));
         }
@@ -202,7 +202,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
                 new ColumnMapping(new ColumnOrdinalIdentifier(0), ColumnType.Text),
                 new ColumnMapping(new ColumnOrdinalIdentifier(1), ColumnType.Text)
             };
-            var referencer = new LookupExistsAnalyzer(mapping);
+            var referencer = new LookupExistsAnalyzer().UsingKeys(mapping);
             var violations = referencer.Execute(child, reference);
             Assert.That(violations.Count(), Is.EqualTo(0));
         }
@@ -219,7 +219,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
                 new ColumnMapping(new ColumnOrdinalIdentifier(1), ColumnType.Text),
                 new ColumnMapping(new ColumnOrdinalIdentifier(2), ColumnType.Numeric)
             };
-            var referencer = new LookupExistsAnalyzer(mapping);
+            var referencer = new LookupExistsAnalyzer().UsingKeys(mapping);
             var violations = referencer.Execute(child, reference);
             Assert.That(violations.Count(), Is.EqualTo(0));
         }
@@ -237,7 +237,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
                 new ColumnMapping(new ColumnNameIdentifier("one"), ColumnType.Text),
                 new ColumnMapping(new ColumnNameIdentifier("two"), ColumnType.Numeric)
             };
-            var referencer = new LookupExistsAnalyzer(mapping);
+            var referencer = new LookupExistsAnalyzer().UsingKeys(mapping);
             var violations = referencer.Execute(child, reference);
             Assert.That(violations.Count(), Is.EqualTo(0));
         }
@@ -255,7 +255,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
                 new ColumnMapping(new ColumnNameIdentifier("one"), ColumnType.Text),
                 new ColumnMapping(new ColumnNameIdentifier("two"), ColumnType.Numeric)
             };
-            var referencer = new LookupExistsAnalyzer(mapping);
+            var referencer = new LookupExistsAnalyzer().UsingKeys(mapping);
             var violations = referencer.Execute(child, reference);
             Assert.That(violations.Count(), Is.EqualTo(0));
         }
@@ -274,7 +274,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
                 new ColumnMapping(new ColumnNameIdentifier("one"), ColumnType.Text),
                 new ColumnMapping(new ColumnNameIdentifier("two"), new ColumnNameIdentifier("myColumn"), ColumnType.Numeric)
             };
-            var referencer = new LookupExistsAnalyzer(mapping);
+            var referencer = new LookupExistsAnalyzer().UsingKeys(mapping);
             var violations = referencer.Execute(child, reference);
             Assert.That(violations.Count(), Is.EqualTo(0));
         }
@@ -293,7 +293,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
                 new ColumnMapping(new ColumnNameIdentifier("one"), ColumnType.Text),
                 new ColumnMapping(new ColumnNameIdentifier("two"), new ColumnNameIdentifier("myColumn"), ColumnType.Numeric)
             };
-            var referencer = new LookupExistsAnalyzer(mapping);
+            var referencer = new LookupExistsAnalyzer().UsingKeys(mapping);
             var violations = referencer.Execute(child, reference);
             Assert.That(violations.Count(), Is.EqualTo(0));
         }
@@ -323,7 +323,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             {
                 new ColumnMapping(new ColumnNameIdentifier("two"), new ColumnNameIdentifier("two"), ColumnType.Numeric)
             };
-            var referencer = new LookupExistsAnalyzer(mapping);
+            var referencer = new LookupExistsAnalyzer().UsingKeys(mapping);
             var stopWatch = new Stopwatch();
             stopWatch.Start();
             referencer.Execute(child, reference);
@@ -356,7 +356,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             {
                 new ColumnMapping(new ColumnNameIdentifier("two"), new ColumnNameIdentifier("two"), ColumnType.Numeric)
             };
-            var referencer = new LookupExistsAnalyzer(mapping);
+            var referencer = new LookupExistsAnalyzer().UsingKeys(mapping);
             var stopWatch = new Stopwatch();
             stopWatch.Start();
             var violations = referencer.Execute(child, reference);
@@ -389,7 +389,7 @@ namespace NBi.Testing.Core.ResultSet.Lookup
             {
                 new ColumnMapping(new ColumnNameIdentifier("one"), new ColumnNameIdentifier("one"), ColumnType.Numeric)
             };
-            var referencer = new LookupExistsAnalyzer(mapping);
+            var referencer = new LookupExistsAnalyzer().UsingKeys(mapping);
             var stopWatch = new Stopwatch();
             stopWatch.Start();
             referencer.Execute(child, reference);

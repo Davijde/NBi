@@ -18,7 +18,7 @@ namespace NBi.NUnit.ResultSetBased.RowPredicate
             var filteredRs = Filter.Execute(actualRs);
             decimal effectivePercentage = filteredRs.RowCount / Convert.ToDecimal(actualRs.RowCount);
             var childResult = ChildConstraint.ApplyTo(effectivePercentage);
-            return new RowCountFilterPercentageConstraintResult(this, actualRs, childResult);
+            return new RowCountFilterPercentageConstraintResult(this, actualRs, filteredRs, childResult);
         }
     }
 }

@@ -19,7 +19,7 @@ namespace NBi.NUnit.ResultSetBased.RowPredicate
             var actualRs = actual.Execute();
             var filterResultSet = Filter.Execute(actualRs);
             var childResult = Matches(filterResultSet);
-            return new RowCountFilterConstraintResult(this, actualRs, childResult);
+            return new RowCountFilterConstraintResult(this, actualRs, filterResultSet, childResult);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnitCtr = NUnit.Framework.Constraints;
-using NBi.Framework.FailureMessage;
+using NBi.NUnit.Messaging;
 using NUnit.Framework;
 using NBi.Core.Configuration.FailureReport;
 using NBi.Extensibility.Resolving;

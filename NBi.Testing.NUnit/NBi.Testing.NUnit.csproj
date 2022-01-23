@@ -38,8 +38,14 @@
     <Reference Include="Castle.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=407dd0808d44fbdc, processorArchitecture=MSIL">
       <HintPath>..\packages\Castle.Core.4.4.1\lib\net45\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="MarkdownLog, Version=0.9.64.0, Culture=neutral, PublicKeyToken=2b6c562c5dd991ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\MarkdownLog.0.9.64\lib\netstandard2.0\MarkdownLog.dll</HintPath>
+    </Reference>
     <Reference Include="Moq, Version=4.16.0.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.16.1\lib\net45\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework, Version=3.13.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.13.2\lib\net45\nunit.framework.dll</HintPath>
@@ -70,6 +76,9 @@
     <Compile Include="Constraint\ResultSetBased\Comparison\SubsetOfConstraintTest.cs" />
     <Compile Include="Constraint\ResultSetBased\Comparison\IntersectionOfConstraintTest.cs" />
     <Compile Include="Constraint\ResultSetBased\Comparison\SupersetOfConstraintTest.cs" />
+    <Compile Include="Constraint\ResultSetBased\Lookup\ReverseExistsConstraintTest.cs" />
+    <Compile Include="Constraint\ResultSetBased\Lookup\MatchesConstraintTest.cs" />
+    <Compile Include="Constraint\ResultSetBased\Lookup\ExistsConstraintTest.cs" />
     <Compile Include="Constraint\ResultSetBased\RowPredicate\AllRowsConstraintTest.cs" />
     <Compile Include="Constraint\ResultSetBased\RowPredicate\RowCountFilterPercentageConstraintTest.cs" />
     <Compile Include="Constraint\ResultSetBased\RowPredicate\RowCountFilterConstraintTest.cs" />
@@ -77,8 +86,30 @@
     <Compile Include="Constraint\ResultSetBased\RowPredicate\RowCountConstraintTest.cs" />
     <Compile Include="Constraint\ResultSetBased\RowPredicate\SingleRowConstraintTest.cs" />
     <Compile Include="Constraint\ResultSetBased\RowPredicate\SomeRowsConstraintTest.cs" />
+    <Compile Include="Messaging\Common\ColumnPropertiesFormatterTest.cs" />
+    <Compile Include="Messaging\Json\Helper\LookupTableHelperJsonTest.cs" />
+    <Compile Include="Messaging\Json\Helper\StandardTableHelperJsonTest.cs" />
+    <Compile Include="Messaging\Json\Helper\TableHelperJsonTest.cs" />
+    <Compile Include="Messaging\Json\LookupExistsViolationMessageJsonTest.cs" />
+    <Compile Include="Messaging\Json\LookupMatchesViolationMessageJsonTest.cs" />
+    <Compile Include="Messaging\Json\LookupReverseExistsViolationMessageJsonTest.cs" />
+    <Compile Include="Messaging\Json\ResultSetBased\ComparisonMessengerJsonTest.cs" />
+    <Compile Include="Messaging\Json\ResultSetBased\RowCountFilteredMessengerJsonTest.cs" />
+    <Compile Include="Messaging\Json\ResultSetBased\RowCountMessengerJsonTest.cs" />
+    <Compile Include="Messaging\Json\ResultSetBased\UniquenessMessengerJsonTest.cs" />
+    <Compile Include="Messaging\Json\ScoreMessageJsonTest.cs" />
+    <Compile Include="Messaging\Markdown\Helper\LookupTableHelperMarkdownTest.cs" />
+    <Compile Include="Messaging\Markdown\Helper\StandardTableHelperMarkdownTest.cs" />
+    <Compile Include="Messaging\Markdown\Helper\TableHelperMarkdownTest.cs" />
+    <Compile Include="Messaging\Markdown\ItemsMessageMardownTest.cs" />
+    <Compile Include="Messaging\Markdown\ResultSetBased\ComparisonMessengerMarkdownTest.cs" />
+    <Compile Include="Messaging\Markdown\ResultSetBased\RowCountFilteredMessengerMarkdownTest.cs" />
+    <Compile Include="Messaging\Markdown\ResultSetBased\RowCountMessengerMarkdownTest.cs" />
+    <Compile Include="Messaging\Markdown\ResultSetBased\UniquenessMessengerMarkdownTest.cs" />
+    <Compile Include="Messaging\Markdown\ScoreMessageMardownTest.cs" />
     <Compile Include="FileOnDisk.cs" />
     <Compile Include="Properties\ProjectAssemblyInfo.cs" />
+    <Compile Include="StringExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NBi.Core\NBi.Core.csproj">
@@ -88,10 +119,6 @@
     <ProjectReference Include="..\NBi.Extensibility\NBi.Extensibility.csproj">
       <Project>{a06cba63-d848-4dbc-abfc-63172613999d}</Project>
       <Name>NBi.Extensibility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NBi.Framework\NBi.Framework.csproj">
-      <Project>{1ad339dc-60e0-4334-86cf-60eeafeaa6e4}</Project>
-      <Name>NBi.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\NBi.NUnit\NBi.NUnit.csproj">
       <Project>{66314704-aa76-4153-80d8-ca2c5ff06976}</Project>

@@ -3,7 +3,7 @@ using NBi.Core.Configuration.FailureReport;
 using NBi.Core.ResultSet;
 using NBi.Core.ResultSet.Equivalence;
 using NBi.Extensibility;
-using NBi.Framework.FailureMessage;
+using NBi.NUnit.Messaging;
 using NUnit.Framework.Constraints;
 using System;
 using System.Collections.Generic;
@@ -14,43 +14,22 @@ using System.Threading.Tasks;
 
 namespace NBi.NUnit.ResultSetBased.Comparison
 {
-    internal class ResultSetComparisonConstraintResult : ConstraintResult
+    internal class ResultSetComparisonConstraintResult : ResultSetBasedConstraintResult
     {
-        protected IConfiguration Configuration { get; }
-        protected IDataRowsMessageFormatter Failure { get; }
+        public IResultSet ExpectedValue { get; }
+        public ResultResultSet ResultValue { get; }
+        public EngineStyle Style { get; }
 
         public ResultSetComparisonConstraintResult(BaseResultSetComparisonConstraint constraint, IResultSet actual, IResultSet expected, ResultResultSet result)
             : base(constraint, actual, result.Difference == ResultSetDifferenceType.None)
-        { 
-            Configuration = constraint.Configuration;
-            Failure = BuildFailure(actual, expected, result, constraint.Engine, constraint.Configuration);
-        }
-
-        protected virtual IDataRowsMessageFormatter BuildFailure(IResultSet actual, IResultSet expected, ResultResultSet result, IEquivaler engine, IConfiguration configuration)
-        {
-            var factory = new DataRowsMessageFormatterFactory();
-            var msg = factory.Instantiate(configuration.FailureReportProfile, engine.Style);
-            msg.BuildComparaison(expected.Rows, actual.Rows, result);
-            return msg;
-        }
+            => (ExpectedValue, ResultValue, Style) = (expected, result, constraint.Engine.Style);
 
         public override void WriteMessageTo(MessageWriter writer)
         {
-            if (Configuration.FailureReportProfile.Format == FailureReportFormat.Json)
-                writer.Write(Failure.RenderMessage());
-            else
-            {
-                writer.WriteLine("Execution of the query doesn't match the expected result ");
-                writer.WriteLine();
-                writer.WriteLine("  Expected: ");
-                writer.WriteLine(Failure.RenderExpected());
-                writer.WriteLine();
-                writer.WriteLine("  But was:  ");
-                writer.WriteLine(Failure.RenderActual());
-                writer.WriteLine();
-                writer.WriteLine();
-                writer.WriteLine(Failure.RenderAnalysis());
-            }
+            var factory = new ComparisonMessengerFactory();
+            var msg = factory.Instantiate(Configuration.FailureReportProfile, Style);
+            var value = msg.WriteMessage(ExpectedValue, ActualValue, ResultValue);
+            writer.Write(value);
         }
     }
 }

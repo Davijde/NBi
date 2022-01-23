@@ -20,10 +20,10 @@ namespace NBi.Core.ResultSet.Filtering
         public IResultSet Execute(IResultSet rs)
             => Execution.Invoke(rs);
 
-        protected IResultSet Discard(IResultSet rs) 
+        protected IResultSet Discard(IResultSet rs)
             => Execute(rs, (x => !x));
 
-        protected IResultSet Keep(IResultSet rs) 
+        protected IResultSet Keep(IResultSet rs)
             => Execute(rs, (x => x));
 
         public IResultSetFilter Revert()
@@ -33,31 +33,31 @@ namespace NBi.Core.ResultSet.Filtering
         }
 
 
-                protected IResultSet Execute(IResultSet rs, Func<bool, bool> onApply)
-                {
-                    var table = rs.Clone();
-                    table.Clear();
+        protected IResultSet Execute(IResultSet rs, Func<bool, bool> onApply)
+        {
+            var table = rs.Clone();
+            table.Clear();
 
-                    foreach (var row in rs.Rows)
+            foreach (var row in rs.Rows)
+            {
+                Context.Switch(row);
+                if (onApply(RowApply(Context)))
+                {
+                    if (table.RowCount == 0 && table.ColumnCount != rs.ColumnCount)
                     {
-                        Context.Switch(row);
-                        if (onApply(RowApply(Context)))
+                        foreach (var column in rs.Columns)
                         {
-                            if (table.RowCount == 0 && table.ColumnCount != rs.ColumnCount)
-                            {
-                                foreach (var column in rs.Columns)
-                                {
-                                    if (!table.ContainsColumn(column.Name))
-                                        table.AddColumn(column.Name);
-                                }
-                            }
-                            table.AddRow(row);
+                            if (!table.ContainsColumn(column.Name))
+                                table.AddColumn(column.Name);
                         }
                     }
-
-                    table.AcceptChanges();
-                    return table;
+                    table.AddRow(row);
                 }
+            }
+
+            table.AcceptChanges();
+            return table;
+        }
 
         protected abstract bool RowApply(Context context);
 

@@ -12,5 +12,11 @@ namespace NBi.NUnit.ResultSetBased.RowPredicate
         {
             filter.Revert();    
         }
+
+        public override string Description
+        {
+            get => $"all rows validating the predicate '{Filter.Describe()}'";
+            protected set => base.Description = value;
+        }
     }
 }

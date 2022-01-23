@@ -70,21 +70,6 @@
     <Compile Include="..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="FailureMessage\Common\ColumnPropertiesFormatterTest.cs" />
-    <Compile Include="FailureMessage\Json\DataRowsMessageJsonTest.cs" />
-    <Compile Include="FailureMessage\Json\Helper\LookupTableHelperJsonTest.cs" />
-    <Compile Include="FailureMessage\Json\Helper\StandardTableHelperJsonTest.cs" />
-    <Compile Include="FailureMessage\Json\Helper\TableHelperJsonTest.cs" />
-    <Compile Include="FailureMessage\Json\LookupExistsViolationMessageJsonTest.cs" />
-    <Compile Include="FailureMessage\Json\LookupMatchesViolationMessageJsonTest.cs" />
-    <Compile Include="FailureMessage\Json\LookupReverseExistsViolationMessageJsonTest.cs" />
-    <Compile Include="FailureMessage\Json\ScoreMessageJsonTest.cs" />
-    <Compile Include="FailureMessage\Markdown\DataRowsMessageMardownTest.cs" />
-    <Compile Include="FailureMessage\Markdown\Helper\LookupTableHelperMarkdownTest.cs" />
-    <Compile Include="FailureMessage\Markdown\Helper\StandardTableHelperMarkdownTest.cs" />
-    <Compile Include="FailureMessage\Markdown\Helper\TableHelperMarkdownTest.cs" />
-    <Compile Include="FailureMessage\Markdown\ItemsMessageMardownTest.cs" />
-    <Compile Include="FailureMessage\Markdown\ScoreMessageMardownTest.cs" />
     <Compile Include="Properties\ProjectAssemblyInfo.cs" />
     <Compile Include="Sampling\BasicSamplerTest.cs" />
     <Compile Include="Sampling\FullSamplerTest.cs" />

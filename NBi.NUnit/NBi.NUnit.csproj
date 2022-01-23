@@ -49,6 +49,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MarkdownLog, Version=0.9.64.0, Culture=neutral, PublicKeyToken=2b6c562c5dd991ab, processorArchitecture=MSIL">
+      <HintPath>..\packages\MarkdownLog.0.9.64\lib\netstandard2.0\MarkdownLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=3.13.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.3.13.2\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
@@ -125,6 +131,73 @@
     <Compile Include="DataType\DescriptionDataTypeHelper.cs" />
     <Compile Include="DataType\IsConstraint.cs" />
     <Compile Include="DifferedConstraint.cs" />
+    <Compile Include="Messaging\Common\ColumnPropertiesFormatter.cs" />
+    <Compile Include="Messaging\Common\Helper\BaseTableHelper.cs" />
+    <Compile Include="Messaging\Common\Helper\ITableHelper.cs" />
+    <Compile Include="Messaging\Common\LookupViolationMessage.cs" />
+    <Compile Include="Messaging\ComparisonMessengerFactory.cs" />
+    <Compile Include="Messaging\IComparisonMessenger.cs" />
+    <Compile Include="Messaging\IItemsMessageFormatter.cs" />
+    <Compile Include="Messaging\ILookupViolationMessageFormatter.cs" />
+    <Compile Include="Messaging\IRowCountFilteredMessenger.cs" />
+    <Compile Include="Messaging\IRowCountMessenger.cs" />
+    <Compile Include="Messaging\IScoreMessageFormatter.cs" />
+    <Compile Include="Messaging\ItemsMessageFormatterFactory.cs" />
+    <Compile Include="Messaging\IUniquenessMessenger.cs" />
+    <Compile Include="Messaging\Json\Helper\BaseTableHelperJson.cs" />
+    <Compile Include="Messaging\Json\Helper\CompareTableHelperJson.cs" />
+    <Compile Include="Messaging\Json\Helper\LookupTableHelperJson.cs" />
+    <Compile Include="Messaging\Json\Helper\StandardTableHelperJson.cs" />
+    <Compile Include="Messaging\Json\Helper\TableHelperJson.cs" />
+    <Compile Include="Messaging\Json\ItemsMessageJson.cs" />
+    <Compile Include="Messaging\Json\LookupExistsViolationMessageJson.cs" />
+    <Compile Include="Messaging\Json\LookupMatchesViolationMessageJson.cs" />
+    <Compile Include="Messaging\Json\LookupReverseExistsViolationMessageJson.cs" />
+    <Compile Include="Messaging\Json\LookupViolationMessageJson.cs" />
+    <Compile Include="Messaging\Json\ResultSetBased\ComparisonMessengerJson.cs" />
+    <Compile Include="Messaging\Json\ResultSetBased\ResultSetBasedMessengerJson.cs" />
+    <Compile Include="Messaging\Json\ResultSetBased\RowCountFilteredMessengerJson.cs" />
+    <Compile Include="Messaging\Json\ResultSetBased\RowCountMessengerJson.cs" />
+    <Compile Include="Messaging\Json\ResultSetBased\UniquenessMessengerJson.cs" />
+    <Compile Include="Messaging\Json\ScoreMessageJson.cs" />
+    <Compile Include="Messaging\LookupExistsViolationsMessageFormatterFactory.cs" />
+    <Compile Include="Messaging\LookupMatchesViolationsMessageFormatterFactory.cs" />
+    <Compile Include="Messaging\LookupReverseExistsViolationsMessageFormatterFactory.cs" />
+    <Compile Include="Messaging\Markdown\Helper\BaseTableHelperMarkdown.cs" />
+    <Compile Include="Messaging\Markdown\Helper\CompareTableHelperMarkdown.cs" />
+    <Compile Include="Messaging\Markdown\Helper\LookupTableHelperMarkdown.cs" />
+    <Compile Include="Messaging\Markdown\Helper\StandardTableHelperMarkdown.cs" />
+    <Compile Include="Messaging\Markdown\Helper\TableHelperMarkdown.cs" />
+    <Compile Include="Messaging\Markdown\ItemsMessageMarkdown.cs" />
+    <Compile Include="Messaging\Markdown\LookupExistsViolationMessageMarkdown.cs" />
+    <Compile Include="Messaging\Markdown\LookupMatchesViolationMessageMarkdown.cs" />
+    <Compile Include="Messaging\Markdown\LookupReverseExistsViolationMessageMarkdown.cs" />
+    <Compile Include="Messaging\Markdown\LookupViolationMessageMarkdown.cs" />
+    <Compile Include="Messaging\Markdown\MarkdownLogExtension\EmptyTableCellExtended.cs" />
+    <Compile Include="Messaging\Markdown\MarkdownLogExtension\ITableCellExtended.cs" />
+    <Compile Include="Messaging\Markdown\MarkdownLogExtension\TableCellExtended.cs" />
+    <Compile Include="Messaging\Markdown\MarkdownLogExtension\TableCellRenderSpecificationExtended.cs" />
+    <Compile Include="Messaging\Markdown\MarkdownLogExtension\TableColumnExtended.cs" />
+    <Compile Include="Messaging\Markdown\MarkdownLogExtension\TableExtended.cs" />
+    <Compile Include="Messaging\Markdown\MarkdownLogExtension\TableRowExtended.cs" />
+    <Compile Include="Messaging\Markdown\ResultSetBased\ComparisonMessengerMarkdown.cs" />
+    <Compile Include="Messaging\Markdown\ResultSetBased\ResultSetBasedMessengerMarkdown.cs" />
+    <Compile Include="Messaging\Markdown\ResultSetBased\RowCountFilteredMessengerMarkdown.cs" />
+    <Compile Include="Messaging\Markdown\ResultSetBased\RowCountMessengerMarkdown.cs" />
+    <Compile Include="Messaging\Markdown\ResultSetBased\UniquenessMessengerMarkdown.cs" />
+    <Compile Include="Messaging\Markdown\ScoreMessageMarkdown.cs" />
+    <Compile Include="Messaging\RowCountFilteredMessengerFactory.cs" />
+    <Compile Include="Messaging\RowCountMessengerFactory.cs" />
+    <Compile Include="Messaging\ScoreMessageFormatterFactory.cs" />
+    <Compile Include="Messaging\UniquenessMessengerFactory.cs" />
+    <Compile Include="NBiConstraintResult.cs" />
+    <Compile Include="ResultSetBased\Discrimination\UniqueRowsConstraintResult.cs" />
+    <Compile Include="ResultSetBased\Lookup\BaseLookupConstraint.cs" />
+    <Compile Include="ResultSetBased\Lookup\ReverseExistsConstraintResult.cs" />
+    <Compile Include="ResultSetBased\Lookup\ExistsConstraintResult.cs" />
+    <Compile Include="ResultSetBased\Lookup\BaseLookupConstraintResult.cs" />
+    <Compile Include="ResultSetBased\Lookup\MatchesConstraintResult.cs" />
+    <Compile Include="ResultSetBased\ResultSetBasedConstraintResult.cs" />
     <Compile Include="ResultSetBased\RowPredicate\RowCountConstraint.cs" />
     <Compile Include="ResultSetBased\RowPredicate\RowCountConstraintResult.cs" />
     <Compile Include="ResultSetBased\RowPredicate\RowCountFilterPercentageConstraintResult.cs" />
@@ -132,16 +205,16 @@
     <Compile Include="ResultSetBased\RowPredicate\SingleRowConstraint.cs" />
     <Compile Include="ResultSetBased\RowPredicate\SomeRowsConstraint.cs" />
     <Compile Include="ResultSetBased\Comparison\BaseResultSetComparisonConstraint.cs" />
-    <Compile Include="ResultSetBased\LookupMatchesConstraint.cs" />
-    <Compile Include="ResultSetBased\LookupReverseExistsConstraint.cs" />
-    <Compile Include="ResultSetBased\LookupExistsConstraint.cs" />
+    <Compile Include="ResultSetBased\Lookup\MatchesConstraint.cs" />
+    <Compile Include="ResultSetBased\Lookup\ReverseExistsConstraint.cs" />
+    <Compile Include="ResultSetBased\Lookup\ExistsConstraint.cs" />
     <Compile Include="ResultSetBased\Comparison\IntersectionOfConstraint.cs" />
     <Compile Include="ResultSetBased\Parallelization\MultipleResolverEngine.cs" />
     <Compile Include="ResultSetBased\Parallelization\MultipleResolverEngineFactory.cs" />
     <Compile Include="ResultSetBased\Parallelization\ParallelResolverEngine.cs" />
     <Compile Include="ResultSetBased\Parallelization\SequentialResolverEngine.cs" />
     <Compile Include="ResultSetBased\Comparison\ResultSetComparisonConstraintResult.cs" />
-    <Compile Include="ResultSetBased\UniqueRowsConstraint.cs" />
+    <Compile Include="ResultSetBased\Discrimination\UniqueRowsConstraint.cs" />
     <Compile Include="ResultSetBased\Comparison\SubsetOfConstraint.cs" />
     <Compile Include="ResultSetBased\RowPredicate\NoRowsConstraint.cs" />
     <Compile Include="ResultSetBased\RowPredicate\AllRowsConstraint.cs" />
@@ -188,10 +261,6 @@
     <ProjectReference Include="..\NBi.Extensibility\NBi.Extensibility.csproj">
       <Project>{a06cba63-d848-4dbc-abfc-63172613999d}</Project>
       <Name>NBi.Extensibility</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NBi.Framework\NBi.Framework.csproj">
-      <Project>{1ad339dc-60e0-4334-86cf-60eeafeaa6e4}</Project>
-      <Name>NBi.Framework</Name>
     </ProjectReference>
     <ProjectReference Include="..\NBi.Xml\NBi.Xml.csproj">
       <Project>{3a9822b3-cce4-441b-9c3e-d52817a994ca}</Project>

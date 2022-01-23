@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NUnit.3.13.2\build\NUnit.props" Condition="Exists('..\packages\NUnit.3.13.2\build\NUnit.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,6 +14,8 @@
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -40,6 +43,9 @@
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework, Version=3.13.2.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.13.2\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -52,58 +58,7 @@
     <Compile Include="..\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="FailureMessage\Common\Helper\BaseTableHelper.cs" />
-    <Compile Include="FailureMessage\Common\LookupViolationMessage.cs" />
-    <Compile Include="FailureMessage\IScoreMessageFormatter.cs" />
-    <Compile Include="FailureMessage\Json\Helper\LookupTableHelperJson.cs" />
-    <Compile Include="FailureMessage\Json\Helper\TableHelperJson.cs" />
-    <Compile Include="FailureMessage\Json\Helper\BaseTableHelperJson.cs" />
-    <Compile Include="FailureMessage\Json\LookupReverseExistsViolationMessageJson.cs" />
-    <Compile Include="FailureMessage\Json\LookupMatchesViolationMessageJson.cs" />
-    <Compile Include="FailureMessage\Json\LookupExistsViolationMessageJson.cs" />
-    <Compile Include="FailureMessage\Json\sbReference.cs" />
-    <Compile Include="FailureMessage\Json\ScoreMessageJson.cs" />
-    <Compile Include="FailureMessage\Common\Helper\ITableHelper.cs" />
-    <Compile Include="FailureMessage\LookupExistsViolationsMessageFormatterFactory.cs" />
-    <Compile Include="FailureMessage\LookupReverseExistsViolationsMessageFormatterFactory.cs" />
-    <Compile Include="FailureMessage\Markdown\Helper\StandardTableHelperMarkdown.cs" />
-    <Compile Include="FailureMessage\Markdown\Helper\LookupTableHelperMarkdown.cs" />
-    <Compile Include="FailureMessage\Markdown\Helper\BaseTableHelperMarkdown.cs" />
-    <Compile Include="FailureMessage\Markdown\LookupReverseExistsViolationMessageMarkdown.cs" />
-    <Compile Include="FailureMessage\Markdown\LookupExistsViolationMessageMarkdown.cs" />
-    <Compile Include="FailureMessage\Markdown\LookupMatchesViolationMessageMarkdown.cs" />
-    <Compile Include="FailureMessage\Markdown\ScoreMessageMarkdown.cs" />
-    <Compile Include="FailureMessage\ScoreMessageFormatterFactory.cs" />
-    <Compile Include="FailureMessage\ILookupViolationMessageFormatter.cs" />
-    <Compile Include="FailureMessage\Json\Helper\CompareTableHelperJson.cs" />
-    <Compile Include="FailureMessage\Json\ItemsMessageJson.cs" />
-    <Compile Include="FailureMessage\Json\LookupViolationMessageJson.cs" />
-    <Compile Include="FailureMessage\Markdown\LookupViolationMessageMarkdown.cs" />
-    <Compile Include="FailureMessage\LookupMatchesViolationsMessageFormatterFactory.cs" />
-    <Compile Include="Sampling\FullSampler.cs" />
-    <Compile Include="Sampling\NoneSampler.cs" />
-    <Compile Include="Sampling\ISampler.cs" />
-    <Compile Include="Sampling\BasicSampler.cs" />
-    <Compile Include="FailureMessage\ItemsMessageFormatterFactory.cs" />
-    <Compile Include="FailureMessage\DataRowsMessageFormatterFactory.cs" />
-    <Compile Include="FailureMessage\IItemsMessageFormatter.cs" />
-    <Compile Include="FailureMessage\IDataRowsMessageFormatter.cs" />
-    <Compile Include="FailureMessage\Json\DataRowsMessageJson.cs" />
-    <Compile Include="FailureMessage\Json\Helper\StandardTableHelperJson.cs" />
-    <Compile Include="FailureMessage\Markdown\MarkdownLogExtension\EmptyTableCellExtended.cs" />
-    <Compile Include="FailureMessage\Markdown\MarkdownLogExtension\ITableCellExtended.cs" />
-    <Compile Include="FailureMessage\Markdown\MarkdownLogExtension\TableCellExtended.cs" />
-    <Compile Include="FailureMessage\Markdown\MarkdownLogExtension\TableCellRenderSpecificationExtended.cs" />
-    <Compile Include="FailureMessage\Markdown\MarkdownLogExtension\TableColumnExtended.cs" />
-    <Compile Include="FailureMessage\Markdown\MarkdownLogExtension\TableExtended.cs" />
-    <Compile Include="FailureMessage\Markdown\MarkdownLogExtension\TableRowExtended.cs" />
-    <Compile Include="Sampling\SamplersFactory.cs" />
-    <Compile Include="FailureMessage\Markdown\ItemsMessageMarkdown.cs" />
-    <Compile Include="FailureMessage\Common\ColumnPropertiesFormatter.cs" />
-    <Compile Include="FailureMessage\Markdown\Helper\CompareTableHelperMarkdown.cs" />
-    <Compile Include="FailureMessage\Markdown\Helper\TableHelperMarkdown.cs" />
     <Compile Include="Properties\ProjectAssemblyInfo.cs" />
-    <Compile Include="FailureMessage\Markdown\DataRowsMessageMarkdown.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NBi.Core\NBi.Core.csproj">
@@ -121,6 +76,12 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\NUnit.3.13.2\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.13.2\build\NUnit.props'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

@@ -1,7 +1,7 @@
 ﻿using NBi.Core.Configuration;
 using NBi.Core.Variable;
 using NBi.Framework;
-using NBi.Framework.FailureMessage;
+using NBi.NUnit.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Linq;

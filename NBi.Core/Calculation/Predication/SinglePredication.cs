@@ -31,7 +31,6 @@ namespace NBi.Core.Calculation.Predication
             sb.Append(Operand.Label);
             sb.Append(" ");
             sb.Append(Predicate.ToString());
-            sb.Append(".");
             return sb.ToString();
         }
     }

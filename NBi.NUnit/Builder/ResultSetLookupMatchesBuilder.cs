@@ -14,6 +14,7 @@ using NBi.Xml.Items.ResultSet.Lookup;
 using NBi.Core.Scalar.Comparer;
 using NBi.Xml.Settings;
 using NBi.Extensibility;
+using NBi.NUnit.ResultSetBased.Lookup;
 
 namespace NBi.NUnit.Builder
 {
@@ -45,7 +46,7 @@ namespace NBi.NUnit.Builder
             var helper = new ResultSetSystemHelper(ServiceLocator, SettingsXml.DefaultScope.Assert, Variables);
             var resolver = helper.InstantiateResolver(ctrXml.ResultSet);
 
-            var ctr = new LookupMatchesConstraint(resolver);
+            var ctr = new MatchesConstraint(resolver);
             Constraint = ctr.Using(joinMappings, inclusionMappings, inclusionTolerances);
         }
 

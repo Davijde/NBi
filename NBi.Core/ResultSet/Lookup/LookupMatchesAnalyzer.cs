@@ -15,20 +15,25 @@ namespace NBi.Core.ResultSet.Lookup
 {
     public class LookupMatchesAnalyzer : LookupExistsAnalyzer
     {
-        protected ColumnMappingCollection Values { get; private set; }
-        protected IDictionary<IColumnIdentifier, Tolerance> Tolerances { get; private set; }
+        protected ColumnMappingCollection Values { get; private set; } = ColumnMappingCollection.DefaultValue;
+        protected IDictionary<IColumnIdentifier, Tolerance> Tolerances { get; private set; } = new Dictionary<IColumnIdentifier, Tolerance>();  
 
-        public LookupMatchesAnalyzer(ColumnMappingCollection keys, ColumnMappingCollection values)
-            : this(keys, values, null) { }
-        
-        public LookupMatchesAnalyzer(ColumnMappingCollection keys, ColumnMappingCollection values, IDictionary<IColumnIdentifier, Tolerance> tolerances)
-            : base(keys)
+        public new LookupMatchesAnalyzer UsingKeys(ColumnMappingCollection keys)
+            => (LookupMatchesAnalyzer)base.UsingKeys(keys);
+
+        public LookupMatchesAnalyzer UsingValues(ColumnMappingCollection values)
         {
             Values = values;
-            Tolerances = tolerances ?? new Dictionary<IColumnIdentifier, Tolerance>();
+            return this;
         }
 
-        protected override LookupViolationCollection Execute(IResultSet candidate, IResultSet reference)
+        public LookupMatchesAnalyzer Using(IDictionary<IColumnIdentifier, Tolerance> tolerances)
+        {
+            Tolerances = tolerances;
+            return this;
+        }
+
+        public override LookupViolationCollection Execute(IResultSet candidate, IResultSet reference)
         {
             var stopWatch = new Stopwatch();
             stopWatch.Start();

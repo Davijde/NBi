@@ -24,6 +24,6 @@ namespace NBi.Core.ResultSet.Resolver
             var rs = new DataTableResultSet();
             rs.Load(args.Rows);
             return rs;
-            }
+        }
     }
 }

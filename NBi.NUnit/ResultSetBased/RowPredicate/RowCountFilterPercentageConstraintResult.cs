@@ -4,9 +4,9 @@ using System.Linq;
 using NBi.Core.ResultSet.Resolver;
 using NBi.Core.ResultSet;
 using NBi.Core.Calculation;
-using NBi.Framework.FailureMessage;
+using NBi.NUnit.Messaging;
 using NUnitCtr = NUnit.Framework.Constraints;
-using NBi.Framework.FailureMessage.Markdown;
+using NBi.NUnit.Messaging.Markdown;
 using NBi.Framework;
 using NBi.Core.Configuration.FailureReport;
 using NUnit.Framework.Constraints;
@@ -16,8 +16,8 @@ namespace NBi.NUnit.ResultSetBased.RowPredicate
 {
     public class RowCountFilterPercentageConstraintResult : RowCountFilterConstraintResult
     {
-        public RowCountFilterPercentageConstraintResult(RowCountConstraint constraint, IResultSet actual, ConstraintResult childResult)
-            : base(constraint, actual, childResult) { }
+        public RowCountFilterPercentageConstraintResult(RowCountConstraint constraint, IResultSet actual, IResultSet filtered, ConstraintResult childResult)
+            : base(constraint, actual, filtered, childResult) { }
 
         //public override void WriteMessageTo(MessageWriter writer)
         //    => WriteMessageTo(writer, $"percentage of rows matching the predicate is {TransformDecimalToPercentage(this.WriteDescriptionTo)}");

@@ -10,15 +10,15 @@ namespace NBi.NUnit.ResultSetComparison.Parallelization
 {
     public abstract class MultipleResolverEngine
     {
-        protected IResultSetResolver ActualService { get; }
-        protected IResultSetResolver ExpectedService { get; }
+        protected IResultSetResolver ActualResolver { get; }
+        protected IResultSetResolver ExpectedResolver { get; }
 
         public IResultSet Actual { get; protected set; }
         public IResultSet Expected { get; protected set; }
 
         public MultipleResolverEngine(IResultSetResolver actual, IResultSetResolver expected)
-            => (ActualService, ExpectedService) = (actual, expected);
+            => (ActualResolver, ExpectedResolver) = (actual, expected);
 
-        public abstract void Execute();
+        public abstract (IResultSet, IResultSet) Execute();
     }
 }

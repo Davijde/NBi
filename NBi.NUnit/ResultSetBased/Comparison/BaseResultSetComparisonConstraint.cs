@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using NBi.Core.ResultSet;
 using NUnitCtr = NUnit.Framework.Constraints;
-using NBi.Framework.FailureMessage;
+using NBi.NUnit.Messaging;
 using NBi.Core.ResultSet.Analyzer;
 using NBi.Core.ResultSet.Equivalence;
 using NUnit.Framework;
