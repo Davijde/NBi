@@ -55,19 +55,5 @@ namespace NBi.NUnit.Messaging.Json.ResultSetBased
                 , writer
              );
         }
-
-        public void BuildFilter(IEnumerable<IResultRow> actualRows, IEnumerable<IResultRow> filteredRows)
-        {
-            //actual = BuildTable(actualRows, samplers["actual"]);
-            //analysis = BuildMultipleTables(
-            //    new[]
-            //    {
-            //        new Tuple<string, IEnumerable<IResultRow>, TableHelperJson>("filtered", filteredRows, new TableHelperJson())
-            //    }, samplers["analysis"]);
-        }
-        public void BuildCount(IEnumerable<IResultRow> actualRows)
-        {
-            //actual = BuildTable(actualRows, samplers["actual"]);
-        }
     }
 }

@@ -2,6 +2,7 @@
 using NBi.Core.Analysis.Member;
 using NBi.Core.Analysis.Request;
 using NUnit.Framework;
+using System.Linq;
 
 #endregion
 
@@ -58,9 +59,9 @@ namespace NBi.Testing.Integration.Core.Analysis
             var actual = mae.GetMembers(disco);
 
             ////Assertion
-            Assert.That(List.Map(actual).Property("Caption"), Has.None.EqualTo("All"));
-            Assert.That(List.Map(actual).Property("Caption"), Has.Member("Canada"));
-            Assert.That(List.Map(actual).Property("Caption"), Has.Member("France"));
+            Assert.That(actual.Select(x => x.Caption), Has.None.EqualTo("All"));
+            Assert.That(actual.Select(x => x.Caption), Has.Member("Canada"));
+            Assert.That(actual.Select(x => x.Caption), Has.Member("France"));
         }
 
         [Test]
@@ -81,8 +82,8 @@ namespace NBi.Testing.Integration.Core.Analysis
             var actual = mae.GetMembers(disco);
 
             //Assertion
-            Assert.That(List.Map(actual).Property("UniqueName"), Has.Member("[Geography].[Geography].[Country].&[Canada]"));
-            Assert.That(List.Map(actual).Property("UniqueName"), Has.Member("[Geography].[Geography].[Country].&[France]"));
+            Assert.That(actual.Select(x => x.UniqueName), Has.Member("[Geography].[Geography].[Country].&[Canada]"));
+            Assert.That(actual.Select(x => x.UniqueName), Has.Member("[Geography].[Geography].[Country].&[France]"));
         }
 
         [Test]
@@ -102,8 +103,8 @@ namespace NBi.Testing.Integration.Core.Analysis
             var actual = mae.GetMembers(disco);
 
             //Assertion
-            Assert.That(List.Map(actual).Property("Ordinal"), Is.Unique);
-            Assert.That(List.Map(actual).Property("Ordinal"), Has.All.GreaterThan(0));
+            Assert.That(actual.Select(x => x.Ordinal), Is.Unique);
+            Assert.That(actual.Select(x => x.Ordinal), Has.All.GreaterThan(0));
         }
 
         [Test]
@@ -123,7 +124,7 @@ namespace NBi.Testing.Integration.Core.Analysis
             var actual = mae.GetMembers(disco);
 
             //Assertion
-            Assert.That(List.Map(actual).Property("LevelNumber"), Has.All.EqualTo(1));
+            Assert.That(actual.Select(x => x.LevelNumber), Has.All.EqualTo(1));
         }
 
         [Test]
@@ -144,9 +145,9 @@ namespace NBi.Testing.Integration.Core.Analysis
             var actual = mae.GetMembers(disco);
 
             //Assertion
-            Assert.That(List.Map(actual).Property("Caption"), Has.Member("All Geographies"));
-            Assert.That(List.Map(actual).Property("Caption"), Has.Member("Canada"));
-            Assert.That(List.Map(actual).Property("Caption"), Has.Member("France"));
+            Assert.That(actual.Select(x => x.Caption), Has.Member("All Geographies"));
+            Assert.That(actual.Select(x => x.Caption), Has.Member("Canada"));
+            Assert.That(actual.Select(x => x.Caption), Has.Member("France"));
         }
 
         [Test]
@@ -167,8 +168,8 @@ namespace NBi.Testing.Integration.Core.Analysis
             var actual = mae.GetMembers(disco);
 
             ////Assertion
-            Assert.That(List.Map(actual).Property("UniqueName"), Has.Member("[Geography].[Geography].[Country].&[Canada]"));
-            Assert.That(List.Map(actual).Property("UniqueName"), Has.Member("[Geography].[Geography].[City].&[Toronto]&[ON]"));
+            Assert.That(actual.Select(x => x.UniqueName), Has.Member("[Geography].[Geography].[Country].&[Canada]"));
+            Assert.That(actual.Select(x => x.UniqueName), Has.Member("[Geography].[Geography].[City].&[Toronto]&[ON]"));
         }
 
         [Test]
@@ -190,8 +191,8 @@ namespace NBi.Testing.Integration.Core.Analysis
 
             ////Assertion
             Assert.That(actual, Has.Count.GreaterThan(0));
-            Assert.That(List.Map(actual).Property("Ordinal"), Is.Unique);
-            Assert.That(List.Map(actual).Property("Ordinal"), Has.All.GreaterThanOrEqualTo(0));
+            Assert.That(actual.Select(x => x.Ordinal), Is.Unique);
+            Assert.That(actual.Select(x => x.Ordinal), Has.All.GreaterThanOrEqualTo(0));
         }
 
         [Test]
@@ -214,17 +215,17 @@ namespace NBi.Testing.Integration.Core.Analysis
             ////Assertion
             Assert.That(actual, Has.Count.GreaterThan(0));
             //0 = All
-            Assert.That(List.Map(actual).Property("LevelNumber"), Has.Some.EqualTo(0));
+            Assert.That(actual.Select(x => x.LevelNumber), Has.Some.EqualTo(0));
             //1 = Country
-            Assert.That(List.Map(actual).Property("LevelNumber"), Has.Some.EqualTo(1));
+            Assert.That(actual.Select(x => x.LevelNumber), Has.Some.EqualTo(1));
             //2 = State/Province
-            Assert.That(List.Map(actual).Property("LevelNumber"), Has.Some.EqualTo(2));
+            Assert.That(actual.Select(x => x.LevelNumber), Has.Some.EqualTo(2));
             //3 = Town
-            Assert.That(List.Map(actual).Property("LevelNumber"), Has.Some.EqualTo(3));
+            Assert.That(actual.Select(x => x.LevelNumber), Has.Some.EqualTo(3));
             //4 = Zip code
-            Assert.That(List.Map(actual).Property("LevelNumber"), Has.Some.EqualTo(4));
+            Assert.That(actual.Select(x => x.LevelNumber), Has.Some.EqualTo(4));
             //Nothing else 
-            Assert.That(List.Map(actual).Property("LevelNumber"), Has.All.LessThanOrEqualTo(4));
+            Assert.That(actual.Select(x => x.LevelNumber), Has.All.LessThanOrEqualTo(4));
 
         }
 
@@ -246,9 +247,9 @@ namespace NBi.Testing.Integration.Core.Analysis
             var actual = mae.GetMembers(disco);
 
             ////Assertion
-            Assert.That(List.Map(actual).Property("Caption"), Has.None.EqualTo("All"));
-            Assert.That(List.Map(actual).Property("Caption"), Has.Member("Canada"));
-            Assert.That(List.Map(actual).Property("Caption"), Has.Member("France"));
+            Assert.That(actual.Select(x => x.Caption), Has.None.EqualTo("All"));
+            Assert.That(actual.Select(x => x.Caption), Has.Member("Canada"));
+            Assert.That(actual.Select(x => x.Caption), Has.Member("France"));
         }
     }
 }

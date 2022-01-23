@@ -29,7 +29,6 @@ namespace NBi.NUnit.Messaging.Common.Helper
             foreach (var definition in existingDefinitions)
                 metadataDico.Add(definition.Identifier.GetColumn(table), definition);
 
-            var identifierFactory = new ColumnIdentifierFactory();
             foreach (var dataColumn in table.Columns)
             {
                 var metadata = metadataDico.ContainsKey(dataColumn) 

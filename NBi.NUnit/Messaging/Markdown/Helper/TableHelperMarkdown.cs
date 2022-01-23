@@ -70,12 +70,10 @@ namespace NBi.NUnit.Messaging.Markdown.Helper
             var factory = new PresenterFactory();
             var formatter = factory.Instantiate(columnTypes[i]);
 
-            var text = string.Empty;
             if (dataRow.IsNull(i))
-                text = formatter.Execute(DBNull.Value);
+                return formatter.Execute(DBNull.Value);
             else
-                text = formatter.Execute(dataRow.ItemArray[i]);
-            return text;
+                return formatter.Execute(dataRow.ItemArray[i]);
         }
 
         private List<TableColumnExtended> BuildColumns(IEnumerable<IResultRow> dataRows, out List<ColumnType> columnTypes)

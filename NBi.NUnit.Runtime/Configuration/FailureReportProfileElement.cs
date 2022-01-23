@@ -1,9 +1,5 @@
 ﻿using NBi.Core.Configuration;
 using NBi.Core.Configuration.FailureReport;
-using NBi.Framework;
-using NBi.Framework.FailureMessage;
-using System;
-using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Text;
