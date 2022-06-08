@@ -5,6 +5,8 @@ using NBi.GenbiL.Parser;
 using NUnit.Framework;
 using Sprache;
 using NBi.GenbiL.Parser.Valuable;
+using NBi.Core.Scalar.Resolver;
+using NBi.Extensibility.Resolving;
 
 namespace NBi.Testing.GenbiL.Parser
 {
@@ -128,6 +130,36 @@ namespace NBi.Testing.GenbiL.Parser
 
             var names = result.Select(x => ((Value)x).Text);
             Assert.That(names, Is.EquivalentTo(new[] { "alpha", "beta", "gamma" }));
+        }
+
+        [Test]
+        public void EnvVariable_Parse_ReturnScalarResolverArgs()
+        {
+            var input = "$env:Name";
+            var result = Grammar.EnvironmentVariable.Parse(input);
+
+            Assert.That(result, Is.TypeOf<EnvironmentScalarResolverArgs>());
+            Assert.That((result as EnvironmentScalarResolverArgs).Name, Is.EqualTo("Name"));
+        }
+
+        [Test]
+        public void Literal_Parse_ReturnScalarResolverArgs()
+        {
+            var input = "'Name'";
+            var result = Grammar.Literal.Parse(input);
+
+            Assert.That(result, Is.TypeOf<LiteralScalarResolverArgs>());
+            Assert.That((result as LiteralScalarResolverArgs).Object, Is.EqualTo("Name"));
+        }
+
+        [Test]
+        [TestCase("$env:Name", typeof(EnvironmentScalarResolver<object>))]
+        [TestCase("'Name'", typeof(LiteralScalarResolver<object>))]
+        public void Any_Parse_ReturnScalarResolver(string text, Type expected)
+        {
+            var result = Grammar.ScalarResolver.Parse(text);
+
+            Assert.That(result, Is.TypeOf(expected));
         }
 
     }

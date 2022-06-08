@@ -47,7 +47,7 @@ namespace NBi.GenbiL.Parser
                 from loadType in loadTypeQueryParser
                 from filename in Grammar.QuotedTextual
                 from onKeyword in Keyword.On
-                from connectionString in Grammar.QuotedTextual
+                from connectionString in Grammar.ScalarResolver
                 select new LoadCaseFromQueryFileAction(filename, connectionString)
         );
 
@@ -57,7 +57,7 @@ namespace NBi.GenbiL.Parser
                 from loadType in loadTypeQueryParser
                 from query in Grammar.CurlyBraceTextual
                 from onKeyword in Keyword.On
-                from connectionString in Grammar.QuotedTextual
+                from connectionString in Grammar.ScalarResolver
                 select new LoadCaseFromQueryAction(query, connectionString)
         );
 

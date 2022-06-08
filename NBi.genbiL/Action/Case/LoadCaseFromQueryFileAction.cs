@@ -2,6 +2,7 @@
 using System.Linq;
 using NBi.Core.Query;
 using NBi.Core.Query.Execution;
+using NBi.Extensibility.Resolving;
 using NBi.GenbiL.Stateful;
 
 namespace NBi.GenbiL.Action.Case
@@ -10,7 +11,7 @@ namespace NBi.GenbiL.Action.Case
     {
         public string Filename { get; set; }
 
-        public LoadCaseFromQueryFileAction(string filename, string connectionString)
+        public LoadCaseFromQueryFileAction(string filename, IScalarResolver connectionString)
         {
             Filename = filename;
             ConnectionString = connectionString;

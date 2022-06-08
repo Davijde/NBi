@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Sprache;
 using NBi.GenbiL.Parser.Valuable;
+using NBi.Extensibility.Resolving;
+using NBi.Core.Scalar.Resolver;
 
 namespace NBi.GenbiL.Parser
 {
@@ -19,6 +21,25 @@ namespace NBi.GenbiL.Parser
         public static readonly Parser<IEnumerable<string>> RecordSequence = Record.DelimitedBy(Parse.Char(','));
         public static readonly Parser<IEnumerable<string>> QuotedRecordSequence = QuotedTextual.DelimitedBy(Parse.Char(','));
         public static readonly Parser<IEnumerable<string>> ExtendedQuotedRecordSequence = ExtendedQuotedTextual.DelimitedBy(Parse.Char(','));
+
+        public static readonly Parser<IScalarResolverArgs> EnvironmentVariable =
+        (
+            from envPrefix in Parse.IgnoreCase("$env:")
+            from envVarName in Parse.Letter.AtLeastOnce().Text()
+            select new EnvironmentScalarResolverArgs(envVarName)
+        );
+
+        public static readonly Parser<IScalarResolverArgs> Literal =
+        (
+            from text in QuotedTextual
+            select new LiteralScalarResolverArgs(text)
+        );
+
+        public static readonly Parser<IScalarResolver> ScalarResolver = 
+        (
+            from value in EnvironmentVariable.Or(Literal)
+            select new ScalarResolverFactory(null).Instantiate(value)
+        );
 
         public static readonly Parser<IEnumerable<IValuable>> ValuableColumns = 
         (
