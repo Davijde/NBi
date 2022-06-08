@@ -45,7 +45,7 @@ namespace NBi.Testing.GenbiL.Parser
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.InstanceOf<LoadCaseFromQueryFileAction>());
             Assert.That(((LoadCaseFromQueryFileAction)result).Filename, Is.EqualTo("filename.sql"));
-            Assert.That(((LoadCaseFromQueryFileAction)result).ConnectionString, Is.EqualTo("connStr"));
+            Assert.That(((LoadCaseFromQueryFileAction)result).ConnectionString.Execute(), Is.EqualTo("connStr"));
         }
 
         [Test]
@@ -57,7 +57,7 @@ namespace NBi.Testing.GenbiL.Parser
             Assert.That(result, Is.Not.Null);
             Assert.That(result, Is.InstanceOf<LoadCaseFromQueryAction>());
             Assert.That(((LoadCaseFromQueryAction)result).Query, Is.EqualTo("select distinct myField from myTable"));
-            Assert.That(((LoadCaseFromQueryAction)result).ConnectionString, Is.EqualTo("connStr"));
+            Assert.That(((LoadCaseFromQueryAction)result).ConnectionString.Execute(), Is.EqualTo("connStr"));
         }
 
         [Test]
