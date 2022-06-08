@@ -404,6 +404,14 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\NBi.Core\NBi.Core.csproj">
+      <Project>{3f730647-fe31-4907-8a6e-a0c4a0c970ea}</Project>
+      <Name>NBi.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NBi.Extensibility\NBi.Extensibility.csproj">
+      <Project>{a06cba63-d848-4dbc-abfc-63172613999d}</Project>
+      <Name>NBi.Extensibility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NBi.genbiL\NBi.GenbiL.csproj">
       <Project>{dfb8aa0e-a144-49e3-976b-ad03bf2a55e7}</Project>
       <Name>NBi.GenbiL</Name>

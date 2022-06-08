@@ -10,6 +10,7 @@ using NBi.UI.Genbi.Command.TestCases;
 using NBi.UI.Genbi.View.TestSuiteGenerator;
 using NBi.GenbiL.Action;
 using NBi.UI.Genbi.Service;
+using NBi.Core.Scalar.Resolver;
 
 namespace NBi.UI.Genbi.Presenter
 {
@@ -164,7 +165,7 @@ namespace NBi.UI.Genbi.Presenter
 
         internal void RunQuery()
         {
-            var action = new LoadCaseFromQueryAction(Query, ConnectionStringSelectedValue);
+            var action = new LoadCaseFromQueryAction(Query, new LiteralScalarResolver<object>(new LiteralScalarResolverArgs(ConnectionStringSelectedValue)));
             action.Execute(testCaseCollectionManager.CurrentScope);
             Reload();
         }
