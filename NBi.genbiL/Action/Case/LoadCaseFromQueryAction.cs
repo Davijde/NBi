@@ -10,11 +10,11 @@ namespace NBi.GenbiL.Action.Case
     public class LoadCaseFromQueryAction : ISingleCaseAction
     {
         public string Query { get; set; }
-        public IScalarResolver ConnectionString { get; set; }
+        public IScalarResolver<string> ConnectionString { get; set; }
 
         protected LoadCaseFromQueryAction() { }
 
-        public LoadCaseFromQueryAction(string query, IScalarResolver connectionString)
+        public LoadCaseFromQueryAction(string query, IScalarResolver<string> connectionString)
         {
             Query = query;
             ConnectionString = connectionString;
@@ -25,7 +25,7 @@ namespace NBi.GenbiL.Action.Case
         public virtual void Execute(CaseSet testCases)
         {
             var queryEngineFactory = new ExecutionEngineFactory();
-            var queryEngine = queryEngineFactory.Instantiate(new Query(Query, ConnectionString.Execute().ToString()));
+            var queryEngine = queryEngineFactory.Instantiate(new Query(Query, ConnectionString.Execute()));
             var ds = queryEngine.Execute();
             testCases.Content = ds.Tables[0];
         }

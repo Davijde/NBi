@@ -11,7 +11,7 @@ namespace NBi.GenbiL.Action.Case
     {
         public string Filename { get; set; }
 
-        public LoadCaseFromQueryFileAction(string filename, IScalarResolver connectionString)
+        public LoadCaseFromQueryFileAction(string filename, IScalarResolver<string> connectionString)
         {
             Filename = filename;
             ConnectionString = connectionString;

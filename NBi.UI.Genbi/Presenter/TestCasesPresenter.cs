@@ -165,7 +165,7 @@ namespace NBi.UI.Genbi.Presenter
 
         internal void RunQuery()
         {
-            var action = new LoadCaseFromQueryAction(Query, new LiteralScalarResolver<object>(new LiteralScalarResolverArgs(ConnectionStringSelectedValue)));
+            var action = new LoadCaseFromQueryAction(Query, new LiteralScalarResolver<string>(new LiteralScalarResolverArgs(ConnectionStringSelectedValue)));
             action.Execute(testCaseCollectionManager.CurrentScope);
             Reload();
         }

@@ -35,10 +35,10 @@ namespace NBi.GenbiL.Parser
             select new LiteralScalarResolverArgs(text)
         );
 
-        public static readonly Parser<IScalarResolver> ScalarResolver = 
+        public static readonly Parser<IScalarResolver<string>> ScalarResolver = 
         (
             from value in EnvironmentVariable.Or(Literal)
-            select new ScalarResolverFactory(null).Instantiate(value)
+            select new ScalarResolverFactory(null).Instantiate<string>(value)
         );
 
         public static readonly Parser<IEnumerable<IValuable>> ValuableColumns = 
