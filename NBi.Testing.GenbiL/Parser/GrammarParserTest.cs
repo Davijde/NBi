@@ -153,8 +153,8 @@ namespace NBi.Testing.GenbiL.Parser
         }
 
         [Test]
-        [TestCase("$env:Name", typeof(EnvironmentScalarResolver<object>))]
-        [TestCase("'Name'", typeof(LiteralScalarResolver<object>))]
+        [TestCase("$env:Name", typeof(EnvironmentScalarResolver<string>))]
+        [TestCase("'Name'", typeof(LiteralScalarResolver<string>))]
         public void Any_Parse_ReturnScalarResolver(string text, Type expected)
         {
             var result = Grammar.ScalarResolver.Parse(text);
